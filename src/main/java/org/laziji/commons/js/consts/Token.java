@@ -16,7 +16,7 @@ public enum Token {
     BRACKET_MID_CLOSE("^(\\])[\\s\\S]*"),
     BRACKET_BIG_OPEN("^(\\{)[\\s\\S]*"),
     BRACKET_BIG_CLOSE("^(\\})[\\s\\S]*"),
-    REMARK("^(/\\*[\\s\\S]*\\*/)[\\s\\S]*"),
+    REMARK("^(/\\*[\\s\\S]*?\\*/)[\\s\\S]*"),
     REMARK_OF_LINE("^(//.*[\\n$])[\\s\\S]*"),
 
     CONST(""),
@@ -88,6 +88,9 @@ public enum Token {
 
     public String match(String text){
         Matcher matcher = reg.matcher(text);
+        if(!matcher.matches()){
+            return null;
+        }
         return matcher.group(1);
     }
 
