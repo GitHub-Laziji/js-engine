@@ -15,7 +15,7 @@ public class SegmentsNode extends BaseNode {
     }
 
     @Override
-    public Node append(TokenUnit units) {
+    public Node append(TokenUnit unit) {
         return null;
     }
 
