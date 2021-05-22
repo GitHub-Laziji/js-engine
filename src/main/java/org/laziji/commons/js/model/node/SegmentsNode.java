@@ -5,18 +5,23 @@ import org.laziji.commons.js.model.TokenUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegmentsNode implements Node {
+public class SegmentsNode extends BaseNode {
 
     private List<SegmentNode> segments = new ArrayList<>();
+    private boolean done = false;
+
+    public SegmentsNode(Node parent) {
+        super(parent);
+    }
 
     @Override
-    public Node getParent() {
+    public Node append(TokenUnit units) {
         return null;
     }
 
     @Override
-    public Node append(TokenUnit tokenUnit) {
-        return null;
+    public boolean isDone() {
+        return false;
     }
 
 }

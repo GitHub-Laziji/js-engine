@@ -6,6 +6,8 @@ public interface Node {
 
     Node getParent();
 
-    Node append(TokenUnit tokenUnit);
+    Node append(TokenUnit units);
+
+    boolean isDone();
 
 }
