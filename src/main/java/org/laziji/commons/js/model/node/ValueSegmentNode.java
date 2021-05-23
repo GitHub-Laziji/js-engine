@@ -4,6 +4,7 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ValueSegmentNode extends SegmentNode {
@@ -14,25 +15,31 @@ public class ValueSegmentNode extends SegmentNode {
     public ValueSegmentNode(Node parent, Token end) {
         super(parent);
         this.end = end;
-        proxyNodes.add(new FunctionValueSegmentNode(this));
-        proxyNodes.add(new LambdaValueSegmentNode(this));
-        proxyNodes.add(new ClassValueSegmentNode(this));
-        proxyNodes.add(new FormulaValueSegmentNode(this));
+        proxyNodes.add(new FunctionValueSegmentNode(null));
+        proxyNodes.add(new LambdaValueSegmentNode(null));
+        proxyNodes.add(new ClassValueSegmentNode(null));
+        proxyNodes.add(new FormulaValueSegmentNode(null));
     }
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (end != null && unit.getToken() == end) {
-            if (!isDone()) {
-                throw new Exception();
+        if(isDone()){
+            return getParent().append(unit);
+        }
+        Iterator<ValueSegmentNode> iterator = proxyNodes.iterator();
+        while (iterator.hasNext()) {
+            ValueSegmentNode next = iterator.next();
+            try {
+                next.append(unit);
+            } catch (Exception e) {
+                iterator.remove();
             }
-            return getParent();
         }
         return null;
     }
 
     @Override
     public boolean isDone() {
-        return false;
+        return proxyNodes.size() == 1 && proxyNodes.get(0).isDone();
     }
 }
