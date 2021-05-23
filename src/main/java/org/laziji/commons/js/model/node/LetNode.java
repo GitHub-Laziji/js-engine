@@ -9,7 +9,7 @@ import java.util.List;
 public class LetNode extends BaseNode {
 
     private List<TokenUnit> units = new ArrayList<>();
-    private FormulaNode formulaNode;
+
 
     public LetNode(Node parent) {
         super(parent);
@@ -27,8 +27,7 @@ public class LetNode extends BaseNode {
         }
         if (units.size() == 2 && unit.getToken() == Token.ASSIGNMENT) {
             units.add(unit);
-            formulaNode = new FormulaNode(this);
-            return formulaNode;
+            return this;
         }
         if (isDone() && getParent() != null) {
             getParent().append(unit);
@@ -38,6 +37,6 @@ public class LetNode extends BaseNode {
 
     @Override
     public boolean isDone() {
-        return units.size() == 2 || units.size() == 3 && formulaNode != null && formulaNode.isDone();
+        return false;
     }
 }

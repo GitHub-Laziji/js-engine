@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.TokenUnit;
 
-public class ValuelessSegmentNode extends BaseSegmentNode {
+public class ValuelessSegmentNode extends SegmentNode {
 
     public ValuelessSegmentNode(Node parent) {
         super(parent);
