@@ -2,14 +2,15 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.TokenUnit;
 
-public class FormulaElementNode extends BaseNode {
+public class TokenNode extends BaseNode {
 
-    public FormulaElementNode(Node parent) {
+
+    public TokenNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) {
+    public Node append(TokenUnit unit) throws Exception {
         return null;
     }
 

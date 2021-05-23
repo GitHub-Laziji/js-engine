@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SegmentsNode extends BaseNode {
 
-    private List<SegmentNode> segments = new ArrayList<>();
+    private List<BaseSegmentNode> segments = new ArrayList<>();
     private boolean done = false;
 
     public SegmentsNode(Node parent) {

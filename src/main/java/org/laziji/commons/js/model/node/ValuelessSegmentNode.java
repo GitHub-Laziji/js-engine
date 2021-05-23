@@ -2,14 +2,14 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.TokenUnit;
 
-public class SegmentNode extends BaseNode{
+public class ValuelessSegmentNode extends BaseSegmentNode {
 
-    public SegmentNode(Node parent) {
+    public ValuelessSegmentNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) {
+    public Node append(TokenUnit unit) throws Exception {
         return null;
     }
 

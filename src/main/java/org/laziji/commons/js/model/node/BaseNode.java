@@ -4,9 +4,6 @@ public abstract class BaseNode implements Node {
 
     private Node parent;
 
-    public BaseNode() {
-
-    }
 
     public BaseNode(Node parent) {
         this.parent = parent;
