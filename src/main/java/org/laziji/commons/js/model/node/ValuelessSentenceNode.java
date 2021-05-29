@@ -1,11 +1,10 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
-public class SegmentNode extends BaseNode{
+public class ValuelessSentenceNode extends ParagraphNode {
 
-    public SegmentNode(Node parent) {
+    public ValuelessSentenceNode(Node parent) {
         super(parent);
     }
 

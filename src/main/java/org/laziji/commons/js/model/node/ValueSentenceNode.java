@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ValueSegmentNode extends SegmentNode {
+public class ValueSentenceNode extends ParagraphNode {
 
     private Token end;
-    private List<ValueSegmentNode> proxyNodes = new ArrayList<>();
+    private List<ValueSentenceNode> proxyNodes = new ArrayList<>();
 
-    public ValueSegmentNode(Node parent, Token end) {
+    public ValueSentenceNode(Node parent, Token end) {
         super(parent);
         this.end = end;
-        proxyNodes.add(new FunctionValueSegmentNode(null));
-        proxyNodes.add(new LambdaValueSegmentNode(null));
-        proxyNodes.add(new ClassValueSegmentNode(null));
-        proxyNodes.add(new FormulaValueSegmentNode(null));
+        proxyNodes.add(new FunctionValueSentenceNode(null));
+        proxyNodes.add(new LambdaValueSentenceNode(null));
+        proxyNodes.add(new ClassValueSentenceNode(null));
+        proxyNodes.add(new FormulaValueSentenceNode(null));
     }
 
     @Override
@@ -26,9 +26,9 @@ public class ValueSegmentNode extends SegmentNode {
         if(isDone()){
             return getParent().append(unit);
         }
-        Iterator<ValueSegmentNode> iterator = proxyNodes.iterator();
+        Iterator<ValueSentenceNode> iterator = proxyNodes.iterator();
         while (iterator.hasNext()) {
-            ValueSegmentNode next = iterator.next();
+            ValueSentenceNode next = iterator.next();
             try {
                 next.append(unit);
             } catch (Exception e) {

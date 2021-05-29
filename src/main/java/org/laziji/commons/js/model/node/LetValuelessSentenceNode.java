@@ -6,12 +6,12 @@ import org.laziji.commons.js.model.TokenUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LetNode extends BaseNode {
+public class LetValuelessSentenceNode extends BaseNode {
 
     private List<TokenUnit> units = new ArrayList<>();
 
 
-    public LetNode(Node parent) {
+    public LetValuelessSentenceNode(Node parent) {
         super(parent);
     }
 

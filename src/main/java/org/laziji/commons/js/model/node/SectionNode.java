@@ -5,12 +5,15 @@ import org.laziji.commons.js.model.TokenUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegmentsNode extends BaseNode {
+/**
+ * a=1,b=2,c=3;
+ */
+public class SectionNode extends BaseNode {
 
-    private List<SegmentNode> segments = new ArrayList<>();
+    private List<SentenceNode> sentences= new ArrayList<>();
     private boolean done = false;
 
-    public SegmentsNode(Node parent) {
+    public SectionNode(Node parent) {
         super(parent);
     }
 
