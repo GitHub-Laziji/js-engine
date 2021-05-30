@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.node;
 
+import com.sun.istack.internal.NotNull;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
@@ -8,35 +9,39 @@ import java.util.List;
 
 public class LetValuelessSentenceNode extends BaseNode {
 
-    private List<TokenUnit> units = new ArrayList<>();
-
+    private TokenUnit let;
+    private List<LetItemValuelessSentenceNode> nodes = new ArrayList<>();
 
     public LetValuelessSentenceNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) throws Exception {
-        if (units.size() == 0 && unit.getToken() == Token.LET) {
-            units.add(unit);
-            return this;
+    public Node append(@NotNull TokenUnit unit) throws Exception {
+        if (let == null) {
+            if (unit.getToken() != Token.LET) {
+                throw new Exception(String.format("[%s] is not the expected token. expected [let]", unit.getToken().toString()));
+            }
+            let = unit;
+            nodes.add(new LetItemValuelessSentenceNode(this));
+            return nodes.get(0);
         }
-        if (units.size() == 1 && unit.getToken() == Token.NAME) {
-            units.add(unit);
-            return this;
-        }
-        if (units.size() == 2 && unit.getToken() == Token.ASSIGNMENT) {
-            units.add(unit);
-            return this;
+        if (nodes.get(nodes.size() - 1).isDone()) {
+            if (unit.getToken() != Token.COMMA) {
+                throw new Exception(String.format("[%s] is not the expected token. expected [,]", unit.getToken().toString()));
+            }
+            nodes.add(new LetItemValuelessSentenceNode(this));
+            return nodes.get(0);
         }
         if (isDone() && getParent() != null) {
-            getParent().append(unit);
+            return getParent().append(unit);
         }
         throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
 
     @Override
     public boolean isDone() {
-        return false;
+        return let != null && nodes.get(nodes.size() - 1).isDone();
     }
+
 }
