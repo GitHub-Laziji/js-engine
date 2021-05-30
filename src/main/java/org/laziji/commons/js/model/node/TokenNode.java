@@ -4,7 +4,6 @@ import org.laziji.commons.js.model.TokenUnit;
 
 public class TokenNode extends BaseNode {
 
-
     public TokenNode(Node parent) {
         super(parent);
     }
@@ -16,6 +15,6 @@ public class TokenNode extends BaseNode {
 
     @Override
     public boolean isDone() {
-        return false;
+        return true;
     }
 }

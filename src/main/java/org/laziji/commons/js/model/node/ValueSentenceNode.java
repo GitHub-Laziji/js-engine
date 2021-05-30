@@ -1,21 +1,22 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ValueSentenceNode extends ParagraphNode {
 
-    private Queue<Node> proxyNodes = new LinkedList<>();
+    private List<ProxyItem> proxyItems = new ArrayList<>();
 
     public ValueSentenceNode(Node parent) {
         super(parent);
-        proxyNodes.add(new FunctionValueSentenceNode(null));
-        proxyNodes.add(new LambdaValueSentenceNode(null));
-        proxyNodes.add(new ClassValueSentenceNode(null));
-        proxyNodes.add(new FormulaValueSentenceNode(null));
+        proxyItems.add(new ProxyItem(new FunctionValueSentenceNode(null)));
+        proxyItems.add(new ProxyItem(new LambdaValueSentenceNode(null)));
+        proxyItems.add(new ProxyItem(new ClassValueSentenceNode(null)));
+        proxyItems.add(new ProxyItem(new BracketValueSentenceNode(null)));
     }
 
     @Override
@@ -23,19 +24,21 @@ public class ValueSentenceNode extends ParagraphNode {
         if (isDone()) {
             return getParent().append(unit);
         }
-        Node backup = null;
-        for (int i = proxyNodes.size(); !proxyNodes.isEmpty() && i >= 0; i--) {
-            Node node = proxyNodes.poll();
+        ProxyItem backup = null;
+        Iterator<ProxyItem> iterator = proxyItems.iterator();
+        while (iterator.hasNext()) {
+            ProxyItem item = iterator.next();
             try {
-                proxyNodes.add(node.append(unit));
+                item.setCurrent(item.getCurrent().append(unit));
             } catch (Exception e) {
-                if (node.isDone()) {
-                    backup = node;
+                iterator.remove();
+                if (item.getRoot().isDone()) {
+                    backup = item;
                 }
             }
         }
-        if (proxyNodes.isEmpty()) {
-            proxyNodes.add(backup);
+        if (proxyItems.isEmpty()) {
+            proxyItems.add(backup);
         }
         if (isDone() && getParent() != null) {
             return getParent().append(unit);
@@ -45,7 +48,7 @@ public class ValueSentenceNode extends ParagraphNode {
 
     @Override
     public boolean isDone() {
-        return proxyNodes.size() == 1 && proxyNodes.peek().isDone();
+        return proxyItems.size() == 1 && proxyItems.get(0).getRoot().isDone();
     }
 
 
