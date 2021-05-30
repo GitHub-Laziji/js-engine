@@ -3,18 +3,15 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class ValueSentenceNode extends ParagraphNode {
 
-    private Token end;
-    private List<ValueSentenceNode> proxyNodes = new ArrayList<>();
+    private Queue<Node> proxyNodes = new LinkedList<>();
 
-    public ValueSentenceNode(Node parent, Token end) {
+    public ValueSentenceNode(Node parent) {
         super(parent);
-        this.end = end;
         proxyNodes.add(new FunctionValueSentenceNode(null));
         proxyNodes.add(new LambdaValueSentenceNode(null));
         proxyNodes.add(new ClassValueSentenceNode(null));
@@ -23,23 +20,33 @@ public class ValueSentenceNode extends ParagraphNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if(isDone()){
+        if (isDone()) {
             return getParent().append(unit);
         }
-        Iterator<ValueSentenceNode> iterator = proxyNodes.iterator();
-        while (iterator.hasNext()) {
-            ValueSentenceNode next = iterator.next();
+        Node backup = null;
+        for (int i = proxyNodes.size(); !proxyNodes.isEmpty() && i >= 0; i--) {
+            Node node = proxyNodes.poll();
             try {
-                next.append(unit);
+                proxyNodes.add(node.append(unit));
             } catch (Exception e) {
-                iterator.remove();
+                if (node.isDone()) {
+                    backup = node;
+                }
             }
         }
-        return null;
+        if (proxyNodes.isEmpty()) {
+            proxyNodes.add(backup);
+        }
+        if (isDone() && getParent() != null) {
+            return getParent().append(unit);
+        }
+        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
 
     @Override
     public boolean isDone() {
-        return proxyNodes.size() == 1 && proxyNodes.get(0).isDone();
+        return proxyNodes.size() == 1 && proxyNodes.peek().isDone();
     }
+
+
 }

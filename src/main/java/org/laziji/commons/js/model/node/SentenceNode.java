@@ -14,7 +14,7 @@ public class SentenceNode extends BaseNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        return null;
+        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
 
     @Override

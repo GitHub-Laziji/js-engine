@@ -10,7 +10,7 @@ import java.util.List;
 public class LetValuelessSentenceNode extends BaseNode {
 
     private TokenUnit let;
-    private List<LetItemValuelessSentenceNode> nodes = new ArrayList<>();
+    private List<LetItemValuelessSentenceNode> nodes;
 
     public LetValuelessSentenceNode(Node parent) {
         super(parent);
@@ -23,6 +23,7 @@ public class LetValuelessSentenceNode extends BaseNode {
                 throw new Exception(String.format("[%s] is not the expected token. expected [let]", unit.getToken().toString()));
             }
             let = unit;
+            nodes = new ArrayList<>();
             nodes.add(new LetItemValuelessSentenceNode(this));
             return nodes.get(0);
         }
