@@ -3,18 +3,18 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
-public class NumberValueSentenceNode extends ValueSentenceNode {
+public class StringValueWordNode extends ValueWordNode {
 
-    private TokenUnit number;
+    private TokenUnit string;
 
-    public NumberValueSentenceNode(Node parent) {
+    public StringValueWordNode(Node parent) {
         super(parent);
     }
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (number == null && unit.getToken() == Token.NUMBER) {
-            this.number = unit;
+        if (string == null && unit.getToken() == Token.NUMBER) {
+            this.string = unit;
             return this;
         }
         if (isDone() && getParent() != null) {
@@ -25,6 +25,6 @@ public class NumberValueSentenceNode extends ValueSentenceNode {
 
     @Override
     public boolean isDone() {
-        return number != null;
+        return string != null;
     }
 }

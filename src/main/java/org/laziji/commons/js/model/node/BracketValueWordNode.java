@@ -3,13 +3,13 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
-public class BracketValueSentenceNode extends ValueSentenceNode {
+public class BracketValueWordNode extends ValueWordNode {
 
     private TokenUnit open;
-    private ValueSentenceNode node;
+    private ValueWordNode node;
     private TokenUnit close;
 
-    public BracketValueSentenceNode(Node parent) {
+    public BracketValueWordNode(Node parent) {
         super(parent);
     }
 
@@ -20,7 +20,7 @@ public class BracketValueSentenceNode extends ValueSentenceNode {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
             this.open = unit;
-            this.node = new ValueSentenceNode(this);
+            this.node = new ValueWordNode(this);
             return node;
         }
         if (node != null && node.isDone()) {

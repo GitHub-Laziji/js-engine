@@ -2,9 +2,9 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.TokenUnit;
 
-public class FunctionValueSentenceNode extends ValueSentenceNode {
+public class FunctionValueWordNode extends ValueWordNode {
 
-    public FunctionValueSentenceNode(Node parent) {
+    public FunctionValueWordNode(Node parent) {
         super(parent);
     }
 
