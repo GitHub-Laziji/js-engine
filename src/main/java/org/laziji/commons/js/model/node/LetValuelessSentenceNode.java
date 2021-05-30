@@ -25,14 +25,14 @@ public class LetValuelessSentenceNode extends BaseNode {
             let = unit;
             nodes = new ArrayList<>();
             nodes.add(new LetItemValuelessSentenceNode(this));
-            return nodes.get(0);
+            return nodes.get(0).init();
         }
         if (nodes.get(nodes.size() - 1).isDone()) {
             if (unit.getToken() != Token.COMMA) {
                 throw new Exception(String.format("[%s] is not the expected token. expected [,]", unit.getToken().toString()));
             }
             nodes.add(new LetItemValuelessSentenceNode(this));
-            return nodes.get(0);
+            return nodes.get(0).init();
         }
         if (isDone() && getParent() != null) {
             return getParent().append(unit);

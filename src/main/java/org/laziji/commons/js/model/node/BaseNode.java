@@ -14,6 +14,11 @@ public abstract class BaseNode implements Node {
         return parent;
     }
 
+    @Override
+    public Node init() {
+        return this;
+    }
+
     public void setParent(Node parent) {
         this.parent = parent;
     }

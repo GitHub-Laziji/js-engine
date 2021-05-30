@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ValueSentenceNode extends BaseNode {
 
-    private List<Node> nodes = new ArrayList<>();
+    private List<Node> nodes;
 
     public ValueSentenceNode(Node parent) {
         super(parent);
@@ -20,6 +20,14 @@ public class ValueSentenceNode extends BaseNode {
 
     @Override
     public boolean isDone() {
-        return false;
+        Node node = nodes.get(nodes.size() - 1);
+        return node instanceof ValueWordNode && node.isDone();
+    }
+
+    @Override
+    public Node init() {
+        this.nodes = new ArrayList<>();
+        this.nodes.add(new ValueWordNode(this));
+        return this.nodes.get(this.nodes.size() - 1);
     }
 }

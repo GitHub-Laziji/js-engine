@@ -28,7 +28,7 @@ public class LetItemValuelessSentenceNode extends BaseNode {
             }
             assignment = unit;
             node = new ValueSentenceNode(this);
-            return node;
+            return node.init();
         }
         if (isDone() && getParent() != null) {
             return getParent().append(unit);

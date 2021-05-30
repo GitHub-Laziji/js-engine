@@ -8,6 +8,8 @@ public interface Node {
 
     Node append(TokenUnit unit) throws Exception;
 
+    Node init();
+
     boolean isDone();
 
 }
