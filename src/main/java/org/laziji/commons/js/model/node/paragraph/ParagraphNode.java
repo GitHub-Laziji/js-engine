@@ -1,9 +1,11 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.Node;
 
-public class ParagraphNode extends BaseNode{
+public class ParagraphNode extends BaseNode {
 
     public ParagraphNode(Node parent) {
         super(parent);

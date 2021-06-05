@@ -1,7 +1,9 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.word.basic;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.word.ValueWordNode;
 
 public class BracketValueWordNode extends ValueWordNode {
 

@@ -1,7 +1,13 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
+import org.laziji.commons.js.model.node.word.basic.BracketValueWordNode;
+import org.laziji.commons.js.model.node.word.complex.ClassValueWordNode;
+import org.laziji.commons.js.model.node.word.complex.FunctionValueWordNode;
+import org.laziji.commons.js.model.node.word.complex.LambdaValueWordNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,18 +1,21 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.paragraph;
 
 import com.sun.istack.internal.NotNull;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.sentence.LetItemValuelessSentenceNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LetValuelessSentenceNode extends BaseNode {
+public class LetParagraphNode extends BaseNode {
 
     private TokenUnit let;
     private List<LetItemValuelessSentenceNode> nodes;
 
-    public LetValuelessSentenceNode(Node parent) {
+    public LetParagraphNode(Node parent) {
         super(parent);
     }
 

@@ -1,6 +1,8 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.Node;
 
 public class ValueWordMarkNode extends BaseNode {
 

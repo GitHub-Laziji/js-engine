@@ -1,19 +1,12 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ValuelessParagraphNode extends ParagraphNode {
 
-/**
- * a=1,b=2,c=3;
- */
-public class SectionNode extends BaseNode {
-
-    private List<SentenceNode> sentences= new ArrayList<>();
-    private boolean done = false;
-
-    public SectionNode(Node parent) {
+    public ValuelessParagraphNode(Node parent) {
         super(parent);
     }
 
@@ -26,5 +19,4 @@ public class SectionNode extends BaseNode {
     public boolean isDone() {
         return false;
     }
-
 }

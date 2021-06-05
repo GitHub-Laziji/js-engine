@@ -1,7 +1,10 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.sentence.ValueSentenceNode;
 
 public class LetItemValuelessSentenceNode extends BaseNode {
 
