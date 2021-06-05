@@ -4,12 +4,13 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
 public class BracketWordNode extends BaseNode implements BasicWordNode {
 
     private TokenUnit open;
-    private ProxyWordNode node;
+    private ValueParagraphNode node;
     private TokenUnit close;
 
     public BracketWordNode(Node parent) {
@@ -23,8 +24,8 @@ public class BracketWordNode extends BaseNode implements BasicWordNode {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
             this.open = unit;
-            this.node = new ProxyWordNode(this);
-            return node;
+            this.node = new ValueParagraphNode(this);
+            return node.init();
         }
         if (node != null && node.isDone()) {
             if (unit.getToken() != Token.BRACKET_SML_CLOSE) {
