@@ -2,14 +2,14 @@ package org.laziji.commons.js.model.node.word.basic;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.word.ValueWordNode;
 
-public class NumberValueWordNode extends ValueWordNode {
+public class NumberWordNode extends BaseNode implements BasicWordNode {
 
     private TokenUnit number;
 
-    public NumberValueWordNode(Node parent) {
+    public NumberWordNode(Node parent) {
         super(parent);
     }
 

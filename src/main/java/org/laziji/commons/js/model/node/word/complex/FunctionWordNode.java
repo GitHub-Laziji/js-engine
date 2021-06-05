@@ -1,12 +1,12 @@
 package org.laziji.commons.js.model.node.word.complex;
 
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.word.ValueWordNode;
 
-public class ClassValueWordNode extends ValueWordNode {
+public class FunctionWordNode extends BaseNode implements ComplexWordNode {
 
-    public ClassValueWordNode(Node parent) {
+    public FunctionWordNode(Node parent) {
         super(parent);
     }
 

@@ -2,16 +2,17 @@ package org.laziji.commons.js.model.node.word.basic;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.word.ValueWordNode;
+import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
-public class BracketValueWordNode extends ValueWordNode {
+public class BracketWordNode extends BaseNode implements BasicWordNode {
 
     private TokenUnit open;
-    private ValueWordNode node;
+    private ProxyWordNode node;
     private TokenUnit close;
 
-    public BracketValueWordNode(Node parent) {
+    public BracketWordNode(Node parent) {
         super(parent);
     }
 
@@ -22,7 +23,7 @@ public class BracketValueWordNode extends ValueWordNode {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
             this.open = unit;
-            this.node = new ValueWordNode(this);
+            this.node = new ProxyWordNode(this);
             return node;
         }
         if (node != null && node.isDone()) {

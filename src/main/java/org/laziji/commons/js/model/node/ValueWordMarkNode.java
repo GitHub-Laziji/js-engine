@@ -1,4 +1,4 @@
-package org.laziji.commons.js.model.node.word;
+package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;

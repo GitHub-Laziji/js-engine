@@ -1,12 +1,12 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 
-public class ValuelessParagraphNode extends ParagraphNode {
+public class ProxyParagraphNode extends BaseNode implements ParagraphNode {
 
-    public ValuelessParagraphNode(Node parent) {
+    public ProxyParagraphNode(Node parent) {
         super(parent);
     }
 

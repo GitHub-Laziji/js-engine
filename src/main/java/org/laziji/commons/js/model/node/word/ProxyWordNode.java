@@ -3,26 +3,26 @@ package org.laziji.commons.js.model.node.word;
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
-import org.laziji.commons.js.model.node.word.basic.BracketValueWordNode;
-import org.laziji.commons.js.model.node.word.complex.ClassValueWordNode;
-import org.laziji.commons.js.model.node.word.complex.FunctionValueWordNode;
-import org.laziji.commons.js.model.node.word.complex.LambdaValueWordNode;
+import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
+import org.laziji.commons.js.model.node.word.basic.BracketWordNode;
+import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
+import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
+import org.laziji.commons.js.model.node.word.complex.LambdaWordNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ValueWordNode extends ParagraphNode {
+public class ProxyWordNode extends ProxyParagraphNode {
 
     private List<ProxyItem> proxyItems = new ArrayList<>();
 
-    public ValueWordNode(Node parent) {
+    public ProxyWordNode(Node parent) {
         super(parent);
-        proxyItems.add(new ProxyItem(new FunctionValueWordNode(null)));
-        proxyItems.add(new ProxyItem(new LambdaValueWordNode(null)));
-        proxyItems.add(new ProxyItem(new ClassValueWordNode(null)));
-        proxyItems.add(new ProxyItem(new BracketValueWordNode(null)));
+        proxyItems.add(new ProxyItem(new FunctionWordNode(null)));
+        proxyItems.add(new ProxyItem(new LambdaWordNode(null)));
+        proxyItems.add(new ProxyItem(new ClassWordNode(null)));
+        proxyItems.add(new ProxyItem(new BracketWordNode(null)));
     }
 
     @Override

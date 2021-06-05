@@ -1,18 +1,18 @@
-package org.laziji.commons.js.model.node.paragraph;
+package org.laziji.commons.js.model.node.word.complex;
 
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class ValueParagraphNode extends BaseNode implements ParagraphNode {
+public class ClassWordNode extends BaseNode implements ComplexWordNode {
 
-    public ValueParagraphNode(Node parent) {
+    public ClassWordNode(Node parent) {
         super(parent);
     }
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+        throw new Exception("Not yet supported.");
     }
 
     @Override
