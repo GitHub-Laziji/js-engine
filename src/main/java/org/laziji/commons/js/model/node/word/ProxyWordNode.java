@@ -2,8 +2,8 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
 import org.laziji.commons.js.model.node.word.basic.BracketWordNode;
 import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
 import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProxyWordNode extends ProxyParagraphNode {
+public class ProxyWordNode extends BaseNode implements WordNode {
 
     private List<ProxyItem> proxyItems = new ArrayList<>();
 

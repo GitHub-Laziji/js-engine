@@ -23,7 +23,7 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
     public Node append(@NotNull TokenUnit unit) throws Exception {
         if (let == null) {
             if (unit.getToken() != Token.LET) {
-                throw new Exception(String.format("[%s] is not the expected token. expected [let]", unit.getToken().toString()));
+                throw new Exception(String.format("[%s] is not the expected token. expected [let.js]", unit.getToken().toString()));
             }
             let = unit;
             nodes = new ArrayList<>();

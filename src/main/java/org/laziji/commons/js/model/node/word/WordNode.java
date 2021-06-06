@@ -1,4 +1,6 @@
 package org.laziji.commons.js.model.node.word;
 
-public interface WordNode {
+import org.laziji.commons.js.model.node.Node;
+
+public interface WordNode extends Node {
 }

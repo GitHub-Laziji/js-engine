@@ -23,7 +23,7 @@ public enum Token {
 
     CONST("^(const)([^\\w\\$][\\s\\S]*|$)"),
     VAR("^(var)([^\\w\\$][\\s\\S]*|$)"),
-    LET("^(let)([^\\w\\$][\\s\\S]*|$)"),
+    LET("^(let.js)([^\\w\\$][\\s\\S]*|$)"),
     FUNCTION("^(function)([^\\w\\$][\\s\\S]*|$)"),
     FOR("^(for)([^\\w\\$][\\s\\S]*|$)"),
     WHERE("^(where)([^\\w\\$][\\s\\S]*|$)"),

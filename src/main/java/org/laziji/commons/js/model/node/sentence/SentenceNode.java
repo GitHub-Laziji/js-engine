@@ -1,8 +1,10 @@
 package org.laziji.commons.js.model.node.sentence;
 
+import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.mark.MarkNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 import org.laziji.commons.js.model.node.word.WordNode;
 
@@ -15,7 +17,8 @@ import java.util.List;
 public class SentenceNode extends BaseNode {
 
 
-    private List<Node> nodes = new ArrayList<>();
+    private List<WordNode> nodes = new ArrayList<>();
+    private List<Token> tokens = new ArrayList<>();
 
     public SentenceNode(Node parent) {
         super(parent);
@@ -30,12 +33,27 @@ public class SentenceNode extends BaseNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        return null;
+        if (!isDone()) {
+            throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+        }
+        switch (unit.getToken()) {
+            case ADD:
+            case SUB:
+            case MUL:
+            case DIV:
+                tokens.add(unit.getToken());
+                ProxyWordNode word = new ProxyWordNode(this);
+                this.nodes.add(word);
+                return word.init();
+        }
+        if (isDone() && getParent() != null) {
+            return getParent().append(unit);
+        }
+        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
 
     @Override
     public boolean isDone() {
-        Node node = nodes.get(nodes.size() - 1);
-        return node instanceof WordNode && node.isDone();
+        return nodes.get(nodes.size() - 1).isDone();
     }
 }

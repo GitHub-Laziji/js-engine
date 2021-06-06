@@ -1,14 +1,14 @@
-package org.laziji.commons.js.model.node;
+package org.laziji.commons.js.model.node.mark;
 
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class ValueWordMarkNode extends BaseNode {
+public class MarkNode extends BaseNode {
 
     private TokenUnit mark;
 
-    public ValueWordMarkNode(Node parent) {
+    public MarkNode(Node parent) {
         super(parent);
     }
 
