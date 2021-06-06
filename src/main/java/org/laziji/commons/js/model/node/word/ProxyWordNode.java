@@ -21,12 +21,12 @@ public class ProxyWordNode extends BaseNode implements WordNode {
 
     public ProxyWordNode(Node parent) {
         super(parent);
-        proxyItems.add(new ProxyItem(new FunctionWordNode(null)));
-        proxyItems.add(new ProxyItem(new LambdaWordNode(null)));
-        proxyItems.add(new ProxyItem(new ClassWordNode(null)));
-        proxyItems.add(new ProxyItem(new BracketWordNode(null)));
-        proxyItems.add(new ProxyItem(new NumberWordNode(null)));
-        proxyItems.add(new ProxyItem(new StringWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new FunctionWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new LambdaWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new ClassWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new BracketWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new NumberWordNode(null)));
+        proxyItems.add(new ProxyItem<WordNode>(new StringWordNode(null)));
     }
 
     @Override

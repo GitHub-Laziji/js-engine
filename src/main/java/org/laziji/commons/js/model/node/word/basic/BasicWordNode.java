@@ -1,4 +1,6 @@
 package org.laziji.commons.js.model.node.word.basic;
 
-public interface BasicWordNode {
+import org.laziji.commons.js.model.node.word.WordNode;
+
+public interface BasicWordNode extends WordNode {
 }

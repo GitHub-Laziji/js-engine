@@ -2,20 +2,20 @@ package org.laziji.commons.js.model;
 
 import org.laziji.commons.js.model.node.Node;
 
-public class ProxyItem {
+public class ProxyItem<T extends Node> {
 
-    private Node root;
+    private T root;
     private Node current;
 
-    public ProxyItem(Node root) {
-        this.root = this.current = root;
+    public ProxyItem(T root) {
+        this.current = this.root = root;
     }
 
-    public Node getRoot() {
+    public T getRoot() {
         return root;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot(T root) {
         this.root = root;
     }
 
