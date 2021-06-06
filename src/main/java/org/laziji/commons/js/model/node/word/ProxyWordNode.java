@@ -5,6 +5,8 @@ import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.word.basic.BracketWordNode;
+import org.laziji.commons.js.model.node.word.basic.NumberWordNode;
+import org.laziji.commons.js.model.node.word.basic.StringWordNode;
 import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
 import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
 import org.laziji.commons.js.model.node.word.complex.LambdaWordNode;
@@ -23,6 +25,8 @@ public class ProxyWordNode extends BaseNode implements WordNode {
         proxyItems.add(new ProxyItem(new LambdaWordNode(null)));
         proxyItems.add(new ProxyItem(new ClassWordNode(null)));
         proxyItems.add(new ProxyItem(new BracketWordNode(null)));
+        proxyItems.add(new ProxyItem(new NumberWordNode(null)));
+        proxyItems.add(new ProxyItem(new StringWordNode(null)));
     }
 
     @Override

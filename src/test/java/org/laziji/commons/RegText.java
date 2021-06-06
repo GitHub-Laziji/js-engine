@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.paragraph.LetParagraphNode;
 import org.laziji.commons.js.utils.TokenUtils;
 
@@ -39,8 +40,14 @@ public class RegText {
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         LetParagraphNode letNode = new LetParagraphNode(null);
-
-        System.out.println(JSON.toJSONString(tokenUnits, true));
+        Node p = letNode;
+        int i = 0;
+        while (i < tokenUnits.size()) {
+            System.out.println(JSON.toJSONString(tokenUnits.get(i)));
+            p = p.append(tokenUnits.get(i));
+            i++;
+        }
+        System.out.println(letNode.isDone());
     }
 
 }
