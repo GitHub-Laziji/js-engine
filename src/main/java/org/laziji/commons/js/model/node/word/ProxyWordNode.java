@@ -47,11 +47,11 @@ public class ProxyWordNode extends BaseNode implements WordNode {
                 }
             }
         }
-        if (proxyItems.isEmpty()) {
+        if (proxyItems.isEmpty() && backup != null) {
             proxyItems.add(backup);
         }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
+        if (proxyItems.size() > 0) {
+            return this;
         }
         throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
@@ -61,5 +61,8 @@ public class ProxyWordNode extends BaseNode implements WordNode {
         return proxyItems.size() == 1 && proxyItems.get(0).getRoot().isDone();
     }
 
-
+    @Override
+    public String toString() {
+        return proxyItems.get(0).getRoot().toString();
+    }
 }

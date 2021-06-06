@@ -15,7 +15,7 @@ public class StringWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (string == null && unit.getToken() == Token.NUMBER) {
+        if (string == null && unit.getToken() == Token.STRING) {
             this.string = unit;
             return this;
         }

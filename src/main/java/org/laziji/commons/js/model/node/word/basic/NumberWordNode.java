@@ -29,4 +29,9 @@ public class NumberWordNode extends BaseNode implements BasicWordNode {
     public boolean isDone() {
         return number != null;
     }
+
+    @Override
+    public String toString() {
+        return number.getValue();
+    }
 }

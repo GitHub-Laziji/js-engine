@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.node.paragraph;
 
+import com.google.common.base.Joiner;
 import com.sun.istack.internal.NotNull;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
@@ -35,7 +36,7 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
                 throw new Exception(String.format("[%s] is not the expected token. expected [,]", unit.getToken().toString()));
             }
             nodes.add(new LetItemNode(this));
-            return nodes.get(0).init();
+            return nodes.get(nodes.size() - 1).init();
         }
         if (isDone() && getParent() != null) {
             return getParent().append(unit);
@@ -46,6 +47,11 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
     @Override
     public boolean isDone() {
         return let != null && nodes.get(nodes.size() - 1).isDone();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", let.getValue(), Joiner.on(", ").join(nodes));
     }
 
     public class LetItemNode extends BaseNode {
@@ -84,6 +90,14 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
         @Override
         public boolean isDone() {
             return name != null && (assignment == null && node == null || assignment != null && node != null && node.isDone());
+        }
+
+        @Override
+        public String toString() {
+            if (assignment == null) {
+                return name.getValue();
+            }
+            return String.format("%s = %s", name.getValue(), node.toString());
         }
     }
 

@@ -18,7 +18,7 @@ public class SentenceNode extends BaseNode {
 
 
     private List<WordNode> nodes = new ArrayList<>();
-    private List<Token> tokens = new ArrayList<>();
+    private List<TokenUnit> tokens = new ArrayList<>();
 
     public SentenceNode(Node parent) {
         super(parent);
@@ -41,7 +41,7 @@ public class SentenceNode extends BaseNode {
             case SUB:
             case MUL:
             case DIV:
-                tokens.add(unit.getToken());
+                tokens.add(unit);
                 ProxyWordNode word = new ProxyWordNode(this);
                 this.nodes.add(word);
                 return word.init();
@@ -55,5 +55,15 @@ public class SentenceNode extends BaseNode {
     @Override
     public boolean isDone() {
         return nodes.get(nodes.size() - 1).isDone();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(nodes.get(0).toString());
+        for (int i = 1; i < nodes.size(); i++) {
+            sb.append(' ').append(tokens.get(i - 1).getValue()).append(' ').append(nodes.get(i).toString());
+        }
+        return sb.toString();
     }
 }

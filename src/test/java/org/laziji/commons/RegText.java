@@ -36,7 +36,7 @@ public class RegText {
 
     @Test
     public void letTest() throws Exception {
-        String text = "let a=1+2,b=3;";
+        String text = "let a=1+2,b=3";
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         LetParagraphNode letNode = new LetParagraphNode(null);
@@ -48,6 +48,7 @@ public class RegText {
             i++;
         }
         System.out.println(letNode.isDone());
+        System.out.println(letNode.toString());
     }
 
 }
