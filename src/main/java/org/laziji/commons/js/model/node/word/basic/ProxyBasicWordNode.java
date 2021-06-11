@@ -1,22 +1,16 @@
 package org.laziji.commons.js.model.node.word.basic;
 
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class ProxyBasicWordNode extends BaseNode implements BasicWordNode {
+public class ProxyBasicWordNode extends BaseProxyNode<BasicWordNode> implements BasicWordNode {
 
     public ProxyBasicWordNode(Node parent) {
         super(parent);
+        addProxyItem(new BracketWordNode(null));
+        addProxyItem(new NumberWordNode(null));
+        addProxyItem(new StringWordNode(null));
+        addProxyItem(new NameWordNode(null));
     }
 
-    @Override
-    public Node append(TokenUnit unit) throws Exception {
-        return null;
-    }
-
-    @Override
-    public boolean isDone() {
-        return false;
-    }
 }

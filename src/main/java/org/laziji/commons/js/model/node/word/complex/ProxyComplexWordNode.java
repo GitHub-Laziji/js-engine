@@ -1,22 +1,15 @@
 package org.laziji.commons.js.model.node.word.complex;
 
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class ProxyComplexWordNode extends BaseNode implements ComplexWordNode  {
+public class ProxyComplexWordNode extends BaseProxyNode<ComplexWordNode> implements ComplexWordNode {
 
     public ProxyComplexWordNode(Node parent) {
         super(parent);
+        addProxyItem(new FunctionWordNode(null));
+        addProxyItem(new LambdaWordNode(null));
+        addProxyItem(new ClassWordNode(null));
     }
 
-    @Override
-    public Node append(TokenUnit unit) throws Exception {
-        return null;
-    }
-
-    @Override
-    public boolean isDone() {
-        return false;
-    }
 }
