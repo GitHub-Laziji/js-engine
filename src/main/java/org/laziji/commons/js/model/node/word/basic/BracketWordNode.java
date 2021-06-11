@@ -44,4 +44,9 @@ public class BracketWordNode extends BaseNode implements BasicWordNode {
     public boolean isDone() {
         return open != null && node.isDone() && close != null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%s)", node.toString());
+    }
 }

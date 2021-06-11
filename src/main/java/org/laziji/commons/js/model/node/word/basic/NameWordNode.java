@@ -5,18 +5,18 @@ import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class StringWordNode extends BaseNode implements BasicWordNode {
+public class NameWordNode extends BaseNode implements BasicWordNode {
 
-    private TokenUnit string;
+    private TokenUnit name;
 
-    public StringWordNode(Node parent) {
+    public NameWordNode(Node parent) {
         super(parent);
     }
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (string == null && unit.getToken() == Token.STRING) {
-            this.string = unit;
+        if (name == null && unit.getToken() == Token.NAME) {
+            this.name = unit;
             return this;
         }
         if (isDone() && getParent() != null) {
@@ -27,11 +27,11 @@ public class StringWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public boolean isDone() {
-        return string != null;
+        return name != null;
     }
 
     @Override
     public String toString() {
-        return string.getValue();
+        return name.getValue();
     }
 }

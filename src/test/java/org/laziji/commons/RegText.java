@@ -36,14 +36,14 @@ public class RegText {
 
     @Test
     public void letTest() throws Exception {
-        String text = "let a=1+2,b=3";
+        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2)";
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         LetParagraphNode letNode = new LetParagraphNode(null);
         Node p = letNode;
         int i = 0;
         while (i < tokenUnits.size()) {
-            System.out.println(JSON.toJSONString(tokenUnits.get(i)));
+            System.out.println(JSON.toJSONString(tokenUnits.get(i))+" "+p.getClass().getSimpleName());
             p = p.append(tokenUnits.get(i));
             i++;
         }
