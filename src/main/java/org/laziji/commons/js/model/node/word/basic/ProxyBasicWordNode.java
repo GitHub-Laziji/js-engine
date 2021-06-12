@@ -11,6 +11,7 @@ public class ProxyBasicWordNode extends BaseProxyNode<BasicWordNode> implements 
         addProxyItem(new NumberWordNode(null));
         addProxyItem(new StringWordNode(null));
         addProxyItem(new NameWordNode(null));
+        addProxyItem(new ArrayWordNode(null));
     }
 
 }
