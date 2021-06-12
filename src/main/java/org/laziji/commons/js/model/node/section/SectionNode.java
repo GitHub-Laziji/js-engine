@@ -67,15 +67,21 @@ public class SectionNode extends BaseNode {
     @Override
     public String toString(int depth, boolean start) {
         StringBuilder sb = new StringBuilder();
+        List<ParagraphNode> newNodes = new ArrayList<>();
         for (ParagraphNode node : paragraphs) {
             if (node.getSelf() instanceof EmptyParagraphNode) {
                 continue;
             }
-            sb.append(node.toString(depth,true));
+            newNodes.add(node);
+        }
+        for (ParagraphNode node : newNodes) {
+            sb.append(node.toString(depth, true));
             if (node.shouldEndFlag()) {
                 sb.append(';');
             }
-            sb.append('\n');
+            if (node != newNodes.get(newNodes.size() - 1)) {
+                sb.append('\n');
+            }
         }
         return sb.toString();
     }

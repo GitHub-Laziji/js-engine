@@ -51,6 +51,6 @@ public class FunctionParamsContentInternalNode extends BaseNode implements Inter
 
     @Override
     public String toString(int depth, boolean start) {
-        return names.size() == 0 ? "" : Joiner.on(",").join(names);
+        return names.size() == 0 ? "" : Joiner.on(", ").join(names);
     }
 }
