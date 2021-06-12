@@ -66,7 +66,7 @@ public class RegText {
             i++;
         }
         System.out.println(node.isDone());
-        System.out.println(node.toString(0));
+        System.out.println(node.toString());
     }
 
 }

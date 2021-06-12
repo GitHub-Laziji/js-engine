@@ -31,7 +31,7 @@ public class StringWordNode extends BaseNode implements BasicWordNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         return string.getValue();
     }
 }

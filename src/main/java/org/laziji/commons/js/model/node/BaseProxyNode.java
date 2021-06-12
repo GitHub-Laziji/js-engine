@@ -2,7 +2,6 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,8 +56,8 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public String toString(int depth) {
-        return proxyItems.get(0).getRoot().toString(depth);
+    public String toString(int depth, boolean start) {
+        return proxyItems.get(0).getRoot().toString(depth, start);
     }
 
     protected void addProxyItem(T node) {

@@ -26,7 +26,7 @@ public abstract class BaseNode implements Node {
 
     @Override
     public String toString() {
-        return toString(0);
+        return toString(0, true);
     }
 
     protected String getTabString(int depth) {

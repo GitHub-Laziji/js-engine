@@ -56,7 +56,7 @@ public class SentenceNode extends BaseNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         StringBuilder sb = new StringBuilder();
         sb.append(nodes.get(0).toString());
         for (int i = 1; i < nodes.size(); i++) {

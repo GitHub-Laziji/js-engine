@@ -21,7 +21,7 @@ public class LambdaWordNode extends BaseNode implements ComplexWordNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         return null;
     }
 }

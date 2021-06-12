@@ -49,7 +49,7 @@ public class ObjectContentInternalNode extends BaseNode implements InternalNode 
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         return nodes.size() == 0 ? "" : Joiner.on(",\n").join(nodes);
     }
 

@@ -50,7 +50,7 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         return String.format("%s %s", let.getValue(), Joiner.on(", ").join(nodes));
     }
 

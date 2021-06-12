@@ -29,7 +29,7 @@ public class EmptyParagraphNode extends BaseNode implements ParagraphNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         return "";
     }
 }

@@ -27,7 +27,7 @@ public class ObjectWordNode extends BaseBracketNode<ObjectContentInternalNode> i
     }
 
     @Override
-    public String toString(int depth) {
-        return String.format("%s\n%s\n%s", open.getValue(), node.toString(depth+1), close.getValue());
+    public String toString(int depth, boolean start) {
+        return String.format("%s\n%s\n%s", open.getValue(), node.toString(depth + 1, true), close.getValue());
     }
 }

@@ -45,8 +45,8 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public String toString(int depth) {
-        return String.format("%s%s%s", open.getValue(), node.toString(depth), close.getValue());
+    public String toString(int depth, boolean start) {
+        return String.format("%s%s%s", open.getValue(), node.toString(depth, start), close.getValue());
     }
 
     protected abstract Token getOpenBracket();

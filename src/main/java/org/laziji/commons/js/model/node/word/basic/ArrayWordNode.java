@@ -4,7 +4,6 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BaseBracketNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.ArrayContentInternalNode;
-import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 
 public class ArrayWordNode extends BaseBracketNode<ArrayContentInternalNode> implements BasicWordNode {
 

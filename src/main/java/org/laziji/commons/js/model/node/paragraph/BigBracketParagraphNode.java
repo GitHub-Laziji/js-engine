@@ -33,7 +33,7 @@ public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implem
     }
 
     @Override
-    public String toString(int depth) {
-        return String.format("%s\n%s%s", open.getValue(), node.toString(depth+1), close.getValue());
+    public String toString(int depth, boolean start) {
+        return String.format("%s\n%s%s", open.getValue(), node.toString(depth+1,start), close.getValue());
     }
 }

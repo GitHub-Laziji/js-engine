@@ -45,7 +45,7 @@ public class LetInternalNode extends BaseNode implements InternalNode {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int depth, boolean start) {
         if (assignment == null) {
             return name.getValue();
         }
