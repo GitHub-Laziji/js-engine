@@ -21,7 +21,10 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
             }
             this.open = unit;
             this.node = getContentNode();
-            return node.init();
+            if (this.node != null) {
+                return node.init();
+            }
+            return this;
         }
         if (node != null && !node.isDone()) {
             throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));

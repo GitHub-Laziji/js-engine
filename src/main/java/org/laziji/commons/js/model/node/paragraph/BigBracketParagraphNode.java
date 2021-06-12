@@ -4,9 +4,8 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BaseBracketNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.section.SectionNode;
-import org.laziji.commons.js.model.node.word.basic.BasicWordNode;
 
-public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implements BasicWordNode {
+public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implements ParagraphNode {
 
     public BigBracketParagraphNode(Node parent) {
         super(parent);

@@ -36,7 +36,7 @@ public class RegText {
 
     @Test
     public void letTest() throws Exception {
-        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2)";
+        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){}";
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         LetParagraphNode letNode = new LetParagraphNode(null);
