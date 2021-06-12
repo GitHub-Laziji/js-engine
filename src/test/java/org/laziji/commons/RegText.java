@@ -8,6 +8,7 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.paragraph.LetParagraphNode;
+import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.utils.TokenUtils;
 
 import java.util.List;
@@ -49,6 +50,23 @@ public class RegText {
         }
         System.out.println(letNode.isDone());
         System.out.println(letNode.toString());
+    }
+
+    @Test
+    public void sectionTest() throws Exception {
+        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};\nfunction func2(){\n}";
+//        System.out.println(text);
+        List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
+        SectionNode node = new SectionNode(null);
+        Node p = node.init();
+        int i = 0;
+        while (i < tokenUnits.size()) {
+            System.out.println(JSON.toJSONString(tokenUnits.get(i))+" "+p.getClass().getSimpleName());
+            p = p.append(tokenUnits.get(i));
+            i++;
+        }
+        System.out.println(node.isDone());
+        System.out.println(node.toString());
     }
 
 }

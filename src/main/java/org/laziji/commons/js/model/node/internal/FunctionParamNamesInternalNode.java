@@ -51,7 +51,7 @@ public class FunctionParamNamesInternalNode extends BaseNode implements Internal
     }
 
     @Override
-    public String toString() {
+    public String toString(int depth) {
         return names.size()==0?"": Joiner.on(",").join(names);
     }
 }

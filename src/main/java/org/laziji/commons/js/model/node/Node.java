@@ -14,4 +14,6 @@ public interface Node {
 
     boolean isDone();
 
+    String toString(int depth);
+
 }

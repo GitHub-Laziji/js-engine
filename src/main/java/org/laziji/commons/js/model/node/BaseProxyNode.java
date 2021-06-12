@@ -23,9 +23,6 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (isDone()) {
-            return getParent().append(unit);
-        }
         ProxyItem<T> backup = null;
         Iterator<ProxyItem<T>> iterator = proxyItems.iterator();
         while (iterator.hasNext()) {
@@ -60,8 +57,8 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public String toString() {
-        return proxyItems.get(0).getRoot().toString();
+    public String toString(int depth) {
+        return proxyItems.get(0).getRoot().toString(depth);
     }
 
     protected void addProxyItem(T node) {

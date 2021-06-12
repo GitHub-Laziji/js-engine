@@ -19,4 +19,9 @@ public class ClassWordNode extends BaseNode implements ComplexWordNode {
     public boolean isDone() {
         return false;
     }
+
+    @Override
+    public String toString(int depth) {
+        return null;
+    }
 }

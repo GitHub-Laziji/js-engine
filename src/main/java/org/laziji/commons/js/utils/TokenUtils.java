@@ -24,7 +24,7 @@ public class TokenUtils {
                 throw new Exception();
             }
             text = text.substring(token.getValue().length());
-            if (token.getToken() == Token.SPACE) {
+            if (token.getToken() == Token.SPACE || token.getToken() == Token.NEWLINE) {
                 continue;
             }
             tokens.add(token);

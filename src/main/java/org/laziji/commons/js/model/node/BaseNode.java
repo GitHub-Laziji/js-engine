@@ -24,7 +24,8 @@ public abstract class BaseNode implements Node {
         return this;
     }
 
-    public void setParent(Node parent) {
-        this.parent = parent;
+    @Override
+    public String toString() {
+        return toString(0);
     }
 }

@@ -45,7 +45,7 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public String toString() {
+    public String toString(int depth) {
         return String.format("%s%s%s", open.getValue(), node, close.getValue());
     }
 

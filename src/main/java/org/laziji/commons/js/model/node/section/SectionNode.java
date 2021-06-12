@@ -65,7 +65,7 @@ public class SectionNode extends BaseNode {
     }
 
     @Override
-    public String toString() {
+    public String toString(int depth) {
         StringBuilder sb = new StringBuilder();
         for (ParagraphNode node : paragraphs) {
             sb.append(node.toString());
