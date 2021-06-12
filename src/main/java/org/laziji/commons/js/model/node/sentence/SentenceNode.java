@@ -58,9 +58,10 @@ public class SentenceNode extends BaseNode {
     @Override
     public String toString(int depth, boolean start) {
         StringBuilder sb = new StringBuilder();
-        sb.append(nodes.get(0).toString());
+        sb.append(nodes.get(0).toString(depth, start));
         for (int i = 1; i < nodes.size(); i++) {
-            sb.append(' ').append(tokens.get(i - 1).getValue()).append(' ').append(nodes.get(i).toString());
+            sb.append(' ').append(tokens.get(i - 1).getValue())
+                    .append(' ').append(nodes.get(i).toString(depth, false));
         }
         return sb.toString();
     }

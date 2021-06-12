@@ -71,7 +71,6 @@ public class SectionNode extends BaseNode {
             if (node.getSelf() instanceof EmptyParagraphNode) {
                 continue;
             }
-            sb.append(getTabString(depth));
             sb.append(node.toString(depth,true));
             if (node.shouldEndFlag()) {
                 sb.append(';');

@@ -1,5 +1,10 @@
 package org.laziji.commons.js.model.node;
 
+import com.google.common.base.Joiner;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 public abstract class BaseNode implements Node {
 
     private Node parent;
@@ -35,5 +40,11 @@ public abstract class BaseNode implements Node {
             tabSb.append(' ');
         }
         return tabSb.toString();
+    }
+
+    protected String nodesJoin(Collection<? extends Node> nodes, String separator, int depth, boolean start) {
+        return Joiner.on(separator)
+                .join(nodes.stream().map(r -> r.toString(depth, start)).collect(Collectors.toList()));
+
     }
 }

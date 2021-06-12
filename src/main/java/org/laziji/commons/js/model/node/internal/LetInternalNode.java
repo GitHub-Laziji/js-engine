@@ -49,6 +49,6 @@ public class LetInternalNode extends BaseNode implements InternalNode {
         if (assignment == null) {
             return name.getValue();
         }
-        return String.format("%s = %s", name.getValue(), node.toString());
+        return String.format("%s = %s", name.getValue(), node.toString(depth, false));
     }
 }

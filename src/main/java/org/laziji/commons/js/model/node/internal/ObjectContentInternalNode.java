@@ -5,6 +5,8 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
+import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.ArrayList;
@@ -50,7 +52,18 @@ public class ObjectContentInternalNode extends BaseNode implements InternalNode 
 
     @Override
     public String toString(int depth, boolean start) {
-        return nodes.size() == 0 ? "" : Joiner.on(",\n").join(nodes);
+        StringBuilder sb = new StringBuilder();
+        for (ObjectContentItemInternalNode node : nodes) {
+            if (node.getSelf() instanceof EmptyParagraphNode) {
+                continue;
+            }
+            sb.append(node.toString(depth, true));
+            if (node != nodes.get(nodes.size() - 1)) {
+                sb.append(",\n");
+            }
+
+        }
+        return sb.toString();
     }
 
 }
