@@ -54,7 +54,7 @@ public class RegText {
 
     @Test
     public void sectionTest() throws Exception {
-        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};\nfunction func2(){\n}";
+        String text = IOUtils.resourceToString("/section.js", Charsets.UTF_8);
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         SectionNode node = new SectionNode(null);
@@ -66,7 +66,7 @@ public class RegText {
             i++;
         }
         System.out.println(node.isDone());
-        System.out.println(node.toString());
+        System.out.println(node.toString(0));
     }
 
 }

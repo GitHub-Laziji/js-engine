@@ -5,9 +5,9 @@ import org.laziji.commons.js.model.TokenUnit;
 
 public abstract class BaseBracketNode<T extends Node> extends BaseNode {
 
-    private TokenUnit open;
-    private T node;
-    private TokenUnit close;
+    protected TokenUnit open;
+    protected T node;
+    protected TokenUnit close;
 
     public BaseBracketNode(Node parent) {
         super(parent);
@@ -46,7 +46,7 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
 
     @Override
     public String toString(int depth) {
-        return String.format("%s%s%s", open.getValue(), node, close.getValue());
+        return String.format("%s%s%s", open.getValue(), node.toString(depth), close.getValue());
     }
 
     protected abstract Token getOpenBracket();

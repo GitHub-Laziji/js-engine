@@ -31,4 +31,9 @@ public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implem
     public boolean shouldEndFlag() {
         return false;
     }
+
+    @Override
+    public String toString(int depth) {
+        return String.format("%s\n%s%s", open.getValue(), node.toString(depth+1), close.getValue());
+    }
 }
