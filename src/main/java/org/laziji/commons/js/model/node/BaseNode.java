@@ -28,4 +28,12 @@ public abstract class BaseNode implements Node {
     public String toString() {
         return toString(0);
     }
+
+    protected String getTabString(int depth) {
+        StringBuilder tabSb = new StringBuilder();
+        for (int i = depth * 2; i > 0; i--) {
+            tabSb.append(' ');
+        }
+        return tabSb.toString();
+    }
 }

@@ -10,11 +10,11 @@ import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionParamNamesInternalNode extends BaseNode implements InternalNode {
+public class FunctionParamsContentInternalNode extends BaseNode implements InternalNode {
 
     private List<NameWordNode> names = new ArrayList<>();
 
-    public FunctionParamNamesInternalNode(Node parent) {
+    public FunctionParamsContentInternalNode(Node parent) {
         super(parent);
     }
 
@@ -23,11 +23,10 @@ public class FunctionParamNamesInternalNode extends BaseNode implements Internal
     public Node append(TokenUnit unit) throws Exception {
         if (names.size() == 0) {
             try {
-                new NameWordNode(null).append(unit);
+                new NameWordNode(null).init().append(unit);
                 NameWordNode name = new NameWordNode(this);
-                name.append(unit);
                 names.add(name);
-                return this;
+                return name.init().append(unit);
             } catch (Exception ignored) {
             }
         }

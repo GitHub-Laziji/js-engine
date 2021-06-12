@@ -4,7 +4,7 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BaseBracketNode;
 import org.laziji.commons.js.model.node.Node;
 
-public class FunctionParamsInternalNode extends BaseBracketNode<FunctionParamNamesInternalNode> implements InternalNode {
+public class FunctionParamsInternalNode extends BaseBracketNode<FunctionParamsContentInternalNode> implements InternalNode {
 
     public FunctionParamsInternalNode(Node parent) {
         super(parent);
@@ -21,7 +21,7 @@ public class FunctionParamsInternalNode extends BaseBracketNode<FunctionParamNam
     }
 
     @Override
-    protected FunctionParamNamesInternalNode getContentNode() {
-        return new FunctionParamNamesInternalNode(this);
+    protected FunctionParamsContentInternalNode getContentNode() {
+        return new FunctionParamsContentInternalNode(this);
     }
 }
