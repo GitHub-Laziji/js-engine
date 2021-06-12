@@ -7,7 +7,7 @@ public class ProxyBasicWordNode extends BaseProxyNode<BasicWordNode> implements 
 
     public ProxyBasicWordNode(Node parent) {
         super(parent);
-        addProxyItem(new BracketWordNode(null));
+        addProxyItem(new SmallBracketWordNode(null));
         addProxyItem(new NumberWordNode(null));
         addProxyItem(new StringWordNode(null));
         addProxyItem(new NameWordNode(null));
