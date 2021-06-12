@@ -55,4 +55,8 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
     }
 
 
+    @Override
+    public boolean shouldEndFlag() {
+        return true;
+    }
 }

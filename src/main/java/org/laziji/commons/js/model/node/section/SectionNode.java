@@ -4,9 +4,9 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,6 @@ import java.util.List;
 public class SectionNode extends BaseNode {
 
     private List<ParagraphNode> paragraphs = new ArrayList<>();
-    private boolean end;
 
     public SectionNode(Node parent) {
         super(parent);
@@ -36,20 +35,45 @@ public class SectionNode extends BaseNode {
         if (!isDone()) {
             throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
         }
-        if (paragraphs.get(paragraphs.size() - 1).isDone() && unit.getToken() == Token.COMMA) {
+        ParagraphNode last = this.paragraphs.get(this.paragraphs.size() - 1);
+        if (last.isDone()) {
+            if (unit.getToken() == Token.SEMICOLON) {
+                ProxyParagraphNode paragraph = new ProxyParagraphNode(this);
+                this.paragraphs.add(paragraph);
+                return paragraph.init();
+            }
+            if (last.shouldEndFlag()) {
+                throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+            }
+            if (last.getSelf() instanceof EmptyParagraphNode) {
+                if (getParent() != null) {
+                    return getParent().append(unit);
+                }
+                throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+            }
             ProxyParagraphNode paragraph = new ProxyParagraphNode(this);
             this.paragraphs.add(paragraph);
-            return paragraph.init();
+            return paragraph.init().append(unit);
         }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
-        }
+
         throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
     }
 
     @Override
     public boolean isDone() {
-        return paragraphs.size() == 1 || paragraphs.get(paragraphs.size() - 1).isDone() && end;
+        return paragraphs.get(paragraphs.size() - 1).isDone();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (ParagraphNode node : paragraphs) {
+            sb.append(node.toString());
+            if (node.shouldEndFlag()) {
+                sb.append(';');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
 }

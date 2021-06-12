@@ -13,12 +13,12 @@ public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implem
 
     @Override
     protected Token getOpenBracket() {
-        return Token.BRACKET_SML_OPEN;
+        return Token.BRACKET_BIG_OPEN;
     }
 
     @Override
     protected Token getCloseBracket() {
-        return Token.BRACKET_SML_CLOSE;
+        return Token.BRACKET_BIG_CLOSE;
     }
 
     @Override
@@ -27,4 +27,8 @@ public class BigBracketParagraphNode extends BaseBracketNode<SectionNode> implem
     }
 
 
+    @Override
+    public boolean shouldEndFlag() {
+        return false;
+    }
 }

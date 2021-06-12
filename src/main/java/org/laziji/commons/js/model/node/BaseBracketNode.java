@@ -21,12 +21,9 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
             }
             this.open = unit;
             this.node = getContentNode();
-            if (this.node != null) {
-                return node.init();
-            }
-            return this;
+            return this.node.init();
         }
-        if (node != null && !node.isDone()) {
+        if (!node.isDone()) {
             throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
         }
         if (close == null) {
@@ -49,7 +46,7 @@ public abstract class BaseBracketNode<T extends Node> extends BaseNode {
 
     @Override
     public String toString() {
-        return String.format("(%s)", node.toString());
+        return String.format("%s%s%s", open.getValue(), node, close.getValue());
     }
 
     protected abstract Token getOpenBracket();

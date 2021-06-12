@@ -10,5 +10,11 @@ public class ProxyParagraphNode extends BaseProxyNode<ParagraphNode> implements 
         addProxyItem(new BigBracketParagraphNode(null));
         addProxyItem(new LetParagraphNode(null));
         addProxyItem(new ValueParagraphNode(null));
+        addProxyItem(new EmptyParagraphNode(null));
+    }
+
+    @Override
+    public boolean shouldEndFlag() {
+        return getSelf().shouldEndFlag();
     }
 }

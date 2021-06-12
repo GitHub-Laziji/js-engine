@@ -15,6 +15,11 @@ public abstract class BaseNode implements Node {
     }
 
     @Override
+    public Node getSelf() {
+        return this;
+    }
+
+    @Override
     public Node init() {
         return this;
     }

@@ -53,4 +53,9 @@ public class FunctionWordNode extends BaseNode implements ComplexWordNode {
         return function != null && (name == null || name.isDone()) && params != null
                 && params.isDone() && content != null && content.isDone();
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s%s %s", function.getValue(), name == null ? "" : name, params, content);
+    }
 }

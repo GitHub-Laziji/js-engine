@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +14,11 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
 
     public BaseProxyNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public T getSelf() {
+        return proxyItems.get(0).getRoot();
     }
 
     @Override
@@ -35,11 +41,17 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
         }
         if (proxyItems.isEmpty() && backup != null) {
             proxyItems.add(backup);
+            if (isDone() && getParent() != null) {
+                return getParent().append(unit);
+            }
+            throw new Exception(String.format("%s: [%s] is not the expected token.",
+                    getClass().getSimpleName(), unit.getToken().toString()));
         }
         if (proxyItems.size() > 0) {
             return this;
         }
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+        throw new Exception(String.format("%s: [%s] is not the expected token.",
+                getClass().getSimpleName(), unit.getToken().toString()));
     }
 
     @Override
@@ -55,4 +67,5 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     protected void addProxyItem(T node) {
         proxyItems.add(new ProxyItem<>(node));
     }
+
 }

@@ -8,7 +8,8 @@ public class ProxyItem<T extends Node> {
     private Node current;
 
     public ProxyItem(T root) {
-        this.current = this.root = root;
+        this.root = root;
+        this.current = root.init();
     }
 
     public T getRoot() {

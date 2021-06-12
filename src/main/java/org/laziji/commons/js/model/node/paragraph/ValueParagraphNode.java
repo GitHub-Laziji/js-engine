@@ -51,4 +51,9 @@ public class ValueParagraphNode extends BaseNode implements ParagraphNode {
     public String toString() {
         return Joiner.on(",").join(sentences);
     }
+
+    @Override
+    public boolean shouldEndFlag() {
+        return true;
+    }
 }
