@@ -20,6 +20,9 @@ function func2(v1,v2,v3){
     c=a+b- -c;
     ++k;
     -k--;
+    if(k+1>0){
+        return aaa;
+    }
     return a+[1,2,3][1];
 };
 asd;
