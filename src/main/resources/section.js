@@ -9,8 +9,7 @@ function func2(v1,v2,v3){
         "ff":function(p1,p2){let c=0;}
     };
 
-    func(1+2,e);func2();
-
-    let v = obj[123+324],sv=obj["asd"];
+    func(1+2,e);func2();func3({"a":3});
+    let v = obj[123+324],sv=obj["asd"],c=obj.kkk().asd[123];
 
 }

@@ -1,4 +1,6 @@
 package org.laziji.commons.js.model.node.internal;
 
-public interface InternalNode {
+import org.laziji.commons.js.model.node.Node;
+
+public interface InternalNode extends Node {
 }
