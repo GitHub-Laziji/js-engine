@@ -37,5 +37,5 @@ const JSON= {
 };
 if (window && window.Vue) {
     install(window.Vue);
-}
+} while(i--){let a=0;break;}
 
