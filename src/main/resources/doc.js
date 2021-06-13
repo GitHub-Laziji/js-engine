@@ -28,7 +28,12 @@ function install(Vue) {
     };
     Vue.prototype.$contextmenu = ContextmenuProxy;
 }
-
+const JSON= {
+  a:123,
+  "asd":"sad",
+  [dd]:"asdas",
+    1:21323
+};
 if (window && window.Vue) {
     install(window.Vue);
 }

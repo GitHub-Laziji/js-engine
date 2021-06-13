@@ -4,12 +4,15 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.node.word.basic.NameWordNode;
+import org.laziji.commons.js.model.node.word.basic.NumberWordNode;
 import org.laziji.commons.js.model.node.word.basic.StringWordNode;
 
 public class ObjectContentItemInternalNode extends BaseNode implements InternalNode {
 
-    private StringWordNode key;
+    private ProxyNode<Node> key;
     private SentenceNode value;
 
     public ObjectContentItemInternalNode(Node parent) {
@@ -18,7 +21,9 @@ public class ObjectContentItemInternalNode extends BaseNode implements InternalN
 
     @Override
     public Node init() {
-        key = new StringWordNode(this);
+        key = new ProxyNode<>(this, new StringWordNode(null),
+                new NumberWordNode(null), new NameWordNode(null),
+                new CallObjectParamsInternalNode(null));
         return key.init();
     }
 
