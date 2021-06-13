@@ -84,7 +84,7 @@ public enum Token {
     ASSIGNMENT("^(\\=)([^\\=][\\s\\S]*|$)"),
 
     STRING("^(\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*')[\\s\\S]*"),
-    NUMBER("^(\\d+(\\.\\d+)?)[\\s\\S]*"),
+    NUMBER("^(\\d+(\\.\\d+)?|NaN)[\\s\\S]*"),
     BOOLEAN("^(true|false)([^\\w\\$][\\s\\S]*|$)"),
     REGEXP("^(/(\\\\.|[^/])+/[a-zA-Z]?)[\\s\\S]*"),
     UNDEFINED("^(undefined)([^\\w\\$][\\s\\S]*|$)"),

@@ -60,7 +60,6 @@ public class ValueParagraphNode extends BaseNode implements ParagraphNode {
         if (sentences.size() == 1) {
             try {
                 Class<? extends Node> wordClass = sentences.get(0).getSingleWord();
-                System.out.println(wordClass.getSimpleName());
                 if (wordClass == FunctionWordNode.class || wordClass == ClassWordNode.class) {
                     return false;
                 }

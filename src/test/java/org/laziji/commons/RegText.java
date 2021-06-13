@@ -55,7 +55,7 @@ public class RegText {
 
     @Test
     public void sectionTest() throws Exception {
-        String text = IOUtils.resourceToString("/section.js", Charsets.UTF_8);
+        String text = IOUtils.resourceToString("/doc.js", Charsets.UTF_8);
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         tokenUnits.add(new TokenUnit(Token.EOF, null));

@@ -56,6 +56,7 @@ public class FunctionWordNode extends BaseNode implements ComplexWordNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s %s%s %s", function.getValue(), name == null ? "" : name, params, content.toString(depth, false));
+        return String.format("%s%s %s%s %s", start ? getTabString(depth) : "",
+                function.getValue(), name == null ? "" : name, params, content.toString(depth, false));
     }
 }
