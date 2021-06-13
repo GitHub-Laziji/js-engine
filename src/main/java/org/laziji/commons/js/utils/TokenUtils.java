@@ -20,7 +20,6 @@ public class TokenUtils {
                 }
             }
             if (token == null) {
-                System.out.println(text);
                 throw new Exception();
             }
             text = text.substring(token.getValue().length());
