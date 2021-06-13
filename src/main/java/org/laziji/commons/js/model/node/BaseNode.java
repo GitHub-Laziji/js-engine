@@ -1,10 +1,7 @@
 package org.laziji.commons.js.model.node;
 
-import com.google.common.base.Joiner;
-
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.Collectors;
 
 public abstract class BaseNode implements Node {
 
@@ -46,7 +43,6 @@ public abstract class BaseNode implements Node {
     protected String getTabString(int depth, boolean start) {
         return start ? getTabString(depth) : "";
     }
-
 
     protected String nodesJoin(Collection<? extends Node> nodes, String separator, boolean wrap, int depth, boolean start) {
         if (nodes == null || nodes.size() == 0) {

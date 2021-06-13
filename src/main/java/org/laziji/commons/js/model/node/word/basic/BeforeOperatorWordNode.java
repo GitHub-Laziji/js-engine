@@ -4,7 +4,6 @@ import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.OperatorWordNameInternalNode;
-import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
 public class BeforeOperatorWordNode extends BaseNode implements BasicWordNode {
 

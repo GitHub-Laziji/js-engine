@@ -39,7 +39,6 @@ public class RegText {
     @Test
     public void letTest() throws Exception {
         String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){}";
-//        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         DefinedParagraphNode letNode = new DefinedParagraphNode(null);
         Node p = letNode;
@@ -56,7 +55,6 @@ public class RegText {
     @Test
     public void sectionTest() throws Exception {
         String text = IOUtils.resourceToString("/doc.js", Charsets.UTF_8);
-//        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
         tokenUnits.add(new TokenUnit(Token.EOF, null));
         DocNode node = new DocNode();
@@ -67,6 +65,7 @@ public class RegText {
             p = p.append(tokenUnits.get(i));
             i++;
         }
+        System.out.println("============================");
         System.out.println(node.isDone());
         System.out.println(node.toString());
     }
