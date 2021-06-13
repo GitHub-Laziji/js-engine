@@ -10,6 +10,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.doc.DocNode;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
+import org.laziji.commons.js.utils.CodeUtils;
 import org.laziji.commons.js.utils.TokenUtils;
 
 import java.util.List;
@@ -29,45 +30,22 @@ public class RegText {
     }
 
     @Test
-    public void astTest() throws Exception {
-        String text = IOUtils.resourceToString("/ast.js", Charsets.UTF_8);
-//        System.out.println(text);
-        List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
-        System.out.println(JSON.toJSONString(tokenUnits, true));
-    }
-
-    @Test
     public void letTest() throws Exception {
         String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){}";
-        List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
-        DefinedParagraphNode letNode = new DefinedParagraphNode(null);
-        Node p = letNode;
-        int i = 0;
-        while (i < tokenUnits.size()) {
-            System.out.println(JSON.toJSONString(tokenUnits.get(i)) + " " + p.getClass().getSimpleName());
-            p = p.append(tokenUnits.get(i));
-            i++;
+        List<TokenUnit> units = TokenUtils.parseTextToTokens(text);
+        DefinedParagraphNode node = new DefinedParagraphNode(null);
+        Node p = node.init();
+        for (TokenUnit unit : units) {
+            p = p.append(unit);
         }
-        System.out.println(letNode.isDone());
-        System.out.println(letNode.toString());
+        System.out.println(node.isDone());
+        System.out.println(node.toString());
     }
 
     @Test
-    public void sectionTest() throws Exception {
+    public void docTest() throws Exception {
         String text = IOUtils.resourceToString("/doc.js", Charsets.UTF_8);
-        List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
-        tokenUnits.add(new TokenUnit(Token.EOF, null));
-        DocNode node = new DocNode();
-        Node p = node.init();
-        int i = 0;
-        while (i < tokenUnits.size()) {
-            System.out.println(JSON.toJSONString(tokenUnits.get(i)) + " " + p.getClass().getSimpleName());
-            p = p.append(tokenUnits.get(i));
-            i++;
-        }
-        System.out.println("============================");
-        System.out.println(node.isDone());
-        System.out.println(node.toString());
+        System.out.println(CodeUtils.format(text));
     }
 
 }
