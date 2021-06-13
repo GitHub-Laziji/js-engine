@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.paragraph.LetParagraphNode;
+import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.utils.TokenUtils;
 
@@ -40,7 +40,7 @@ public class RegText {
         String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){}";
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
-        LetParagraphNode letNode = new LetParagraphNode(null);
+        DefinedParagraphNode letNode = new DefinedParagraphNode(null);
         Node p = letNode;
         int i = 0;
         while (i < tokenUnits.size()) {

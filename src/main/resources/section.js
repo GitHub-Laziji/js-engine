@@ -1,7 +1,7 @@
 let a=1+2,b=3,c="string",d=a*(b+c/2),func=function(){};
 function func2(v1,v2,v3){
     let e="asd",arr=[1,2,"asdddd"];
-    let f="asd";let g="asd"+e,call=func(e,c);
+    var f="asd";let g="asd"+e,call=func(e,c);
 
     let empryArr = [],obj={
         "kkk":123,
@@ -10,6 +10,7 @@ function func2(v1,v2,v3){
     };
 
     func(1+2,e);func2();func3({"a":3});
-    let v = obj[123+324],sv=obj["asd"],c=obj.kkk().asd[123];
+    const v = obj[123+324],sv=obj["asd"],c=obj.kkk().asd[123];
+    let str = '1234'.substring(0,3);
 
 }

@@ -6,13 +6,13 @@ import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
 
-public class LetInternalNode extends BaseNode implements InternalNode {
+public class DefinedInternalNode extends BaseNode implements InternalNode {
 
     private TokenUnit name;
     private TokenUnit assignment;
     private SentenceNode node;
 
-    public LetInternalNode(Node parent) {
+    public DefinedInternalNode(Node parent) {
         super(parent);
     }
 

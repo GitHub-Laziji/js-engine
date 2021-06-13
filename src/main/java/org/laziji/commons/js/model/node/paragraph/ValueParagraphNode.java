@@ -49,7 +49,6 @@ public class ValueParagraphNode extends BaseNode implements ParagraphNode {
 
     @Override
     public String toString(int depth, boolean start) {
-
         return nodesJoin(sentences, ", ", false, depth, start);
     }
 

@@ -1,41 +1,40 @@
 package org.laziji.commons.js.model.node.paragraph;
 
-import com.google.common.base.Joiner;
 import com.sun.istack.internal.NotNull;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.internal.LetInternalNode;
+import org.laziji.commons.js.model.node.internal.DefinedInternalNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LetParagraphNode extends BaseNode implements ParagraphNode {
+public class DefinedParagraphNode extends BaseNode implements ParagraphNode {
 
-    private TokenUnit let;
-    private List<LetInternalNode> nodes;
+    private TokenUnit defined;
+    private List<DefinedInternalNode> nodes;
 
-    public LetParagraphNode(Node parent) {
+    public DefinedParagraphNode(Node parent) {
         super(parent);
     }
 
     @Override
     public Node append(@NotNull TokenUnit unit) throws Exception {
-        if (let == null) {
-            if (unit.getToken() != Token.LET) {
+        if (defined == null) {
+            if (unit.getToken() != Token.LET && unit.getToken() != Token.VAR && unit.getToken() != Token.CONST) {
                 throw new Exception(String.format("[%s] is not the expected token. expected [let.js]", unit.getToken().toString()));
             }
-            let = unit;
+            defined = unit;
             nodes = new ArrayList<>();
-            nodes.add(new LetInternalNode(this));
+            nodes.add(new DefinedInternalNode(this));
             return nodes.get(0).init();
         }
         if (nodes.get(nodes.size() - 1).isDone()) {
             if (unit.getToken() != Token.COMMA) {
                 throw new Exception(String.format("[%s] is not the expected token. expected [,]", unit.getToken().toString()));
             }
-            nodes.add(new LetInternalNode(this));
+            nodes.add(new DefinedInternalNode(this));
             return nodes.get(nodes.size() - 1).init();
         }
         if (isDone() && getParent() != null) {
@@ -46,13 +45,13 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
 
     @Override
     public boolean isDone() {
-        return let != null && nodes.get(nodes.size() - 1).isDone();
+        return defined != null && nodes.get(nodes.size() - 1).isDone();
     }
 
     @Override
     public String toString(int depth, boolean start) {
         return String.format("%s%s %s", start ? getTabString(depth) : "",
-                let.getValue(), nodesJoin(nodes, ", ", false, depth, start));
+                defined.getValue(), nodesJoin(nodes, ", ", false, depth, start));
     }
 
 
