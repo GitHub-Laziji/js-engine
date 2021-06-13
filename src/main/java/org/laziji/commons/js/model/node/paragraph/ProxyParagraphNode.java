@@ -10,6 +10,9 @@ public class ProxyParagraphNode extends BaseProxyNode<ParagraphNode> implements 
         addProxyItem(new BigBracketParagraphNode(null));
         addProxyItem(new DefinedParagraphNode(null));
         addProxyItem(new ValueParagraphNode(null));
+        addProxyItem(new ReturnParagraphNode(null));
+        addProxyItem(new ContinueParagraphNode(null));
+        addProxyItem(new BreakParagraphNode(null));
         addProxyItem(new EmptyParagraphNode(null));
     }
 
