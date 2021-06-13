@@ -52,7 +52,7 @@ public class LetParagraphNode extends BaseNode implements ParagraphNode {
     @Override
     public String toString(int depth, boolean start) {
         return String.format("%s%s %s", start ? getTabString(depth) : "",
-                let.getValue(), nodesJoin(nodes, ", ", depth, start));
+                let.getValue(), nodesJoin(nodes, ", ", false, depth, start));
     }
 
 

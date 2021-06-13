@@ -1,13 +1,12 @@
-package org.laziji.commons.js.model.node.word.basic;
+package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BaseBracketNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.internal.BracketContentInternalNode;
 
-public class ArrayWordNode extends BaseBracketNode<BracketContentInternalNode> implements BasicWordNode {
+public class CallObjectParamsInternalNode extends BaseBracketNode<BracketContentInternalNode> implements InternalNode {
 
-    public ArrayWordNode(Node parent) {
+    public CallObjectParamsInternalNode(Node parent) {
         super(parent);
     }
 
@@ -23,6 +22,6 @@ public class ArrayWordNode extends BaseBracketNode<BracketContentInternalNode> i
 
     @Override
     protected BracketContentInternalNode getContentNode() {
-        return new BracketContentInternalNode(this, false);
+        return new BracketContentInternalNode(this, true);
     }
 }

@@ -6,11 +6,13 @@ import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 
-public class ArrayContentInternalNode extends BaseProxyNode<ParagraphNode> implements InternalNode{
+public class BracketContentInternalNode extends BaseProxyNode<ParagraphNode> implements InternalNode {
 
-    public ArrayContentInternalNode(Node parent) {
+    public BracketContentInternalNode(Node parent, boolean notEmpty) {
         super(parent);
-        addProxyItem(new EmptyParagraphNode(null));
         addProxyItem(new ValueParagraphNode(null));
+        if (!notEmpty) {
+            addProxyItem(new EmptyParagraphNode(null));
+        }
     }
 }

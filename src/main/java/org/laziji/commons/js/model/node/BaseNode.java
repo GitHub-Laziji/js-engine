@@ -3,6 +3,7 @@ package org.laziji.commons.js.model.node;
 import com.google.common.base.Joiner;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public abstract class BaseNode implements Node {
@@ -42,9 +43,23 @@ public abstract class BaseNode implements Node {
         return tabSb.toString();
     }
 
-    protected String nodesJoin(Collection<? extends Node> nodes, String separator, int depth, boolean start) {
-        return Joiner.on(separator)
-                .join(nodes.stream().map(r -> r.toString(depth, start)).collect(Collectors.toList()));
-
+    protected String nodesJoin(Collection<? extends Node> nodes, String separator, boolean wrap, int depth, boolean start) {
+        if (nodes == null || nodes.size() == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        Iterator<? extends Node> iterator = nodes.iterator();
+        if (iterator.hasNext()) {
+            sb.append(iterator.next().toString(depth, start));
+        }
+        while (iterator.hasNext()) {
+            sb.append(separator);
+            if (wrap) {
+                sb.append('\n').append(iterator.next().toString(depth, true));
+            } else {
+                sb.append(iterator.next().toString(depth, false));
+            }
+        }
+        return sb.toString();
     }
 }
