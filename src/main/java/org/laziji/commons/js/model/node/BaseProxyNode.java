@@ -16,8 +16,8 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public T getSelf() {
-        return proxyItems.get(0).getRoot();
+    public Node getSelf() {
+        return proxyItems.get(0).getRoot().getSelf();
     }
 
     @Override

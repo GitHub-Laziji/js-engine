@@ -90,4 +90,11 @@ public class SentenceNode extends BaseNode {
         }
         return sb.toString();
     }
+
+    public Class<? extends Node> getSingleWord() throws Exception {
+        if (!isDone() || nodes.size() > 1) {
+            throw new Exception("");
+        }
+        return nodes.get(0).getSelf().getClass();
+    }
 }

@@ -7,6 +7,9 @@ import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
+import org.laziji.commons.js.model.node.word.WordNode;
+import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
+import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,16 @@ public class ValueParagraphNode extends BaseNode implements ParagraphNode {
 
     @Override
     public boolean shouldEndFlag() {
+        if (sentences.size() == 1) {
+            try {
+                Class<? extends Node> wordClass = sentences.get(0).getSingleWord();
+                System.out.println(wordClass.getSimpleName());
+                if (wordClass == FunctionWordNode.class || wordClass == ClassWordNode.class) {
+                    return false;
+                }
+            } catch (Exception ignored) {
+            }
+        }
         return true;
     }
 }

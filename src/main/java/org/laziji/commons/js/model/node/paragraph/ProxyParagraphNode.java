@@ -18,6 +18,10 @@ public class ProxyParagraphNode extends BaseProxyNode<ParagraphNode> implements 
 
     @Override
     public boolean shouldEndFlag() {
-        return getSelf().shouldEndFlag();
+        Node self = getSelf();
+        if (self instanceof ParagraphNode) {
+            return ((ParagraphNode) self).shouldEndFlag();
+        }
+        return true;
     }
 }
