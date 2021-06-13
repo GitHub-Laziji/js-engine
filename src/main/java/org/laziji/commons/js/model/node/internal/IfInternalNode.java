@@ -45,7 +45,7 @@ public class IfInternalNode extends BaseNode implements InternalNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s%s %s", start ? getTabString(depth) : "", ifUnit.getValue(),
+        return String.format("%s%s%s %s", getTabString(depth, start), ifUnit.getValue(),
                 exp.toString(depth, false), content.toString(depth, false));
     }
 

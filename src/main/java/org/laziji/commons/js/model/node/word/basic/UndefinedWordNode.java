@@ -32,6 +32,6 @@ public class UndefinedWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s", start ? getTabString(depth) : "", unit.getValue());
+        return String.format("%s%s", getTabString(depth, start), unit.getValue());
     }
 }

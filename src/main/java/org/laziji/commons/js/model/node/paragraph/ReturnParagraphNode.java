@@ -43,9 +43,9 @@ public class ReturnParagraphNode extends BaseNode implements ParagraphNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        if(node.getSelf() instanceof EmptyParagraphNode){
-            return String.format("%s%s", start ? getTabString(depth) : "", unit.getValue());
+        if (node.getSelf() instanceof EmptyParagraphNode) {
+            return String.format("%s%s", getTabString(depth, start), unit.getValue());
         }
-        return String.format("%s%s %s", start ? getTabString(depth) : "", unit.getValue(), node.toString(depth, false));
+        return String.format("%s%s %s", getTabString(depth, start), unit.getValue(), node.toString(depth, false));
     }
 }

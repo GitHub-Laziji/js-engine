@@ -41,6 +41,6 @@ public class UnaryWordNode extends BaseNode implements BasicWordNode {
     @Override
     public String toString(int depth, boolean start) {
         //TODO 判断是否需要空格
-        return String.format("%s%s %s", start ? getTabString(depth) : "", unary.getValue(), node.toString(depth, false));
+        return String.format("%s%s %s", getTabString(depth, start), unary.getValue(), node.toString(depth, false));
     }
 }

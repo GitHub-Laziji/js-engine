@@ -47,8 +47,8 @@ public class NewObjectWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s %s%s", start ? getTabString(depth) : "",
-                newUnit.getValue(), name.toString(depth, false), params.toString(depth, false));
+        return String.format("%s%s %s%s", getTabString(depth, start), newUnit.getValue(),
+                name.toString(depth, false), params.toString(depth, false));
     }
 }
 

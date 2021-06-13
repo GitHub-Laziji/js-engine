@@ -50,7 +50,7 @@ public class DefinedParagraphNode extends BaseNode implements ParagraphNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s %s", start ? getTabString(depth) : "",
+        return String.format("%s%s %s", getTabString(depth, start),
                 defined.getValue(), nodesJoin(nodes, ", ", false, depth, start));
     }
 

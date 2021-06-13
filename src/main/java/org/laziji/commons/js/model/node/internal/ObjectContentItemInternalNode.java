@@ -49,6 +49,6 @@ public class ObjectContentItemInternalNode extends BaseNode implements InternalN
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s: %s", getTabString(depth), key, value.toString(depth, false));
+        return String.format("%s: %s", key.toString(depth, start), value.toString(depth, false));
     }
 }

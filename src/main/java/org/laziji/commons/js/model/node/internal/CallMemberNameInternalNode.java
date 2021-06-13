@@ -38,6 +38,6 @@ public class CallMemberNameInternalNode extends BaseNode implements InternalNode
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s%s", start ? getTabString(depth) : "", dot.getValue(), name.toString(depth, false));
+        return String.format("%s%s%s", getTabString(depth, start), dot.getValue(), name.toString(depth, false));
     }
 }
