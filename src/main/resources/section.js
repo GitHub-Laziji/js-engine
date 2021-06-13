@@ -12,5 +12,13 @@ function func2(v1,v2,v3){
     func(1+2,e);func2();func3({"a":3});
     const v = obj[123+324],sv=obj["asd"],c=obj.kkk().asd[123];
     let str = '1234'.substring(0,3);
-
-}
+    instance.items = options.items;
+    instance.position.x = options.x || 0;
+    instance.position.y = options.y || 0;
+    -a;
+    +-+ -a;
+    c=a+b- -c;
+    ++k;
+    -k--;
+};
+asd;

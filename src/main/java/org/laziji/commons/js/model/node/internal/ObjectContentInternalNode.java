@@ -1,13 +1,10 @@
 package org.laziji.commons.js.model.node.internal;
 
-import com.google.common.base.Joiner;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
-import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.ArrayList;
 import java.util.List;

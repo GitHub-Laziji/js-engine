@@ -57,6 +57,6 @@ public class CallWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s", name.toString(depth, start), nodesJoin(nodes, "", false, depth, start));
+        return String.format("%s%s", name.toString(depth, start), nodesJoin(nodes, "", false, depth, false));
     }
 }

@@ -35,10 +35,35 @@ public class SentenceNode extends BaseNode {
             throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
         }
         switch (unit.getToken()) {
+            case SELF_ADD_BY:
+            case SELF_SUB_BY:
+            case SELF_AND_BY:
+            case SELF_OR_BY:
+            case SELF_BIT_AND_BY:
+            case SELF_BIT_OR_BY:
+            case SELF_BIT_XOR_BY:
+            case SELF_DIV_BY:
+            case SELF_MOD_BY:
+            case SELF_MUL_BY:
             case ADD:
             case SUB:
             case MUL:
             case DIV:
+            case MOD:
+            case AND:
+            case OR:
+            case EQUAL:
+            case ABS_EQUAL:
+            case UNEQUAL:
+            case ABS_UNEQUAL:
+            case GT:
+            case GT_EQUAL:
+            case LT:
+            case LT_EQUAL:
+            case BIT_AND:
+            case BIT_OR:
+            case BIT_XOR:
+            case ASSIGNMENT:
                 tokens.add(unit);
                 ProxyWordNode word = new ProxyWordNode(this);
                 this.nodes.add(word);

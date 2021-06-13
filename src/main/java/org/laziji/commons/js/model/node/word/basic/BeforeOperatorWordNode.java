@@ -1,0 +1,45 @@
+package org.laziji.commons.js.model.node.word.basic;
+
+import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.internal.OperatorWordNameInternalNode;
+import org.laziji.commons.js.model.node.word.ProxyWordNode;
+
+public class BeforeOperatorWordNode extends BaseNode implements BasicWordNode {
+
+    private TokenUnit operator;
+    private OperatorWordNameInternalNode node;
+
+    public BeforeOperatorWordNode(Node parent) {
+        super(parent);
+    }
+
+    @Override
+    public Node append(TokenUnit unit) throws Exception {
+        if (operator == null) {
+            switch (unit.getToken()) {
+                case SELF_ADD:
+                case SELF_SUB:
+                    operator = unit;
+                    node = new OperatorWordNameInternalNode(this);
+                    return node.init();
+            }
+            throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+        }
+        if (isDone() && getParent() != null) {
+            return getParent().append(unit);
+        }
+        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+    }
+
+    @Override
+    public boolean isDone() {
+        return operator != null && node != null && node.isDone();
+    }
+
+    @Override
+    public String toString(int depth, boolean start) {
+        return String.format("%s%s%s", start ? getTabString(depth) : "", operator.getValue(), node.toString(depth, false));
+    }
+}

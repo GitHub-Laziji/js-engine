@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Token {
+    EOF("\0"),
+
     NEWLINE("^(\\n+)[\\s\\S]*"),
     SPACE("^(\\s+)[\\s\\S]*"),
     SEMICOLON("^(;)[\\s\\S]*"),

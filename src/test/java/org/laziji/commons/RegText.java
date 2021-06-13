@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.doc.DocNode;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.utils.TokenUtils;
@@ -44,7 +45,7 @@ public class RegText {
         Node p = letNode;
         int i = 0;
         while (i < tokenUnits.size()) {
-            System.out.println(JSON.toJSONString(tokenUnits.get(i))+" "+p.getClass().getSimpleName());
+            System.out.println(JSON.toJSONString(tokenUnits.get(i)) + " " + p.getClass().getSimpleName());
             p = p.append(tokenUnits.get(i));
             i++;
         }
@@ -57,11 +58,12 @@ public class RegText {
         String text = IOUtils.resourceToString("/section.js", Charsets.UTF_8);
 //        System.out.println(text);
         List<TokenUnit> tokenUnits = TokenUtils.parseTextToTokens(text);
-        SectionNode node = new SectionNode(null);
+        tokenUnits.add(new TokenUnit(Token.EOF, null));
+        DocNode node = new DocNode();
         Node p = node.init();
         int i = 0;
         while (i < tokenUnits.size()) {
-            System.out.println(JSON.toJSONString(tokenUnits.get(i))+" "+p.getClass().getSimpleName());
+            System.out.println(JSON.toJSONString(tokenUnits.get(i)) + " " + p.getClass().getSimpleName());
             p = p.append(tokenUnits.get(i));
             i++;
         }
