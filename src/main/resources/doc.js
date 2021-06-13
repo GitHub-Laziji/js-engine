@@ -25,6 +25,7 @@ function install(Vue) {
             lastInstance.$destroy();
             lastInstance = null;
         }
+        return;
     };
     Vue.prototype.$contextmenu = ContextmenuProxy;
 }

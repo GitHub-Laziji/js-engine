@@ -40,6 +40,6 @@ public class BeforeOperatorWordNode extends BaseNode implements BasicWordNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s%s", start ? getTabString(depth) : "", operator.getValue(), node.toString(depth, false));
+        return String.format("%s%s%s", getTabString(depth, start), operator.getValue(), node.toString(depth, false));
     }
 }

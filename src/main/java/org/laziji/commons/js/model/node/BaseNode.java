@@ -43,6 +43,11 @@ public abstract class BaseNode implements Node {
         return tabSb.toString();
     }
 
+    protected String getTabString(int depth, boolean start) {
+        return start ? getTabString(depth) : "";
+    }
+
+
     protected String nodesJoin(Collection<? extends Node> nodes, String separator, boolean wrap, int depth, boolean start) {
         if (nodes == null || nodes.size() == 0) {
             return "";
