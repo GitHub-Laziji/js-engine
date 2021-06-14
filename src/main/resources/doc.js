@@ -49,5 +49,7 @@ function asdasdsa(){
     - ++i;
 
     const arr = ["asdas,232",21321,{}];
+    const func4=(a,b)=>{return a+b;
+    };
     return 1+2;
 }
