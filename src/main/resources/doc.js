@@ -62,3 +62,12 @@ function asdasdsa(){
     }while(true);
     return 1+2;
 }
+export let asd=213,b=2;
+
+export default {
+    install:install
+};
+
+function f() {
+
+}
