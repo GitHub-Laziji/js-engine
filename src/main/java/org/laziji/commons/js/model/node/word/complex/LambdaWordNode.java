@@ -5,6 +5,7 @@ import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
+import org.laziji.commons.js.model.node.sentence.SentenceNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.Arrays;
@@ -20,9 +21,9 @@ public class LambdaWordNode extends BasePlanNode implements ComplexWordNode {
     @Override
     protected List<Supplier<Node>> getPlan() {
         return Arrays.asList(
-                () -> new FunctionParamsInternalNode(this),
+                () -> new ProxyNode<>(this, new FunctionParamsInternalNode(null), new NameWordNode(null)),
                 () -> new UnitNode(this, Token.LAMBDA),
-                () -> new BigBracketParagraphNode(this)
+                () -> new ProxyNode<>(this, new BigBracketParagraphNode(null), new SentenceNode(null))
         );
     }
 

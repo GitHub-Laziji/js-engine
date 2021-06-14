@@ -51,5 +51,8 @@ function asdasdsa(){
     const arr = ["asdas,232",21321,{}];
     const func4=(a,b)=>{return a+b;
     };
+    const func5=()=>{return a+b;
+    };
+    const func6=a=>a+1;
     return 1+2;
 }
