@@ -3,6 +3,8 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
+import java.util.Set;
+
 public abstract class BaseUnitNode extends BaseNode {
 
     private TokenUnit unit;
@@ -13,7 +15,7 @@ public abstract class BaseUnitNode extends BaseNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (this.unit == null && unit.getToken() == getToken()) {
+        if (this.unit == null && getTokens().contains(unit.getToken())) {
             this.unit = unit;
             return this;
         }
@@ -33,5 +35,5 @@ public abstract class BaseUnitNode extends BaseNode {
         return String.format("%s%s", getTabString(depth, start), unit.getValue());
     }
 
-    protected abstract Token getToken();
+    protected abstract Set<Token> getTokens();
 }
