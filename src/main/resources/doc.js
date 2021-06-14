@@ -39,3 +39,6 @@ if (window && window.Vue) {
     install(window.Vue);
 } while(i--){let a=0;break;}
 
+function asdasdsa(){
+    return 1+2;
+}

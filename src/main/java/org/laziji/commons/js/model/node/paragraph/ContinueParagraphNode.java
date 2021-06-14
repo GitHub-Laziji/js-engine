@@ -1,22 +1,29 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.node.BaseUnitNode;
+import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 
-public class ContinueParagraphNode extends BaseUnitNode implements ParagraphNode {
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Supplier;
+
+public class ContinueParagraphNode extends BasePlanNode implements ParagraphNode {
 
     public ContinueParagraphNode(Node parent) {
         super(parent);
     }
 
     @Override
-    protected Token getToken() {
-        return Token.CONTINUE;
+    public boolean shouldEndFlag() {
+        return true;
     }
 
     @Override
-    public boolean shouldEndFlag() {
-        return true;
+    protected List<Supplier<Node>> getPlan() {
+        return Collections.singletonList(
+                () -> new UnitNode(this, Token.CONTINUE)
+        );
     }
 }
