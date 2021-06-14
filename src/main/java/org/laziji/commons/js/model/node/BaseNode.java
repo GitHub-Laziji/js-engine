@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.node;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class BaseNode implements Node {
 
@@ -15,6 +16,11 @@ public abstract class BaseNode implements Node {
     @Override
     public Node getParent() {
         return parent;
+    }
+
+    @Override
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -38,6 +44,10 @@ public abstract class BaseNode implements Node {
             tabSb.append(' ');
         }
         return tabSb.toString();
+    }
+
+    protected <T> T last(List<T> list) {
+        return list.get(list.size() - 1);
     }
 
     protected String getTabString(int depth, boolean start) {

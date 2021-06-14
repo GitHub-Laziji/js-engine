@@ -6,6 +6,8 @@ public interface Node {
 
     Node getParent();
 
+    void setParent(Node parent);
+
     Node getSelf();
 
     Node append(TokenUnit unit) throws Exception;

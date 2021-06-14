@@ -37,7 +37,7 @@ public class RegText {
 
     @Test
     public void docTest() throws Exception {
-        String text = IOUtils.resourceToString("/doc.js", Charsets.UTF_8);
+        String text = IOUtils.resourceToString("/section.js", Charsets.UTF_8);
         System.out.println(CodeUtils.format(text));
     }
 

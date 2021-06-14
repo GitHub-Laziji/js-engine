@@ -1,62 +1,44 @@
 package org.laziji.commons.js.model.node.paragraph;
 
-import com.sun.istack.internal.NotNull;
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.BasePlanNode;
+import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.internal.DefinedInternalNode;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
-public class DefinedParagraphNode extends BaseNode implements ParagraphNode {
-
-    private TokenUnit defined;
-    private List<DefinedInternalNode> nodes;
+public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode {
 
     public DefinedParagraphNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(@NotNull TokenUnit unit) throws Exception {
-        if (defined == null) {
-            if (unit.getToken() != Token.LET && unit.getToken() != Token.VAR && unit.getToken() != Token.CONST) {
-                throw new Exception(String.format("[%s] is not the expected token. expected [let.js]", unit.getToken().toString()));
-            }
-            defined = unit;
-            nodes = new ArrayList<>();
-            nodes.add(new DefinedInternalNode(this));
-            return nodes.get(0).init();
-        }
-        if (nodes.get(nodes.size() - 1).isDone()) {
-            if (unit.getToken() != Token.COMMA) {
-                throw new Exception(String.format("[%s] is not the expected token. expected [,]", unit.getToken().toString()));
-            }
-            nodes.add(new DefinedInternalNode(this));
-            return nodes.get(nodes.size() - 1).init();
-        }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
-        }
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-    }
-
-    @Override
-    public boolean isDone() {
-        return defined != null && nodes.get(nodes.size() - 1).isDone();
-    }
-
-    @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s %s", getTabString(depth, start),
-                defined.getValue(), nodesJoin(nodes, ", ", false, depth, start));
+        return String.format("%s %s", current[0].toString(depth, start), current[1].toString(depth, false));
     }
-
 
     @Override
     public boolean shouldEndFlag() {
         return true;
     }
+
+    @Override
+    protected List<Supplier<Node>> getPlan() {
+        return Arrays.asList(
+                () -> new UnitNode(this, Token.LET, Token.VAR, Token.CONST),
+                () -> new ListNode<>(
+                        this,
+                        () -> new DefinedInternalNode(null),
+                        (o) -> new UnitNode(null, Token.COMMA),
+                        false,
+                        "%s "
+                )
+        );
+    }
+
 }
