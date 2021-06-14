@@ -40,5 +40,14 @@ if (window && window.Vue) {
 } while(i--){let a=0;break;}
 
 function asdasdsa(){
+    let i=1;
+    i++;
+    i--;
+    -i++;
+    ++i;
+    --i;
+    - ++i;
+
+    const arr = ["asdas,232",21321,{}];
     return 1+2;
 }

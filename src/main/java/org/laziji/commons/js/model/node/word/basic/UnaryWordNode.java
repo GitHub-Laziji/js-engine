@@ -1,46 +1,32 @@
 package org.laziji.commons.js.model.node.word.basic;
 
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
-public class UnaryWordNode extends BaseNode implements BasicWordNode {
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
 
-    private TokenUnit unary;
-    private ProxyWordNode node;
+public class UnaryWordNode extends BasePlanNode implements BasicWordNode {
 
     public UnaryWordNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) throws Exception {
-        if (unary == null) {
-            switch (unit.getToken()) {
-                case ADD:
-                case SUB:
-                case NON:
-                    unary = unit;
-                    node = new ProxyWordNode(this);
-                    return node.init();
-            }
-            throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-        }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
-        }
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-    }
-
-    @Override
-    public boolean isDone() {
-        return unary != null && node != null && node.isDone();
+    protected List<Supplier<Node>> getPlan() {
+        return Arrays.asList(
+                () -> new UnitNode(this, Token.ADD, Token.SUB, Token.NON),
+                () -> new ProxyWordNode(this)
+        );
     }
 
     @Override
     public String toString(int depth, boolean start) {
         //TODO 判断是否需要空格
-        return String.format("%s%s %s", getTabString(depth, start), unary.getValue(), node.toString(depth, false));
+        return String.format("%s %s", current[0].toString(depth, start), current[1].toString(depth, false));
     }
 }

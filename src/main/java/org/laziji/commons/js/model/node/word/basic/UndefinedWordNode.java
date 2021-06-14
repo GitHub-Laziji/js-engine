@@ -2,36 +2,24 @@ package org.laziji.commons.js.model.node.word.basic;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 
-public class UndefinedWordNode extends BaseNode implements BasicWordNode {
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Supplier;
 
-    private TokenUnit unit;
+public class UndefinedWordNode extends BasePlanNode implements BasicWordNode {
 
     public UndefinedWordNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) throws Exception {
-        if (this.unit == null && unit.getToken() == Token.UNDEFINED) {
-            this.unit = unit;
-            return this;
-        }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
-        }
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-    }
-
-    @Override
-    public boolean isDone() {
-        return unit != null;
-    }
-
-    @Override
-    public String toString(int depth, boolean start) {
-        return String.format("%s%s", getTabString(depth, start), unit.getValue());
+    protected List<Supplier<Node>> getPlan() {
+        return Collections.singletonList(
+                () -> new UnitNode(this, Token.UNDEFINED)
+        );
     }
 }
