@@ -21,11 +21,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
             if (nodes.size() == 0 && allowEmpty()) {
-                try {
-                    T temp = getNextNode();
-                    temp.setParent(null);
-                    temp.init().append(unit);
-                } catch (Exception e) {
+                if (!tryNodeAppend(unit)) {
                     if (getParent() != null) {
                         return getParent().append(unit);
                     }
@@ -39,19 +35,27 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
             if (!last(nodes).isDone()) {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
-            try {
-                Node temp = getNextSeparator();
-                temp.setParent(null);
-                temp.init().append(unit);
-            } catch (Exception e) {
-                if (getParent() != null) {
-                    return getParent().append(unit);
-                }
-                throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-            }
             Node separator = getNextSeparator();
-            separators.add(separator);
-            return separator.init().append(unit);
+            if (separator == null) {
+                if (tryNodeAppend(unit)) {
+                    separators.add(new EmptyNode(this));
+                    return append(unit);
+                } else {
+                    if (getParent() != null) {
+                        return getParent().append(unit);
+                    }
+                    throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+                }
+            } else {
+                if (!trySeparatorAppend(unit)) {
+                    if (getParent() != null) {
+                        return getParent().append(unit);
+                    }
+                    throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+                }
+                separators.add(separator);
+                return separator.init().append(unit);
+            }
         }
     }
 
@@ -67,4 +71,29 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
     protected abstract T getNextNode();
 
     protected abstract Node getNextSeparator();
+
+    private boolean tryNodeAppend(TokenUnit unit) {
+        try {
+            T temp = getNextNode();
+            temp.setParent(null);
+            temp.init().append(unit);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean trySeparatorAppend(TokenUnit unit) {
+        try {
+            Node temp = getNextSeparator();
+            if (temp == null) {
+                return false;
+            }
+            temp.setParent(null);
+            temp.init().append(unit);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

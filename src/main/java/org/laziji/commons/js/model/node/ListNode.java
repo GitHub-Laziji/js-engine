@@ -23,7 +23,6 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
     public ListNode(Node parent, Supplier<T> nextNode, boolean allowEmpty) {
         super(parent);
         this.nextNode = nextNode;
-        this.nextSeparator = (o) -> new EmptyNode(null);
         this.allowEmpty = allowEmpty;
     }
 
@@ -36,7 +35,13 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
 
     @Override
     protected Node getNextSeparator() {
+        if (nextSeparator == null) {
+            return null;
+        }
         Node separator = nextSeparator.apply(nodes);
+        if (separator == null) {
+            return null;
+        }
         separator.setParent(this);
         return separator;
     }
