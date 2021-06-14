@@ -28,6 +28,7 @@ public class TokenUtils {
             }
             tokens.add(token);
         }
+        tokens.add(new TokenUnit(Token.EOF, null));
         return tokens;
     }
 

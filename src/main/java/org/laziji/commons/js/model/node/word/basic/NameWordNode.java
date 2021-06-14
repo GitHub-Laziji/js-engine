@@ -11,7 +11,7 @@ public class NameWordNode extends BaseUnitNode implements BasicWordNode {
     }
 
     @Override
-    protected Token getUnit() {
+    protected Token getToken() {
         return Token.NAME;
     }
 }

@@ -11,7 +11,7 @@ public class ContinueParagraphNode extends BaseUnitNode implements ParagraphNode
     }
 
     @Override
-    protected Token getUnit() {
+    protected Token getToken() {
         return Token.CONTINUE;
     }
 

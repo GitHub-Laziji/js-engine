@@ -11,7 +11,7 @@ public class StringWordNode extends BaseUnitNode implements BasicWordNode {
     }
 
     @Override
-    protected Token getUnit() {
+    protected Token getToken() {
         return Token.STRING;
     }
 }

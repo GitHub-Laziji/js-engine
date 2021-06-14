@@ -13,7 +13,7 @@ public class NumberWordNode extends BaseUnitNode implements BasicWordNode {
     }
 
     @Override
-    protected Token getUnit() {
+    protected Token getToken() {
         return Token.NUMBER;
     }
 }

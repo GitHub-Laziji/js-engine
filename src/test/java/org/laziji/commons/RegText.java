@@ -31,15 +31,8 @@ public class RegText {
 
     @Test
     public void letTest() throws Exception {
-        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){}";
-        List<TokenUnit> units = TokenUtils.parseTextToTokens(text);
-        DefinedParagraphNode node = new DefinedParagraphNode(null);
-        Node p = node.init();
-        for (TokenUnit unit : units) {
-            p = p.append(unit);
-        }
-        System.out.println(node.isDone());
-        System.out.println(node.toString());
+        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};";
+        System.out.println(CodeUtils.format(text));
     }
 
     @Test

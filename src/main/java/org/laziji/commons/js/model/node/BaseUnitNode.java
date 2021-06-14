@@ -13,7 +13,7 @@ public abstract class BaseUnitNode extends BaseNode {
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
-        if (this.unit == null && unit.getToken() == getUnit()) {
+        if (this.unit == null && unit.getToken() == getToken()) {
             this.unit = unit;
             return this;
         }
@@ -33,5 +33,5 @@ public abstract class BaseUnitNode extends BaseNode {
         return String.format("%s%s", getTabString(depth, start), unit.getValue());
     }
 
-    protected abstract Token getUnit();
+    protected abstract Token getToken();
 }
