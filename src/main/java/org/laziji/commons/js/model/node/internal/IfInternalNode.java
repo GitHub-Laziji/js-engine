@@ -27,9 +27,8 @@ public class IfInternalNode extends BasePlanNode implements InternalNode {
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return String.format("%s%s %s", current[0].toString(depth, start),
-                current[1].toString(depth, false), current[2].toString(depth, false));
+    protected String getStringFormat() {
+        return "%s%s %s";
     }
 
 }

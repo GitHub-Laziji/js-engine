@@ -51,12 +51,11 @@ public abstract class BasePlanNode extends BaseNode {
     @Override
     public String toString(int depth, boolean start) {
         if (getStringFormat() == null) {
-
             return nodesJoin(Arrays.asList(current), " ", false, depth, start);
         }
         Object[] values = new Object[current.length];
         for (int i = 0; i < current.length; i++) {
-            values[i] = current[i].toString(depth, start);
+            values[i] = current[i].toString(depth, i == 0 && start);
         }
         return String.format(getStringFormat(), values);
     }

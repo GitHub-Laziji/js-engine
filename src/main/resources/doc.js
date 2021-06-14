@@ -54,5 +54,6 @@ function asdasdsa(){
     const func5=()=>{return a+b;
     };
     const func6=a=>a+1;
+    function func7(){}
     return 1+2;
 }

@@ -1,27 +1,31 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.node.BaseBracketNode;
+import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 
-public class FunctionParamsInternalNode extends BaseBracketNode<FunctionParamsContentInternalNode> implements InternalNode {
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+
+public class FunctionParamsInternalNode extends BasePlanNode implements InternalNode {
 
     public FunctionParamsInternalNode(Node parent) {
         super(parent);
     }
 
     @Override
-    protected Token getOpenBracket() {
-        return Token.BRACKET_SML_OPEN;
+    protected List<Supplier<Node>> getPlan() {
+        return Arrays.asList(
+                () -> new UnitNode(this, Token.BRACKET_SML_OPEN),
+                () -> new FunctionParamsContentInternalNode(this),
+                () -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
+        );
     }
 
     @Override
-    protected Token getCloseBracket() {
-        return Token.BRACKET_SML_CLOSE;
-    }
-
-    @Override
-    protected FunctionParamsContentInternalNode getContentNode() {
-        return new FunctionParamsContentInternalNode(this);
+    protected String getStringFormat() {
+        return "%s%s%s";
     }
 }
