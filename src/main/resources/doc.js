@@ -1,4 +1,5 @@
-
+import "asad";
+import a from "asd";
 const ContextmenuConstructor = Vue.extend(Contextmenu);
 Vue.component(COMPONENT_NAME, Submenu);
 
@@ -55,5 +56,9 @@ function asdasdsa(){
     };
     const func6=a=>a+1;
     function func7(){}
+
+    do{
+        break;
+    }while(true);
     return 1+2;
 }

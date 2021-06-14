@@ -40,7 +40,7 @@ public enum Token {
     YIELD("^(yield)([^\\w\\$][\\s\\S]*|$)"),
     NEW("^(new)([^\\w\\$][\\s\\S]*|$)"),
     IMPORT("^(import)([^\\w\\$][\\s\\S]*|$)"),
-    FORM("^(form)([^\\w\\$][\\s\\S]*|$)"),
+    FROM("^(from)([^\\w\\$][\\s\\S]*|$)"),
     AS("^(as)([^\\w\\$][\\s\\S]*|$)"),
     EXPORT("^(export)([^\\w\\$][\\s\\S]*|$)"),
     DEFAULT("^(default)([^\\w\\$][\\s\\S]*|$)"),
