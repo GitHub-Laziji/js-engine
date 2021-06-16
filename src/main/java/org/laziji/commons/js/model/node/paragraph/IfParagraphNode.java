@@ -1,16 +1,8 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.IfInternalNode;
-import org.laziji.commons.js.model.node.section.SectionNode;
-import org.laziji.commons.js.model.node.word.ProxyWordNode;
-import org.laziji.commons.js.model.node.word.WordNode;
-import org.laziji.commons.js.model.node.word.basic.SmallBracketWordNode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements ParagraphNode {
 
