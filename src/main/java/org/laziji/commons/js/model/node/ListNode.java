@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
+// TODO lambda 传入上下文 this ,  注解节点
 public class ListNode<T extends Node> extends BaseListNode<T> {
 
     private Supplier<T> nextNode;
