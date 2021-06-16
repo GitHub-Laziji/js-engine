@@ -69,7 +69,7 @@ function asdasdsa(){
         c++;
     }else if(true){ b++;
     }
-
+    let a,b,c,d=a+n,e=1+2+(3*4);
     return 1+2;
 }
 export let asd=213,b=2;
