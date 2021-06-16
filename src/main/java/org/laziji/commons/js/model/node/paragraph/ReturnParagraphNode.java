@@ -1,10 +1,7 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.node.BasePlanNode;
-import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.ProxyNode;
-import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.node.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +20,7 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        if (current[1].getSelf() instanceof EmptyParagraphNode) {
+        if (current[1].getSelf() instanceof EmptyNode) {
             return current[0].toString(depth, start);
         }
         return String.format("%s %s", current[0].toString(depth, start), current[1].toString(depth, false));
@@ -33,7 +30,7 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     protected List<Supplier<Node>> getPlan() {
         return Arrays.asList(
                 () -> new UnitNode(this, Token.RETURN),
-                () -> new ProxyNode<>(this, new ValueParagraphNode(null), new EmptyParagraphNode(null))
+                () -> new ProxyNode<>(this, new ValueParagraphNode(null), new EmptyNode(null))
         );
     }
 }

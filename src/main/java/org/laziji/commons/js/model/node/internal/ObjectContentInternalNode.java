@@ -1,66 +1,34 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
+import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
+import org.laziji.commons.js.model.node.UnitNode;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ObjectContentInternalNode extends BaseNode implements InternalNode {
-
-    private List<ObjectContentItemInternalNode> nodes = new ArrayList<>();
+public class ObjectContentInternalNode extends BaseListNode<ObjectContentItemInternalNode> implements InternalNode {
 
     public ObjectContentInternalNode(Node parent) {
         super(parent);
     }
 
     @Override
-    public Node append(TokenUnit unit) throws Exception {
-        if (nodes.size() == 0) {
-            try {
-                new ObjectContentItemInternalNode(null).init().append(unit);
-                ObjectContentItemInternalNode node = new ObjectContentItemInternalNode(this);
-                nodes.add(node);
-                return node.init().append(unit);
-            } catch (Exception ignored) {
-            }
-        }
-        if (!isDone()) {
-            throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
-        }
-        if (nodes.size() > 0 && nodes.get(nodes.size() - 1).isDone() && unit.getToken() == Token.COMMA) {
-            ObjectContentItemInternalNode word = new ObjectContentItemInternalNode(this);
-            this.nodes.add(word);
-            return word.init();
-        }
-        if (isDone() && getParent() != null) {
-            return getParent().append(unit);
-        }
-        throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
+    protected ObjectContentItemInternalNode getNextNode() {
+        return new ObjectContentItemInternalNode(this);
     }
 
     @Override
-    public boolean isDone() {
-        return nodes.size() == 0 || nodes.get(nodes.size() - 1).isDone();
+    protected Node getNextSeparator() {
+        return new UnitNode(this, Token.COMMA);
+    }
+
+    @Override
+    protected boolean allowEmpty() {
+        return true;
     }
 
     @Override
     public String toString(int depth, boolean start) {
-        StringBuilder sb = new StringBuilder();
-        for (ObjectContentItemInternalNode node : nodes) {
-            if (node.getSelf() instanceof EmptyParagraphNode) {
-                continue;
-            }
-            sb.append(node.toString(depth, true));
-            if (node != nodes.get(nodes.size() - 1)) {
-                sb.append(",\n");
-            }
-
-        }
-        return sb.toString();
+        return nodesJoin(nodes, ",", true, depth, true);
     }
 
 }

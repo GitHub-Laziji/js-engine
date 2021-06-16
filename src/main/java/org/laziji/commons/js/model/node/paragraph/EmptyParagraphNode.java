@@ -10,7 +10,7 @@ public class EmptyParagraphNode extends EmptyNode implements ParagraphNode {
     }
 
     public boolean shouldEndFlag() {
-        return false;
+        return true;
     }
 
 }

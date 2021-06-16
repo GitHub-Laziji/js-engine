@@ -5,7 +5,6 @@ import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.EmptyNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
 
@@ -27,7 +26,7 @@ public class SectionNode extends BaseListNode<ParagraphNode> {
         StringBuilder sb = new StringBuilder();
         List<ParagraphNode> newNodes = new ArrayList<>();
         for (ParagraphNode node : nodes) {
-            if (node.getSelf() instanceof EmptyParagraphNode) {
+            if (node.getSelf() instanceof EmptyNode) {
                 continue;
             }
             newNodes.add(node);
@@ -52,9 +51,7 @@ public class SectionNode extends BaseListNode<ParagraphNode> {
     @Override
     protected Node getNextSeparator() {
         Node self = last(nodes).getSelf();
-        if (!(self instanceof ParagraphNode)
-                || self instanceof EmptyParagraphNode
-                || ((ParagraphNode) self).shouldEndFlag()) {
+        if (!(self instanceof ParagraphNode) || ((ParagraphNode) self).shouldEndFlag()) {
             return new UnitNode(this, Token.SEMICOLON);
         }
         return new EmptyNode(this);

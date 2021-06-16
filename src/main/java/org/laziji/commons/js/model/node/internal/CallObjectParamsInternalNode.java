@@ -4,6 +4,7 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CallObjectParamsInternalNode extends BasePlanNode implements Intern
     protected List<Supplier<Node>> getPlan() {
         return Arrays.asList(
                 () -> new UnitNode(this, Token.BRACKET_MID_OPEN),
-                () -> new BracketContentInternalNode(this, true),
+                () -> new ValueParagraphNode(this),
                 () -> new UnitNode(this, Token.BRACKET_MID_CLOSE)
         );
     }
