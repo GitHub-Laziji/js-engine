@@ -60,6 +60,16 @@ function asdasdsa(){
     do{
         break;
     }while(true);
+
+    if(a+b){c++;
+    }else{  b++;
+    }
+
+    if(a+b){
+        c++;
+    }else if(true){ b++;
+    }
+
     return 1+2;
 }
 export let asd=213,b=2;
