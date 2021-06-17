@@ -21,6 +21,7 @@ public class ProxyParagraphNode extends BaseProxyNode<ParagraphNode> implements 
         addProxyItem(new ExportDefaultParagraphNode(null));
         addProxyItem(new ExportDefinedParagraphNode(null));
         addProxyItem(new EmptyParagraphNode(null));
+        addProxyItem(new LineRemarkParagraphNode(null));
     }
 
     @Override

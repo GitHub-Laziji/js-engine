@@ -10,6 +10,7 @@ function install(Vue) {
         let instance =
             new ContextmenuConstructor();
         instance.items = options.items;
+// 注解注解注解注解注解注解注解注解注解
         instance.position.x
             = options.x || 0;
         instance.position.y
