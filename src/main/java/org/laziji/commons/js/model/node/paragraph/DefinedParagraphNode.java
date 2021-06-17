@@ -2,8 +2,6 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.*;
-import org.laziji.commons.js.model.node.internal.DefinedAssignmentInternalNode;
-import org.laziji.commons.js.model.node.internal.DefinedInternalNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
 
 import java.util.Arrays;
@@ -32,7 +30,7 @@ public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode 
                 (self, pre) -> new UnitNode(this, Token.LET, Token.VAR, Token.CONST),
                 (self, pre) -> new ListNode<>(
                         this,
-                        () -> new ProxyNode<>(null,
+                        (listNodeSelf, o) -> new ProxyNode<>(listNodeSelf,
                                 new PlanNode(null, (subSelf, subPre) -> new UnitNode(subSelf, Token.NAME)),
                                 new PlanNode(null,
                                         (subSelf, subPre) -> new UnitNode(subSelf, Token.NAME),
@@ -40,7 +38,7 @@ public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode 
                                         (subSelf, subPre) -> new SentenceNode(subSelf)
                                 )
                         ),
-                        (o) -> new UnitNode(null, Token.COMMA),
+                        (listNodeSelf, o) -> new UnitNode(listNodeSelf, Token.COMMA),
                         false,
                         "%s "
                 )

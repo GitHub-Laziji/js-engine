@@ -27,7 +27,7 @@ public class CallWordNode extends BasePlanNode implements BasicWordNode {
                 (self, pre) -> new CallNameInternalNode(this),
                 (self, pre) -> new ListNode<>(
                         this,
-                        () -> new ProxyCallParamsInternalNode(null),
+                        (subSelf, o) -> new ProxyCallParamsInternalNode(subSelf),
                         false
                 )
         );

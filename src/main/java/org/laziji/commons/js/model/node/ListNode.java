@@ -1,17 +1,16 @@
 package org.laziji.commons.js.model.node;
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
-// TODO lambda 传入上下文 this ,  注解节点
+import java.util.function.BiFunction;
+
+// TODO  注解节点
 public class ListNode<T extends Node> extends BaseListNode<T> {
 
-    private Supplier<T> nextNode;
-    private Function<List<T>, Node> nextSeparator;
+    private BiFunction<Node, Node, T> nextNode;
+    private BiFunction<Node, T, Node> nextSeparator;
     private boolean allowEmpty;
     private String separatorFormat;
 
-    public ListNode(Node parent, Supplier<T> nextNode, Function<List<T>, Node> nextSeparator,
+    public ListNode(Node parent, BiFunction<Node, Node, T> nextNode, BiFunction<Node, T, Node> nextSeparator,
                     boolean allowEmpty, String separatorFormat) {
         super(parent);
         this.nextNode = nextNode;
@@ -20,7 +19,7 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
         this.separatorFormat = separatorFormat;
     }
 
-    public ListNode(Node parent, Supplier<T> nextNode, boolean allowEmpty) {
+    public ListNode(Node parent, BiFunction<Node, Node, T> nextNode, boolean allowEmpty) {
         super(parent);
         this.nextNode = nextNode;
         this.allowEmpty = allowEmpty;
@@ -28,9 +27,7 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
 
     @Override
     protected T getNextNode() {
-        T node = nextNode.get();
-        node.setParent(this);
-        return node;
+        return nextNode.apply(this, null);
     }
 
     @Override
@@ -38,11 +35,10 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
         if (nextSeparator == null) {
             return null;
         }
-        Node separator = nextSeparator.apply(nodes);
+        Node separator = nextSeparator.apply(this, nodes.size() > 0 ? last(nodes) : null);
         if (separator == null) {
             return null;
         }
-        separator.setParent(this);
         return separator;
     }
 
