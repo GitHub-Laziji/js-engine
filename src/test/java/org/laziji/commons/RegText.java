@@ -20,7 +20,7 @@ public class RegText {
     @Test
     public void test() {
         System.out.println(Token.IMPORT.match("import Vue from 'vue';\nsadasd\nimport Vue from 'vue';"));
-        System.out.println(Token.REMARK.match("/*sasdasd\nasdsaddasd"));
+        System.out.println(Token.REMARK.match("/*sasdasd\nasdsaddasd*/ ddd */"));
         System.out.println(Token.CONST.match("const aaa"));
         System.out.println(Token.CONST.match("const$aaa"));
         System.out.println(Token.CONST.match("const"));

@@ -24,4 +24,10 @@ public class LineRemarkParagraphNode extends BasePlanNode implements ParagraphNo
                 (self, pre) -> new UnitNode(self, Token.REMARK_OF_LINE)
         );
     }
+
+    @Override
+    public String toString(int depth, boolean start) {
+        return String.format("%s// %s", getTabString(depth, start),
+                current[0].toString(0, false).substring(2).trim());
+    }
 }

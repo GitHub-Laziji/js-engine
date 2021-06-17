@@ -3,6 +3,7 @@ import a from "asd";
 const ContextmenuConstructor = Vue.extend(Contextmenu);
 Vue.component(COMPONENT_NAME, Submenu);
 
+/*@param Vue*/
 function install(Vue) {
     let lastInstance = null;
     const
@@ -10,9 +11,17 @@ function install(Vue) {
         let instance =
             new ContextmenuConstructor();
         instance.items = options.items;
-// 注解注解注解注解注解注解注解注解注解
+//             注解注解注解注解注解注解注解注解注解
         instance.position.x
             = options.x || 0;
+
+        /*asd
+         asdasd
+         asdasd
+         */
+            /*
+            asda
+            */
         instance.position.y
             = options.y || 0;
         if (options.event) {
