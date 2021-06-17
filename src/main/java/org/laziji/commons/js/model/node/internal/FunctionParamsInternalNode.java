@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.UnitNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class FunctionParamsInternalNode extends BasePlanNode implements InternalNode {
 
@@ -16,11 +16,11 @@ public class FunctionParamsInternalNode extends BasePlanNode implements Internal
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.BRACKET_SML_OPEN),
-                () -> new FunctionParamsContentInternalNode(this),
-                () -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
+                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_OPEN),
+                (self, pre) -> new FunctionParamsContentInternalNode(this),
+                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
         );
     }
 

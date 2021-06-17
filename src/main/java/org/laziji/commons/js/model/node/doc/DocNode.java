@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.section.SectionNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class DocNode extends BasePlanNode {
 
@@ -17,10 +17,10 @@ public class DocNode extends BasePlanNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new SectionNode(this),
-                () -> new UnitNode(this, Token.EOF)
+                (self, pre) -> new SectionNode(this),
+                (self, pre) -> new UnitNode(this, Token.EOF)
         );
     }
 

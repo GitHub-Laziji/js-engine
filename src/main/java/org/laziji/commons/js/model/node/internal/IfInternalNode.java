@@ -9,7 +9,7 @@ import org.laziji.commons.js.model.node.word.basic.SmallBracketWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class IfInternalNode extends BasePlanNode implements InternalNode {
 
@@ -18,11 +18,11 @@ public class IfInternalNode extends BasePlanNode implements InternalNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.IF),
-                () -> new SmallBracketWordNode(this),
-                () -> new BigBracketParagraphNode(this)
+                (self, pre) -> new UnitNode(this, Token.IF),
+                (self, pre) -> new SmallBracketWordNode(this),
+                (self, pre) -> new BigBracketParagraphNode(this)
         );
     }
 

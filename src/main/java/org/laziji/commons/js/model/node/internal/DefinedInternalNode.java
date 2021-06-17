@@ -1,17 +1,13 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class DefinedInternalNode extends BasePlanNode implements InternalNode {
 
@@ -21,9 +17,9 @@ public class DefinedInternalNode extends BasePlanNode implements InternalNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Collections.singletonList(
-                () -> new UnitNode(this, Token.NAME)
+                (self, pre) -> new UnitNode(self, Token.NAME)
         );
     }
 }

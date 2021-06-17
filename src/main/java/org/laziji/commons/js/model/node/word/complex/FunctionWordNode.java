@@ -1,16 +1,14 @@
 package org.laziji.commons.js.model.node.word.complex;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
-import org.laziji.commons.js.model.node.word.ProxyWordNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class FunctionWordNode extends BasePlanNode implements ComplexWordNode {
 
@@ -19,12 +17,12 @@ public class FunctionWordNode extends BasePlanNode implements ComplexWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.FUNCTION),
-                () -> new ProxyNode<Node>(this, new NameWordNode(null), new EmptyNode(null)),
-                () -> new FunctionParamsInternalNode(this),
-                () -> new BigBracketParagraphNode(this)
+                (self, pre) -> new UnitNode(this, Token.FUNCTION),
+                (self, pre) -> new ProxyNode<Node>(this, new NameWordNode(null), new EmptyNode(null)),
+                (self, pre) -> new FunctionParamsInternalNode(this),
+                (self, pre) -> new BigBracketParagraphNode(this)
         );
     }
 

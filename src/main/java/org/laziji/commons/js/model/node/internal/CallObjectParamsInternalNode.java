@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class CallObjectParamsInternalNode extends BasePlanNode implements InternalNode {
 
@@ -17,11 +17,11 @@ public class CallObjectParamsInternalNode extends BasePlanNode implements Intern
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.BRACKET_MID_OPEN),
-                () -> new ValueParagraphNode(this),
-                () -> new UnitNode(this, Token.BRACKET_MID_CLOSE)
+                (self, pre) -> new UnitNode(this, Token.BRACKET_MID_OPEN),
+                (self, pre) -> new ValueParagraphNode(this),
+                (self, pre) -> new UnitNode(this, Token.BRACKET_MID_CLOSE)
         );
     }
 

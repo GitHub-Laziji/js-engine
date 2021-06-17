@@ -4,21 +4,24 @@ import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public abstract class BasePlanNode extends BaseNode {
 
-    private List<Supplier<Node>> plan;
+    private List<BiFunction<Node, Node, Node>> plan;
     protected Node[] current;
 
     public BasePlanNode(Node parent) {
         super(parent);
-        plan = getPlan();
-        current = new Node[plan.size()];
     }
 
     @Override
     public Node append(TokenUnit unit) throws Exception {
+        if (plan == null) {
+            plan = getPlan();
+            current = new Node[plan.size()];
+        }
         for (int i = 0; i < plan.size(); i++) {
             if (current[i] != null) {
                 continue;
@@ -26,7 +29,7 @@ public abstract class BasePlanNode extends BaseNode {
             if (i > 0 && !current[i - 1].isDone()) {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
-            current[i] = plan.get(i).get();
+            current[i] = plan.get(i).apply(this, i > 0 ? current[i - 1] : null);
             return current[i].init().append(unit);
         }
         if (!current[plan.size() - 1].isDone()) {
@@ -64,6 +67,6 @@ public abstract class BasePlanNode extends BaseNode {
         return null;
     }
 
-    protected abstract List<Supplier<Node>> getPlan();
+    protected abstract List<BiFunction<Node, Node, Node>> getPlan();
 
 }

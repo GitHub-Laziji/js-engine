@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.UnitNode;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class StringWordNode extends BasePlanNode implements BasicWordNode {
 
@@ -16,9 +16,9 @@ public class StringWordNode extends BasePlanNode implements BasicWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Collections.singletonList(
-                () -> new UnitNode(this, Token.STRING)
+                (self, pre) -> new UnitNode(this, Token.STRING)
         );
     }
 }

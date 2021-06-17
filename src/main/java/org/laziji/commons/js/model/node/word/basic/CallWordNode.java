@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class CallWordNode extends BasePlanNode implements BasicWordNode {
 
@@ -22,10 +22,10 @@ public class CallWordNode extends BasePlanNode implements BasicWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new CallNameInternalNode(this),
-                () -> new ListNode<>(
+                (self, pre) -> new CallNameInternalNode(this),
+                (self, pre) -> new ListNode<>(
                         this,
                         () -> new ProxyCallParamsInternalNode(null),
                         false

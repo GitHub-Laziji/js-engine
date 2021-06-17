@@ -4,11 +4,10 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.section.SectionNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class ExportDefinedParagraphNode extends BasePlanNode implements ParagraphNode {
 
@@ -22,10 +21,10 @@ public class ExportDefinedParagraphNode extends BasePlanNode implements Paragrap
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.EXPORT),
-                () -> new DefinedParagraphNode(this)
+                (self, pre) -> new UnitNode(this, Token.EXPORT),
+                (self, pre) -> new DefinedParagraphNode(this)
         );
     }
 

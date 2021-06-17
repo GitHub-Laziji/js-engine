@@ -10,7 +10,7 @@ import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class CallFunctionParamsInternalNode extends BasePlanNode implements InternalNode {
 
@@ -19,12 +19,12 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.BRACKET_SML_OPEN),
-                () -> new ProxyNode<>(this, new ValueParagraphNode(null),
+                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_OPEN),
+                (self, pre) -> new ProxyNode<>(this, new ValueParagraphNode(null),
                         new EmptyParagraphNode(null)),
-                () -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
+                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
         );
     }
 

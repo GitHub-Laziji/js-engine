@@ -12,6 +12,7 @@ import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class AfterOperatorWordNode extends BasePlanNode implements BasicWordNode {
@@ -21,10 +22,10 @@ public class AfterOperatorWordNode extends BasePlanNode implements BasicWordNode
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new OperatorWordNameInternalNode(this),
-                () -> new UnitNode(this, Token.SELF_ADD, Token.SELF_SUB)
+                (self,pre) -> new OperatorWordNameInternalNode(this),
+                (self,pre) -> new UnitNode(this, Token.SELF_ADD, Token.SELF_SUB)
         );
     }
 

@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.sentence.SentenceNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class DefinedAssignmentInternalNode extends BasePlanNode implements InternalNode {
 
@@ -18,11 +18,11 @@ public class DefinedAssignmentInternalNode extends BasePlanNode implements Inter
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                ()->new UnitNode(this,Token.NAME),
-                ()->new UnitNode(this,Token.ASSIGNMENT),
-                ()->new SentenceNode(this)
+                (self, pre) -> new UnitNode(self, Token.NAME),
+                (self, pre) -> new UnitNode(self, Token.ASSIGNMENT),
+                (self, pre) -> new SentenceNode(self)
         );
     }
 }

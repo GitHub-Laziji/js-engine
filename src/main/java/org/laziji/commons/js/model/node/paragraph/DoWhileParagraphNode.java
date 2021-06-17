@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.word.basic.SmallBracketWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class DoWhileParagraphNode extends BasePlanNode implements ParagraphNode {
 
@@ -22,12 +22,12 @@ public class DoWhileParagraphNode extends BasePlanNode implements ParagraphNode 
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.DO),
-                () -> new BigBracketParagraphNode(this),
-                () -> new UnitNode(this, Token.WHILE),
-                () -> new SmallBracketWordNode(this)
+                (self, pre) -> new UnitNode(this, Token.DO),
+                (self, pre) -> new BigBracketParagraphNode(this),
+                (self, pre) -> new UnitNode(this, Token.WHILE),
+                (self, pre) -> new SmallBracketWordNode(this)
         );
     }
 

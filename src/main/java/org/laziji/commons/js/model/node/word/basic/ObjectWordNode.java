@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.internal.ObjectContentInternalNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class ObjectWordNode extends BasePlanNode implements BasicWordNode {
 
@@ -17,11 +17,11 @@ public class ObjectWordNode extends BasePlanNode implements BasicWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.BRACKET_BIG_OPEN),
-                () -> new ObjectContentInternalNode(this),
-                () -> new UnitNode(this, Token.BRACKET_BIG_CLOSE)
+                (self, pre) -> new UnitNode(this, Token.BRACKET_BIG_OPEN),
+                (self, pre) -> new ObjectContentInternalNode(this),
+                (self, pre) -> new UnitNode(this, Token.BRACKET_BIG_CLOSE)
         );
     }
 

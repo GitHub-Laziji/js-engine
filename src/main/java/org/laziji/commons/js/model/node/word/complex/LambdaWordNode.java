@@ -1,8 +1,10 @@
 package org.laziji.commons.js.model.node.word.complex;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.*;
+import org.laziji.commons.js.model.node.BasePlanNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.ProxyNode;
+import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
@@ -10,7 +12,7 @@ import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class LambdaWordNode extends BasePlanNode implements ComplexWordNode {
 
@@ -19,11 +21,11 @@ public class LambdaWordNode extends BasePlanNode implements ComplexWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new ProxyNode<>(this, new FunctionParamsInternalNode(null), new NameWordNode(null)),
-                () -> new UnitNode(this, Token.LAMBDA),
-                () -> new ProxyNode<>(this, new BigBracketParagraphNode(null), new SentenceNode(null))
+                (self, pre) -> new ProxyNode<>(this, new FunctionParamsInternalNode(null), new NameWordNode(null)),
+                (self, pre) -> new UnitNode(this, Token.LAMBDA),
+                (self, pre) -> new ProxyNode<>(this, new BigBracketParagraphNode(null), new SentenceNode(null))
         );
     }
 

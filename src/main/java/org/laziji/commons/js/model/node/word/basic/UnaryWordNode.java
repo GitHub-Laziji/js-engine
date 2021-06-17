@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.word.ProxyWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class UnaryWordNode extends BasePlanNode implements BasicWordNode {
 
@@ -17,10 +17,10 @@ public class UnaryWordNode extends BasePlanNode implements BasicWordNode {
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.ADD, Token.SUB, Token.NON),
-                () -> new ProxyWordNode(this)
+                (self, pre) -> new UnitNode(this, Token.ADD, Token.SUB, Token.NON),
+                (self, pre) -> new ProxyWordNode(this)
         );
     }
 

@@ -12,7 +12,7 @@ import org.laziji.commons.js.model.node.word.basic.StringWordNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class ObjectContentItemInternalNode extends BasePlanNode implements InternalNode {
 
@@ -21,13 +21,13 @@ public class ObjectContentItemInternalNode extends BasePlanNode implements Inter
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new ProxyNode<>(this, new StringWordNode(null),
+                (self, pre) -> new ProxyNode<>(this, new StringWordNode(null),
                         new NumberWordNode(null), new NameWordNode(null),
                         new CallObjectParamsInternalNode(null)),
-                () -> new UnitNode(this, Token.COLON),
-                () -> new SentenceNode(this)
+                (self, pre) -> new UnitNode(this, Token.COLON),
+                (self, pre) -> new SentenceNode(this)
         );
     }
 

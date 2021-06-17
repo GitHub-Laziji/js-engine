@@ -1,8 +1,6 @@
 package org.laziji.commons.js.model.node.word.basic;
 
 import org.laziji.commons.js.consts.Token;
-import org.laziji.commons.js.model.TokenUnit;
-import org.laziji.commons.js.model.node.BaseNode;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -10,7 +8,7 @@ import org.laziji.commons.js.model.node.internal.OperatorWordNameInternalNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class BeforeOperatorWordNode extends BasePlanNode implements BasicWordNode {
 
@@ -19,10 +17,10 @@ public class BeforeOperatorWordNode extends BasePlanNode implements BasicWordNod
     }
 
     @Override
-    protected List<Supplier<Node>> getPlan() {
+    protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                () -> new UnitNode(this, Token.SELF_ADD, Token.SELF_SUB),
-                () -> new OperatorWordNameInternalNode(this)
+                (self, pre) -> new UnitNode(this, Token.SELF_ADD, Token.SELF_SUB),
+                (self, pre) -> new OperatorWordNameInternalNode(this)
         );
     }
 
