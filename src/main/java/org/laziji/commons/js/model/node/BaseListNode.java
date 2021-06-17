@@ -86,12 +86,6 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
     private boolean trySeparatorAppend(TokenUnit unit) {
         try {
             Node temp = getNextSeparator();
-            if (temp == null) {
-                return false;
-            }
-            if (temp instanceof EmptyNode) {
-                return true;
-            }
             temp.setParent(null);
             temp.init().append(unit);
             return true;

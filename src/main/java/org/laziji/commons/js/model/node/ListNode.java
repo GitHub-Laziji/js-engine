@@ -27,7 +27,7 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
 
     @Override
     protected T getNextNode() {
-        return nextNode.apply(this, null);
+        return nextNode.apply(this, nodes.size() > 0 ? last(nodes) : null);
     }
 
     @Override
