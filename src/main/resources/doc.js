@@ -54,7 +54,9 @@ const JSON= {
   a:123,
   "asd":"sad",
   [dd]:"asdas",
-    1:21323
+    1:21323,
+    func,
+    b:33
 };
 if (window && window.Vue) {
     install(window.Vue);
