@@ -92,6 +92,18 @@ function asdasdsa(){
     }else if(true){ b++;
     }
     let a,b,c,d=a+n,e=1+2+(3*4);
+
+    for(let i=0;i<100;i++){break;
+    }
+
+    for(;;){}
+
+    for(a of [1,2,3]){break;
+    }
+
+    for(let a   of  [1,2,3] ){}
+
+    for(let a   in  [1,2,3] ){}
     return 1+2;
 }
 export let asd=213,b=2;

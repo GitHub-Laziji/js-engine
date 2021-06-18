@@ -30,6 +30,8 @@ public enum Token {
     ELSE("^(else)([^\\w\\$][\\s\\S]*|$)"),
     FUNCTION("^(function)([^\\w\\$][\\s\\S]*|$)"),
     FOR("^(for)([^\\w\\$][\\s\\S]*|$)"),
+    OF("^(of)([^\\w\\$][\\s\\S]*|$)"),
+    IN("^(in)([^\\w\\$][\\s\\S]*|$)"),
     WHILE("^(while)([^\\w\\$][\\s\\S]*|$)"),
     DO("^(do)([^\\w\\$][\\s\\S]*|$)"),
     BREAK("^(break)([^\\w\\$][\\s\\S]*|$)"),
