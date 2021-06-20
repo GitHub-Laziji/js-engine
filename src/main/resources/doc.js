@@ -105,7 +105,7 @@ function asdasdsa(){
 
     for(let a   of  [1,2,3] ){}
 
-    for(let a   in  [1,2,3] ){}
+    for(let a   in  [1,2,3] ){};
     return 1+2;
 }
 export let asd=213,b=2;
@@ -114,4 +114,4 @@ export default {
     install:install
 };
 
-function f() {}
+function f() {};

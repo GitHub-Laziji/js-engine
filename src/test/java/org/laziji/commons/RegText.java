@@ -6,10 +6,9 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.doc.DocNode;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
-import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.utils.CodeUtils;
 import org.laziji.commons.js.utils.TokenUtils;
 
@@ -41,4 +40,18 @@ public class RegText {
         System.out.println(CodeUtils.format(text));
     }
 
+    @Test
+    public void docTest2() throws Exception {
+        List<TokenUnit> tokens = TokenUtils.parseTextToTokens("let a=123,b,c");
+        DocNode node = new DocNode(DefinedParagraphNode::new);
+        Node p = node.init();
+        for (TokenUnit token : tokens) {
+            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
+            p = p.append(token);
+        }
+        if (!node.isDone()) {
+            throw new Exception();
+        }
+        System.out.println(node.toString());
+    }
 }

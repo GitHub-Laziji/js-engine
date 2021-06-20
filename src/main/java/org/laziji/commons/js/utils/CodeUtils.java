@@ -3,7 +3,7 @@ package org.laziji.commons.js.utils;
 import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.doc.DocNode;
+import org.laziji.commons.js.model.node.DocNode;
 
 import java.util.List;
 
