@@ -1,11 +1,17 @@
 package org.laziji.commons;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.context.BlockContext;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
+
+import java.util.Stack;
 
 public class RegText {
 
@@ -40,5 +46,20 @@ public class RegText {
         DocNode node = new DocNode(DefinedParagraphNode::new);
         node.compile("let a=123,b,c");
         System.out.println(node.toString());
+    }
+
+    @Test
+    public void run() throws Exception {
+        DocNode node = new DocNode(DefinedParagraphNode::new);
+        node.compile("let a=123,b,c");
+
+        System.out.println(node.toString());
+
+        Stack<Context> contexts = new Stack<>();
+        contexts.push(new BlockContext());
+
+        node.run(contexts);
+
+        System.out.println(JSON.toJSONString(contexts));
     }
 }
