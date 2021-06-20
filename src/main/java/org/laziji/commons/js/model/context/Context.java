@@ -6,11 +6,11 @@ import org.laziji.commons.js.model.value.Value;
 
 public interface Context {
 
-    void put(Name name, Value value);
+    void defined(Name name, Value value) throws Exception;
 
-    Value get(Name name);
+    void put(String name, Value value) throws Exception;
 
-    Value get(String name);
+    Value get(String name) throws Exception;
 
     void close();
 

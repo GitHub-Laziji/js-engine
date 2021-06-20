@@ -5,4 +5,9 @@ public class ConstName extends BaseName {
     ConstName(String name) {
         super(name);
     }
+
+    @Override
+    public boolean isVariable() {
+        return false;
+    }
 }

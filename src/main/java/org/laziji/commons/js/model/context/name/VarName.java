@@ -5,4 +5,9 @@ public class VarName extends BaseName {
     VarName(String name) {
         super(name);
     }
+
+    @Override
+    public boolean isVariable() {
+        return true;
+    }
 }
