@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.node;
 
+import com.google.common.collect.ImmutableList;
 import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
     @Override
     public boolean isDone() {
         return allowEmpty() && nodes.size() == 0 || nodes.size() == separators.size() + 1 && last(nodes).isDone();
+    }
+
+    public List<T> getNodes() {
+        return ImmutableList.copyOf(nodes);
     }
 
     protected boolean allowEmpty() {

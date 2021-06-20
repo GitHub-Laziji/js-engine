@@ -3,11 +3,14 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.section.SectionNode;
+import org.laziji.commons.js.model.value.Value;
 import org.laziji.commons.js.util.TokenUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -23,6 +26,11 @@ public class DocNode extends BasePlanNode {
     public DocNode(Function<Node, Node> content) {
         super(null);
         this.supplier = (self, pre) -> content.apply(self);
+    }
+
+    @Override
+    public Value run(Stack<Context> contexts) throws Exception {
+        return current[0].run(contexts);
     }
 
     @Override

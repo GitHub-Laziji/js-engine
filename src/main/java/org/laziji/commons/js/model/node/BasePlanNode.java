@@ -1,11 +1,11 @@
 package org.laziji.commons.js.model.node;
 
+import com.google.common.collect.ImmutableList;
 import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 public abstract class BasePlanNode extends BaseNode {
 
@@ -61,6 +61,10 @@ public abstract class BasePlanNode extends BaseNode {
             values[i] = current[i].toString(depth, i == 0 && start);
         }
         return String.format(getStringFormat(), values);
+    }
+
+    public List<Node> getNodes() {
+        return ImmutableList.copyOf(current);
     }
 
     protected String getStringFormat() {

@@ -35,5 +35,9 @@ public abstract class BaseUnitNode extends BaseNode {
         return String.format("%s%s", getTabString(depth, start), unit.getValue());
     }
 
+    public TokenUnit getUnit() {
+        return unit;
+    }
+
     protected abstract Set<Token> getTokens();
 }

@@ -60,6 +60,6 @@ public class RegText {
 
         node.run(contexts);
 
-        System.out.println(JSON.toJSONString(contexts));
+        System.out.println(contexts.peek());
     }
 }

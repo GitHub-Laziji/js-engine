@@ -49,7 +49,7 @@ public abstract class BaseNode implements Node {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws RunException {
+    public Value run(Stack<Context> contexts) throws Exception {
         throw new RunException("Not yet supported.");
     }
 

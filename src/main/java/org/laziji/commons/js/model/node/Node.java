@@ -24,6 +24,6 @@ public interface Node {
 
     String toString(int depth, boolean start);
 
-    Value run(Stack<Context> contexts) throws RunException, OperationException;
+    Value run(Stack<Context> contexts) throws Exception;
 
 }

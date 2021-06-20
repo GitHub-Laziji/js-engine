@@ -4,7 +4,7 @@ public abstract class BaseName implements Name {
 
     private String name;
 
-    BaseName(String name) {
+    public BaseName(String name) {
         this.name = name;
     }
 
