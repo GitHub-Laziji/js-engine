@@ -1,6 +1,6 @@
 package org.laziji.commons.js.util;
 
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.ArrayList;

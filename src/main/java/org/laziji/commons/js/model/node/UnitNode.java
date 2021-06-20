@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node;
 
 import com.google.common.collect.ImmutableSet;
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.constant.Token;
 
 import java.util.Set;
 

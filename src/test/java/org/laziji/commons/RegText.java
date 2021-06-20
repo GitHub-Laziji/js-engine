@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;

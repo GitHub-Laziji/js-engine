@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node.word.complex;
 
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;

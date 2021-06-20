@@ -1,4 +1,4 @@
-package org.laziji.commons.js.consts;
+package org.laziji.commons.js.constant;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

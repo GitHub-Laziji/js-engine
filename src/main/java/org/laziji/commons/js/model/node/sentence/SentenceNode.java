@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node.sentence;
 
-import org.laziji.commons.js.consts.Token;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
