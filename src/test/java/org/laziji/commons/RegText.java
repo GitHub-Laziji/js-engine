@@ -9,8 +9,8 @@ import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
-import org.laziji.commons.js.utils.CodeUtils;
-import org.laziji.commons.js.utils.TokenUtils;
+import org.laziji.commons.js.util.CodeUtils;
+import org.laziji.commons.js.util.TokenUtils;
 
 import java.util.List;
 

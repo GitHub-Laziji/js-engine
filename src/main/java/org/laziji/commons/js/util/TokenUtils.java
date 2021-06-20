@@ -1,4 +1,4 @@
-package org.laziji.commons.js.utils;
+package org.laziji.commons.js.util;
 
 import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.TokenUnit;

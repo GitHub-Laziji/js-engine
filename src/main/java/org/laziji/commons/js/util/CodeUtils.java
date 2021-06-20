@@ -1,4 +1,4 @@
-package org.laziji.commons.js.utils;
+package org.laziji.commons.js.util;
 
 import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.TokenUnit;
@@ -14,7 +14,7 @@ public class CodeUtils {
         DocNode node = new DocNode();
         Node p = node.init();
         for (TokenUnit token : tokens) {
-            System.out.println(JSON.toJSONString(token)+" "+p.getSelf().getClass().getSimpleName());
+//            System.out.println(JSON.toJSONString(token)+" "+p.getSelf().getClass().getSimpleName());
             p = p.append(token);
         }
         if (!node.isDone()) {

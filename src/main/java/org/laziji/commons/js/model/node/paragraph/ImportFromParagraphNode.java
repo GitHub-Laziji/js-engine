@@ -4,7 +4,6 @@ import org.laziji.commons.js.consts.Token;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
-import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;

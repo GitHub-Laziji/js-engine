@@ -1,8 +1,14 @@
 package org.laziji.commons.js.model.node;
 
+import org.laziji.commons.js.exception.OperationException;
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.value.Value;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public abstract class BaseNode implements Node {
 
@@ -41,6 +47,11 @@ public abstract class BaseNode implements Node {
     @Override
     public String toString(int depth, boolean start) {
         return String.format("%s[NYS-%s]", getTabString(depth, start), getClass().getSimpleName());
+    }
+
+    @Override
+    public Value run(Stack<Context> contexts) throws RunException {
+        throw new RunException("Not yet supported.");
     }
 
     protected String getTabString(int depth) {
