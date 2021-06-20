@@ -85,6 +85,7 @@ public enum Token {
     BIT_XOR("^(\\^)[\\s\\S]*"),
     ASSIGNMENT("^(\\=)([^\\=][\\s\\S]*|$)"),
 
+    THIS("^(this)([^\\w\\$][\\s\\S]*|$)"),
     STRING("^(\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*')[\\s\\S]*"),
     NUMBER("^(\\d+(\\.\\d+)?|NaN)[\\s\\S]*"),
     BOOLEAN("^(true|false)([^\\w\\$][\\s\\S]*|$)"),

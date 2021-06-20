@@ -20,6 +20,8 @@ public class ProxyParagraphNode extends BaseProxyNode<ParagraphNode> implements 
         addProxyItem(new ForInOfParagraphNode(null));
         addProxyItem(new ImportParagraphNode(null));
         addProxyItem(new ImportFromParagraphNode(null));
+        addProxyItem(new ImportAllAsFromParagraphNode(null));
+        addProxyItem(new ImportDefaultFromParagraphNode(null));
         addProxyItem(new ExportDefaultParagraphNode(null));
         addProxyItem(new ExportDefinedParagraphNode(null));
         addProxyItem(new EmptyParagraphNode(null));

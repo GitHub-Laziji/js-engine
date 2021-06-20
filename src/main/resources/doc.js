@@ -1,5 +1,7 @@
 import "asad";
 import a from "asd";
+import *    as ss from "asdas";
+import   { asdas,sadd,dsd as dd } from "asdas";
 const ContextmenuConstructor = Vue.extend(Contextmenu);
 Vue.component(COMPONENT_NAME, Submenu);
 
