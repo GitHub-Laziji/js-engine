@@ -1,18 +1,11 @@
 package org.laziji.commons;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.DocNode;
-import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
-import org.laziji.commons.js.util.CodeUtils;
-import org.laziji.commons.js.util.TokenUtils;
-
-import java.util.List;
 
 public class RegText {
 
@@ -30,28 +23,22 @@ public class RegText {
 
     @Test
     public void letTest() throws Exception {
-        String text = "let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};";
-        System.out.println(CodeUtils.format(text));
+        DocNode node = new DocNode();
+        node.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
+        System.out.println(node.toString());
     }
 
     @Test
     public void docTest() throws Exception {
-        String text = IOUtils.resourceToString("/doc.js", Charsets.UTF_8);
-        System.out.println(CodeUtils.format(text));
+        DocNode node = new DocNode();
+        node.compile(IOUtils.resourceToString("/doc.js", Charsets.UTF_8));
+        System.out.println(node.toString());
     }
 
     @Test
     public void docTest2() throws Exception {
-        List<TokenUnit> tokens = TokenUtils.parseTextToTokens("let a=123,b,c");
         DocNode node = new DocNode(DefinedParagraphNode::new);
-        Node p = node.init();
-        for (TokenUnit token : tokens) {
-            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
-            p = p.append(token);
-        }
-        if (!node.isDone()) {
-            throw new Exception();
-        }
+        node.compile("let a=123,b,c");
         System.out.println(node.toString());
     }
 }

@@ -22,8 +22,8 @@ public interface Node {
 
     boolean isDone();
 
-    Value run(Stack<Context> contexts) throws RunException, OperationException;
-
     String toString(int depth, boolean start);
+
+    Value run(Stack<Context> contexts) throws RunException, OperationException;
 
 }

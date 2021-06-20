@@ -1,7 +1,10 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.CompileException;
+import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.node.section.SectionNode;
+import org.laziji.commons.js.util.TokenUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,5 +36,16 @@ public class DocNode extends BasePlanNode {
     @Override
     public String toString(int depth, boolean start) {
         return current[0].toString(0, start);
+    }
+
+    public void compile(String text) throws Exception {
+        List<TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
+        Node p = this.init();
+        for (TokenUnit token : tokens) {
+            p = p.append(token);
+        }
+        if (!this.isDone()) {
+            throw new CompileException();
+        }
     }
 }
