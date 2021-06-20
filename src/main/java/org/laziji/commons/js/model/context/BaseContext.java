@@ -1,8 +1,8 @@
 package org.laziji.commons.js.model.context;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.context.name.ConstName;
+import org.laziji.commons.js.exception.ReferenceException;
+import org.laziji.commons.js.exception.SyntaxException;
+import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.name.Name;
 import org.laziji.commons.js.model.value.Value;
 
@@ -19,33 +19,33 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public void defined(Name name, Value value) throws RunException {
+    public void defined(Name name, Value value) throws SyntaxException {
         if (this.context.containsKey(name.getName())) {
-            throw new RunException("");
+            throw new SyntaxException("Identifier '%s' has already been declared", name.getName());
         }
         if (!name.isVariable() && value == null) {
-            throw new RunException("");
+            throw new SyntaxException("Missing initializer in const declaration");
         }
         this.context.put(name.getName(), new Item(name, value));
     }
 
     @Override
-    public void put(String name, Value value) throws RunException {
+    public void put(String name, Value value) throws ReferenceException, TypeException {
         Item item = this.context.get(name);
         if (item == null) {
-            throw new RunException("");
+            throw new ReferenceException("%s is not defined", name);
         }
         if (!item.getName().isVariable()) {
-            throw new RunException("");
+            throw new TypeException("Assignment to constant variable");
         }
         item.setValue(value);
     }
 
     @Override
-    public Value get(String name) throws RunException {
+    public Value get(String name) throws ReferenceException {
         Item item = this.context.get(name);
         if (item == null) {
-            throw new RunException("");
+            throw new ReferenceException("%s is not defined", name);
         }
         return item.getValue();
     }
