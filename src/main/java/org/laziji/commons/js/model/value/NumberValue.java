@@ -1,112 +1,46 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
 
 public class NumberValue extends BaseValue {
 
-    private int value;
+    private double value;
 
     public NumberValue(String value) {
-        this.value = Integer.parseInt(value.trim());
+        this.value = Double.parseDouble(value);
     }
 
-    public NumberValue(Integer value) {
+    public NumberValue(double value) {
         this.value = value;
     }
 
-
     @Override
-    public Value add(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            this.value += ((NumberValue) o).getValue();
-            return this;
+    public Value binaryOperation(Token operator, Value o) throws OperationException {
+        if (!(o instanceof NumberValue)) {
+            return super.binaryOperation(operator, o);
         }
-        throw new OperationException();
-    }
-
-    @Override
-    public Value subtract(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            this.value -= ((NumberValue) o).getValue();
-            return this;
+        NumberValue b = (NumberValue) o;
+        switch (operator) {
+            case ADD:
+                return new NumberValue(value + b.getValue());
+            case SUB:
+                return new NumberValue(value - b.getValue());
+            case MUL:
+                return new NumberValue(value * b.getValue());
+            case DIV:
+                return new NumberValue(value / b.getValue());
+            default:
+                return super.binaryOperation(operator, o);
         }
-        throw new OperationException();
-    }
-
-    @Override
-    public Value multiply(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            this.value *= ((NumberValue) o).getValue();
-            return this;
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public Value divide(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            this.value /= ((NumberValue) o).getValue();
-            return this;
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public BooleanValue greater(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            return this.value > ((NumberValue) o).getValue() ?
-                    BooleanValue.getTrueInstance() :
-                    BooleanValue.getFalseInstance();
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public BooleanValue greaterOrEqual(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            return this.value >= ((NumberValue) o).getValue() ?
-                    BooleanValue.getTrueInstance() :
-                    BooleanValue.getFalseInstance();
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public BooleanValue smaller(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            return this.value < ((NumberValue) o).getValue() ?
-                    BooleanValue.getTrueInstance() :
-                    BooleanValue.getFalseInstance();
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public BooleanValue smallerOrEqual(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            return this.value <= ((NumberValue) o).getValue() ?
-                    BooleanValue.getTrueInstance() :
-                    BooleanValue.getFalseInstance();
-        }
-        throw new OperationException();
-    }
-
-    @Override
-    public BooleanValue equal(Value o) throws OperationException {
-        if (o instanceof NumberValue) {
-            return this.value == ((NumberValue) o).getValue() ?
-                    BooleanValue.getTrueInstance() :
-                    BooleanValue.getFalseInstance();
-        }
-        throw new OperationException();
     }
 
     @Override
     public BooleanValue toBoolean() {
-        return value == 0 ? BooleanValue.getFalseInstance() : BooleanValue.getTrueInstance();
+        return new BooleanValue(value == 0);
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 

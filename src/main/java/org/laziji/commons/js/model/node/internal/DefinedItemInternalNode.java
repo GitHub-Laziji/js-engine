@@ -57,7 +57,7 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
             List<Node> current = self.getNodes();
             NameWordNode nameNode = (NameWordNode) current.get(0);
             if (current.size() == 1) {
-                context.defined(createName(type, nameNode.getUnit().getValue()), NullValue.getInstance());
+                context.defined(createName(type, nameNode.getUnit().getValue()), new NullValue());
                 continue;
             }
             SentenceNode valueNode = (SentenceNode) current.get(2);
