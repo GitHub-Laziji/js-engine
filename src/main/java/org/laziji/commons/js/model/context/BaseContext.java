@@ -72,7 +72,7 @@ public abstract class BaseContext implements Context {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(context);
+        return JSON.toJSONString(context, true);
     }
 
 }

@@ -51,7 +51,7 @@ public class RegText {
     @Test
     public void run() throws Exception {
         DocNode node = new DocNode();
-        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;");
+        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
 
         System.out.println(node.toString());
 
