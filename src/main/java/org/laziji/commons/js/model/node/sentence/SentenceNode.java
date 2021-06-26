@@ -20,17 +20,6 @@ public class SentenceNode extends BaseListNode<WordNode> {
         super(parent);
     }
 
-    @Override
-    public String toString(int depth, boolean start) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(nodes.get(0).toString(depth, start));
-        for (int i = 1; i < nodes.size(); i++) {
-            sb.append(' ').append(separators.get(i - 1).toString(depth, false))
-                    .append(' ').append(nodes.get(i).toString(depth, false));
-        }
-        return sb.toString();
-    }
-
     public Class<? extends Node> getSingleWord() throws Exception {
         if (!isDone() || nodes.size() > 1) {
             throw new Exception("");
@@ -50,6 +39,11 @@ public class SentenceNode extends BaseListNode<WordNode> {
                 Token.SELF_MOD_BY, Token.SELF_MUL_BY, Token.ADD, Token.SUB, Token.MUL, Token.DIV, Token.MOD,
                 Token.AND, Token.OR, Token.EQUAL, Token.ABS_EQUAL, Token.UNEQUAL, Token.ABS_UNEQUAL, Token.GT,
                 Token.GT_EQUAL, Token.LT, Token.LT_EQUAL, Token.BIT_AND, Token.BIT_OR, Token.BIT_XOR, Token.ASSIGNMENT);
+    }
+
+    @Override
+    protected String getSeparatorFormat() {
+        return " %s ";
     }
 
     @Override

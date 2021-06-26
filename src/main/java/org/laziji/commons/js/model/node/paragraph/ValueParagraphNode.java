@@ -15,8 +15,8 @@ public class ValueParagraphNode extends BaseListNode<SentenceNode> implements Pa
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return nodesJoin(nodes, ", ", false, depth, start);
+    protected String getSeparatorFormat() {
+        return "%s ";
     }
 
     @Override

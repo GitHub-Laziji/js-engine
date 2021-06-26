@@ -2,7 +2,6 @@ package org.laziji.commons.js.model.node;
 
 import java.util.function.BiFunction;
 
-// TODO  注解节点
 public class ListNode<T extends Node> extends BaseListNode<T> {
 
     private BiFunction<Node, Node, T> nextNode;
@@ -48,17 +47,12 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(nodes.get(0).toString(depth, start));
-        for (int i = 1; i < nodes.size(); i++) {
-            if (separatorFormat == null) {
-                sb.append(separators.get(i - 1).toString(depth, false));
-            } else {
-                sb.append(String.format(separatorFormat, separators.get(i - 1).toString(depth, false)));
-            }
-            sb.append(nodes.get(i).toString(depth, false));
-        }
-        return sb.toString();
+    public Node getSelf() {
+        return super.getSelf();
+    }
+
+    @Override
+    public String getSeparatorFormat() {
+        return separatorFormat;
     }
 }

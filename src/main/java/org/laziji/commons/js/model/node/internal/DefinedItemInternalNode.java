@@ -46,8 +46,8 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return nodesJoin(nodes, ", ", false, depth, start);
+    protected String getSeparatorFormat() {
+        return "%s ";
     }
 
     public Value run(Stack<Context> contexts, Token type) throws Exception {

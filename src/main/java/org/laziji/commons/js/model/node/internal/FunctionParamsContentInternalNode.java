@@ -28,7 +28,8 @@ public class FunctionParamsContentInternalNode extends BaseListNode<NameWordNode
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return nodesJoin(nodes, ", ", false, depth, start);
+    protected String getSeparatorFormat() {
+        return "%s ";
     }
+
 }

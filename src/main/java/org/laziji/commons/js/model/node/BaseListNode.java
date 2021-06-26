@@ -65,12 +65,35 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
         return allowEmpty() && nodes.size() == 0 || nodes.size() == separators.size() + 1 && last(nodes).isDone();
     }
 
+    @Override
+    public String toString(int depth, boolean start) {
+        if (nodes.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(nodes.get(0).toString(depth, start));
+        String separatorFormat = getSeparatorFormat();
+        for (int i = 1; i < nodes.size(); i++) {
+            if (separatorFormat == null) {
+                sb.append(separators.get(i - 1).toString(depth, false));
+            } else {
+                sb.append(String.format(separatorFormat, separators.get(i - 1).toString(depth, false)));
+            }
+            sb.append(nodes.get(i).toString(depth, false));
+        }
+        return sb.toString();
+    }
+
     public List<T> getNodes() {
         return ImmutableList.copyOf(nodes);
     }
 
     protected boolean allowEmpty() {
         return false;
+    }
+
+    protected String getSeparatorFormat() {
+        return null;
     }
 
     protected abstract T getNextNode();

@@ -11,8 +11,8 @@ public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements Pa
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return nodesJoin(nodes, " else ", false, depth, start);
+    protected String getSeparatorFormat() {
+        return " %s ";
     }
 
     @Override
