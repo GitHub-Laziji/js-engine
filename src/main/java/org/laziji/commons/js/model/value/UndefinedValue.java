@@ -1,8 +1,8 @@
 package org.laziji.commons.js.model.value;
 
-public class NullValue extends BaseValue {
+public class UndefinedValue extends BaseValue {
 
-    public NullValue() {
+    public UndefinedValue() {
     }
 
     @Override
@@ -12,6 +12,6 @@ public class NullValue extends BaseValue {
 
     @Override
     public String toString() {
-        return "null";
+        return "undefined";
     }
 }
