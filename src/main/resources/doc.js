@@ -94,7 +94,9 @@ function asdasdsa(){
     }else if(true){ b++;
     }
     let a,b,c,d=a+n,e=1+2+(3*4);
-
+    a+=a+b+c;
+    a+(b=c)+d;
+    a=b=c=d+asd;
     for(let i=0;i<100;i++){break;
     }
 
