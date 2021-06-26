@@ -6,9 +6,9 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
-import org.laziji.commons.js.model.node.word.basic.NumberWordNode;
-import org.laziji.commons.js.model.node.word.basic.StringWordNode;
+import org.laziji.commons.js.model.node.word.NameWordNode;
+import org.laziji.commons.js.model.node.word.NumberWordNode;
+import org.laziji.commons.js.model.node.word.StringWordNode;
 
 import java.util.Arrays;
 import java.util.List;

@@ -8,9 +8,8 @@ import org.laziji.commons.js.model.context.name.Name;
 import org.laziji.commons.js.model.context.name.VarName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
+import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.NullValue;
-import org.laziji.commons.js.model.value.NumberValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.List;

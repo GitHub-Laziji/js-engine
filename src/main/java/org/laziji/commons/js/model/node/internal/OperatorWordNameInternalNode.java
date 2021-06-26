@@ -2,15 +2,18 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.word.WordNode;
-import org.laziji.commons.js.model.node.word.basic.*;
-import org.laziji.commons.js.model.node.word.complex.ProxyComplexWordNode;
+import org.laziji.commons.js.model.node.word.*;
+import org.laziji.commons.js.model.node.word.ClassWordNode;
+import org.laziji.commons.js.model.node.word.FunctionWordNode;
+import org.laziji.commons.js.model.node.word.LambdaWordNode;
 
 public class OperatorWordNameInternalNode extends BaseProxyNode<WordNode> implements InternalNode {
 
     public OperatorWordNameInternalNode(Node parent) {
         super(parent);
-        addProxyItem(new ProxyComplexWordNode(null));
+        addProxyItem(new ClassWordNode(null));
+        addProxyItem(new FunctionWordNode(null));
+        addProxyItem(new LambdaWordNode(null));
         addProxyItem(new SmallBracketWordNode(null));
         addProxyItem(new StringWordNode(null));
         addProxyItem(new NameWordNode(null));

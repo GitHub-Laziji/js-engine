@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node.paragraph;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
+import org.laziji.commons.js.model.node.word.NameWordNode;
 
 import java.util.Arrays;
 import java.util.List;

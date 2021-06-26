@@ -6,9 +6,8 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.word.ProxyWordNode;
-import org.laziji.commons.js.model.node.word.basic.CallWordNode;
-import org.laziji.commons.js.model.node.word.basic.NameWordNode;
+import org.laziji.commons.js.model.node.word.CallWordNode;
+import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;

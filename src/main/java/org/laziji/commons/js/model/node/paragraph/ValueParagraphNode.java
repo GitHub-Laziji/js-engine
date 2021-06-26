@@ -5,8 +5,8 @@ import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
-import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
-import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
+import org.laziji.commons.js.model.node.word.ClassWordNode;
+import org.laziji.commons.js.model.node.word.FunctionWordNode;
 
 public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implements ParagraphNode {
 

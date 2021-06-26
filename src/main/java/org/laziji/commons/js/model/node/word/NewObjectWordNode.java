@@ -1,4 +1,4 @@
-package org.laziji.commons.js.model.node.word.basic;
+package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.BasePlanNode;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class NewObjectWordNode extends BasePlanNode implements BasicWordNode {
+public class NewObjectWordNode extends BasePlanNode implements WordNode {
 
     public NewObjectWordNode(Node parent) {
         super(parent);

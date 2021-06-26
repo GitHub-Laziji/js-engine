@@ -2,9 +2,9 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.word.basic.*;
+import org.laziji.commons.js.model.node.word.*;
 
-public class CallNameInternalNode extends BaseProxyNode<BasicWordNode> implements InternalNode {
+public class CallNameInternalNode extends BaseProxyNode<WordNode> implements InternalNode {
 
     public CallNameInternalNode(Node parent) {
         super(parent);

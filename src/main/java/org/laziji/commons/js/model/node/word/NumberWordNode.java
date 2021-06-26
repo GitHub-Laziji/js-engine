@@ -1,21 +1,18 @@
-package org.laziji.commons.js.model.node.word.basic;
+package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.node.word.WordNode;
 import org.laziji.commons.js.model.value.NumberValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import java.util.function.BiFunction;
 
-public class NumberWordNode extends BaseUnitNode implements BasicWordNode {
+public class NumberWordNode extends BaseUnitNode implements WordNode {
 
     public NumberWordNode(Node parent) {
         super(parent);
