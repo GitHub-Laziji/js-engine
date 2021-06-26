@@ -33,8 +33,7 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
                 continue;
             }
             ProxySentenceNode valueNode = (ProxySentenceNode) current.get(2);
-            // TODO
-            context.defined(createName(type, nameNode.getUnit().getValue()), new NumberValue(1));
+            context.defined(createName(type, nameNode.getUnit().getValue()), valueNode.run(contexts));
         }
         return null;
     }

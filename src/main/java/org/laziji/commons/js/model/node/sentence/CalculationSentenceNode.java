@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.OperationException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
@@ -35,10 +36,17 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
         if (start + 1 == end) {
             return nodes.get(start).run(contexts);
         }
-        for (Node op : separators) {
-            Token operator = ((UnitNode) op).getUnit().getToken();
+        for (Token token : tokens) {
+            for (int i = start; i < end - 1; i++) {
+                UnitNode op = (UnitNode) separators.get(i);
+                Token operator = op.getUnit().getToken();
+                if (operator != token) {
+                    continue;
+                }
+                return calc(contexts, start, i + 1).binaryOperation(operator, calc(contexts, i + 1, end));
+            }
         }
-        return null;
+        throw new OperationException();
     }
 
     @Override

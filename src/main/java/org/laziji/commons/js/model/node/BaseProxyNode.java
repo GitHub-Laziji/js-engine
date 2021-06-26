@@ -2,10 +2,13 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.ProxyItem;
 import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public abstract class BaseProxyNode<T extends Node> extends BaseNode {
 
@@ -58,6 +61,11 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     @Override
     public String toString(int depth, boolean start) {
         return proxyItems.get(0).getRoot().toString(depth, start);
+    }
+
+    @Override
+    public Value run(Stack<Context> contexts) throws Exception {
+        return getSelf().run(contexts);
     }
 
     protected void addProxyItem(T node) {
