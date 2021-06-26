@@ -7,10 +7,6 @@ public class NumberValue extends BaseValue {
 
     private double value;
 
-    public NumberValue(String value) {
-        this.value = Double.parseDouble(value);
-    }
-
     public NumberValue(double value) {
         this.value = value;
     }

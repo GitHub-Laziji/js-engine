@@ -20,7 +20,7 @@ public class NumberWordNode extends BaseUnitNode implements WordNode {
 
     @Override
     public Value run(Stack<Context> contexts) {
-        return new NumberValue(getUnit().getValue());
+        return new NumberValue(Double.valueOf(getUnit().getValue()));
     }
 
     @Override

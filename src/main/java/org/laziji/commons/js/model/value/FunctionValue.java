@@ -10,12 +10,12 @@ import java.util.function.Function;
 public class FunctionValue extends BaseValue {
 
     private List<Param> params;
-    private Function<Stack<Context>, Value> run;
+    private Executor executor;
     private boolean function;
 
-    public FunctionValue(List<Param> params, Function<Stack<Context>, Value> run, boolean function) {
+    public FunctionValue(List<Param> params, Executor executor, boolean function) {
         this.params = params;
-        this.run = run;
+        this.executor = executor;
         this.function = function;
     }
 
@@ -25,7 +25,7 @@ public class FunctionValue extends BaseValue {
         for (Param param : params) {
             context.put(param.getName(), param.fetchValue.apply(arguments));
         }
-        run.apply(contexts);
+        executor.run(contexts);
         contexts.pop();
         Value returnValue = context.getReturnValue();
         return returnValue == null ? new UndefinedValue() : returnValue;
@@ -50,5 +50,10 @@ public class FunctionValue extends BaseValue {
         public void setFetchValue(Function<List<Value>, Value> fetchValue) {
             this.fetchValue = fetchValue;
         }
+    }
+
+    @FunctionalInterface
+    public interface Executor {
+        Value run(Stack<Context> contexts) throws Exception;
     }
 }
