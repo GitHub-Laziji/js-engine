@@ -1,11 +1,9 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.DefinedItemInternalNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;

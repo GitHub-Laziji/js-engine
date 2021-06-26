@@ -4,11 +4,11 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.complex.ClassWordNode;
 import org.laziji.commons.js.model.node.word.complex.FunctionWordNode;
 
-public class ValueParagraphNode extends BaseListNode<SentenceNode> implements ParagraphNode {
+public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implements ParagraphNode {
 
     public ValueParagraphNode(Node parent) {
         super(parent);
@@ -34,8 +34,8 @@ public class ValueParagraphNode extends BaseListNode<SentenceNode> implements Pa
     }
 
     @Override
-    protected SentenceNode getNextNode() {
-        return new SentenceNode(this);
+    protected ProxySentenceNode getNextNode() {
+        return new ProxySentenceNode(this);
     }
 
     @Override

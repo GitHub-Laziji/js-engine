@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class LambdaWordNode extends BasePlanNode implements ComplexWordNode {
         return Arrays.asList(
                 (self, pre) -> new ProxyNode<>(this, new FunctionParamsInternalNode(null), new NameWordNode(null)),
                 (self, pre) -> new UnitNode(this, Token.LAMBDA),
-                (self, pre) -> new ProxyNode<>(this, new BigBracketParagraphNode(null), new SentenceNode(null))
+                (self, pre) -> new ProxyNode<>(this, new BigBracketParagraphNode(null), new ProxySentenceNode(null))
         );
     }
 

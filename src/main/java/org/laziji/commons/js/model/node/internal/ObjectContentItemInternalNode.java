@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 import org.laziji.commons.js.model.node.word.basic.NumberWordNode;
 import org.laziji.commons.js.model.node.word.basic.StringWordNode;
@@ -27,7 +27,7 @@ public class ObjectContentItemInternalNode extends BasePlanNode implements Inter
                         new NumberWordNode(null), new NameWordNode(null),
                         new CallObjectParamsInternalNode(null)),
                 (self, pre) -> new UnitNode(this, Token.COLON),
-                (self, pre) -> new SentenceNode(this)
+                (self, pre) -> new ProxySentenceNode(this)
         );
     }
 

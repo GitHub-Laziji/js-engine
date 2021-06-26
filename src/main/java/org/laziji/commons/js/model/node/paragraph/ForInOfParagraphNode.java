@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.*;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class ForInOfParagraphNode extends BasePlanNode implements ParagraphNode 
                         new EmptyNode(null)),
                 (self, pre) -> new NameWordNode(self),
                 (self, pre) -> new UnitNode(self, Token.OF, Token.IN),
-                (self, pre) -> new SentenceNode(self),
+                (self, pre) -> new ProxySentenceNode(self),
                 (self, pre) -> new UnitNode(self, Token.BRACKET_SML_CLOSE),
                 (self, pre) -> new BigBracketParagraphNode(self)
         );
