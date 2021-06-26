@@ -19,8 +19,10 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
 
     private static final Token[] tokens = new Token[]{
             Token.ADD, Token.SUB, Token.MUL, Token.DIV, Token.MOD,
-            Token.AND, Token.OR, Token.EQUAL, Token.ABS_EQUAL, Token.UNEQUAL, Token.ABS_UNEQUAL, Token.GT,
-            Token.GT_EQUAL, Token.LT, Token.LT_EQUAL, Token.BIT_AND, Token.BIT_OR, Token.BIT_XOR,
+            Token.AND, Token.OR,
+            Token.EQUAL, Token.ABS_EQUAL, Token.UNEQUAL, Token.ABS_UNEQUAL,
+            Token.GT, Token.GT_EQUAL, Token.LT, Token.LT_EQUAL,
+            Token.BIT_AND, Token.BIT_OR, Token.BIT_XOR
     };
 
     public CalculationSentenceNode(Node parent) {

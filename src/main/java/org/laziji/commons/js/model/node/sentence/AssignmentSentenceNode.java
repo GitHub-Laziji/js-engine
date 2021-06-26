@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
@@ -8,9 +9,11 @@ import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 import org.laziji.commons.js.model.node.word.basic.CallWordNode;
 import org.laziji.commons.js.model.node.word.basic.NameWordNode;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.BiFunction;
 
 /**
@@ -27,6 +30,12 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
 
     public AssignmentSentenceNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(Stack<Context> contexts) throws Exception {
+        // TODO
+        return super.run(contexts);
     }
 
     @Override

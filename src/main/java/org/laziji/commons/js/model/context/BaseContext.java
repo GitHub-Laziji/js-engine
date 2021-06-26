@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class BaseContext implements Context {
 
-    private Map<String, Item> context;
+    private Map<String, Entry> context;
     private boolean close = false;
 
     public BaseContext() {
@@ -27,12 +27,12 @@ public abstract class BaseContext implements Context {
         if (!name.isVariable() && value == null) {
             throw new SyntaxException("Missing initializer in const declaration");
         }
-        this.context.put(name.getName(), new Item(name, value));
+        this.context.put(name.getName(), new Entry(name, value));
     }
 
     @Override
     public void put(String name, Value value) throws ReferenceException, TypeException {
-        Item item = this.context.get(name);
+        Entry item = this.context.get(name);
         if (item == null) {
             throw new ReferenceException("%s is not defined", name);
         }
@@ -43,12 +43,21 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public Value get(String name) throws ReferenceException {
-        Item item = this.context.get(name);
+    public Value get(String name) {
+        Entry item = this.context.get(name);
+        if (item == null) {
+            return null;
+        }
+        return item.getValue();
+    }
+
+    @Override
+    public Entry getEntry(String name) throws ReferenceException {
+        Entry item = this.context.get(name);
         if (item == null) {
             throw new ReferenceException("%s is not defined", name);
         }
-        return item.getValue();
+        return item;
     }
 
     @Override
@@ -66,29 +75,4 @@ public abstract class BaseContext implements Context {
         return JSON.toJSONString(context);
     }
 
-    public static class Item {
-        private Name name;
-        private Value value;
-
-        public Item(Name name, Value value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        public Name getName() {
-            return name;
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Value getValue() {
-            return value;
-        }
-
-        public void setValue(Value value) {
-            this.value = value;
-        }
-    }
 }
