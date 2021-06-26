@@ -50,8 +50,8 @@ public class RegText {
 
     @Test
     public void run() throws Exception {
-        DocNode node = new DocNode(DefinedParagraphNode::new);
-        node.compile("let a=123+4567,b=a+1 ,c");
+        DocNode node = new DocNode();
+        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;");
 
         System.out.println(node.toString());
 

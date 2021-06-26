@@ -1,12 +1,16 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.ClassWordNode;
 import org.laziji.commons.js.model.node.word.FunctionWordNode;
+import org.laziji.commons.js.model.value.Value;
+
+import java.util.Stack;
 
 public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implements ParagraphNode {
 
@@ -15,8 +19,12 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
     }
 
     @Override
-    protected String getSeparatorFormat() {
-        return "%s ";
+    public Value run(Stack<Context> contexts) throws Exception {
+        Value value = null;
+        for (Node node : nodes) {
+            value = node.run(contexts);
+        }
+        return value;
     }
 
     @Override
@@ -31,6 +39,11 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
             }
         }
         return true;
+    }
+
+    @Override
+    protected String getSeparatorFormat() {
+        return "%s ";
     }
 
     @Override

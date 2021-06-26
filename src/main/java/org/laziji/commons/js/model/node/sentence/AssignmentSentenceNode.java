@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.OperationException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
@@ -8,6 +9,7 @@ import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.CallWordNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
+import org.laziji.commons.js.model.node.word.VariableWordNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -33,8 +35,30 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
 
     @Override
     public Value run(Stack<Context> contexts) throws Exception {
-        // TODO
-        return super.run(contexts);
+        VariableWordNode node = (VariableWordNode) current[0].getSelf();
+        UnitNode op = (UnitNode) current[1];
+        Context.Entry position = node.getPosition(contexts);
+        Value value = current[2].run(contexts);
+        switch (op.getUnit().getToken()) {
+            case ASSIGNMENT:
+                position.setValue(value);
+                break;
+            case SELF_ADD_BY:
+                position.setValue(position.getValue().binaryOperation(Token.ADD, value));
+                break;
+            case SELF_SUB_BY:
+                position.setValue(position.getValue().binaryOperation(Token.SUB, value));
+                break;
+            case SELF_MUL_BY:
+                position.setValue(position.getValue().binaryOperation(Token.MUL, value));
+                break;
+            case SELF_DIV_BY:
+                position.setValue(position.getValue().binaryOperation(Token.DIV, value));
+                break;
+            default:
+                throw new OperationException();
+        }
+        return position.getValue();
     }
 
     @Override
