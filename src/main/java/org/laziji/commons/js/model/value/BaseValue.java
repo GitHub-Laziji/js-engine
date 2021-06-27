@@ -18,6 +18,14 @@ public abstract class BaseValue implements Value {
     @Override
     public Value binaryOperation(Token operator, Value o) throws OperationException {
         switch (operator) {
+            case OR:
+                return new BooleanValue(this.toBoolean().getValue() || o.toBoolean().getValue());
+            case AND:
+                return new BooleanValue(this.toBoolean().getValue() && o.toBoolean().getValue());
+            case EQUAL:
+                return new BooleanValue(this.toString().equals(o.toString()));
+            case ABS_EQUAL:
+                return new BooleanValue(this.getClass().equals(o.getClass()) && this.toString().equals(o.toString()));
             default:
                 throw new OperationException("Unrealized.");
         }
