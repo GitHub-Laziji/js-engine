@@ -1,7 +1,9 @@
 package org.laziji.commons.js.model.value;
 
+import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
+import org.laziji.commons.js.model.context.name.LetName;
 
 import java.util.List;
 import java.util.Stack;
@@ -23,17 +25,22 @@ public class FunctionValue extends BaseValue {
         FunctionContext context = new FunctionContext(function);
         contexts.push(context);
         for (Param param : params) {
-            context.put(param.getName(), param.fetchValue.apply(arguments));
+            context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
         }
+        System.out.println(context);
         executor.run(contexts);
         contexts.pop();
-        Value returnValue = context.getReturnValue();
-        return returnValue == null ? new UndefinedValue() : returnValue;
+        return context.getReturnValue();
     }
 
     public static class Param {
         private String name;
         private Function<List<Value>, Value> fetchValue;
+
+        public Param(String name, Function<List<Value>, Value> fetchValue) {
+            this.name = name;
+            this.fetchValue = fetchValue;
+        }
 
         public String getName() {
             return name;

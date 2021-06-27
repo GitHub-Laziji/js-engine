@@ -4,7 +4,10 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.node.word.NameWordNode;
+import org.laziji.commons.js.model.value.FunctionValue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -14,6 +17,18 @@ public class FunctionParamsInternalNode extends BasePlanNode implements Internal
     public FunctionParamsInternalNode(Node parent) {
         super(parent);
     }
+
+    public List<FunctionValue.Param> getParams() {
+        FunctionParamsContentInternalNode paramsNode = (FunctionParamsContentInternalNode) current[1];
+        List<NameWordNode> nodes = paramsNode.getNodes();
+        List<FunctionValue.Param> params = new ArrayList<>();
+        for (int i = 0; i < nodes.size(); i++) {
+            final int index = i;
+            params.add(new FunctionValue.Param(nodes.get(i).getUnit().getValue(), args -> args.get(index)));
+        }
+        return params;
+    }
+
 
     @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {

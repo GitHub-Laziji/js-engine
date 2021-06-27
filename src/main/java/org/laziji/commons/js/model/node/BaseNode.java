@@ -50,7 +50,7 @@ public abstract class BaseNode implements Node {
 
     @Override
     public Value run(Stack<Context> contexts) throws Exception {
-        throw new RunException("Not yet supported.");
+        throw new RunException("%s Not yet supported.", this.getClass().getSimpleName());
     }
 
     protected String getTabString(int depth) {

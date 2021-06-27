@@ -26,6 +26,9 @@ public class SectionNode extends BaseListNode<SectionItemInternalNode> {
     @Override
     public Value run(Stack<Context> contexts) throws Exception {
         for (Node node : nodes) {
+            if (contexts.peek().isClose()) {
+                return null;
+            }
             node.run(contexts);
         }
         return null;

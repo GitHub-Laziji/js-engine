@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.name.LetName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
@@ -23,8 +24,15 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
 
     @Override
     public Value run(Stack<Context> contexts) throws Exception {
-
-        return new FunctionValue(Arrays.asList(), cs -> current[3].run(cs), true);
+        FunctionValue value = new FunctionValue(
+                ((FunctionParamsInternalNode) current[2]).getParams(),
+                cs -> current[3].run(cs),
+                true);
+        if (current[1].getSelf() instanceof NameWordNode) {
+            NameWordNode nameNode = (NameWordNode) current[1].getSelf();
+            contexts.peek().defined(new LetName(nameNode.getUnit().getValue()), value);
+        }
+        return value;
     }
 
     @Override

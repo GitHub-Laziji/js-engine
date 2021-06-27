@@ -10,7 +10,11 @@ import org.laziji.commons.js.model.context.BlockContext;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.paragraph.DefinedParagraphNode;
+import org.laziji.commons.js.model.value.FunctionValue;
+import org.laziji.commons.js.model.value.NumberValue;
+import org.laziji.commons.js.model.value.Value;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class RegText {
@@ -51,7 +55,8 @@ public class RegText {
     @Test
     public void run() throws Exception {
         DocNode node = new DocNode();
-        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
+        node.compile(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
+//        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
 
         System.out.println(node.toString());
 
@@ -61,5 +66,9 @@ public class RegText {
         node.run(contexts);
 
         System.out.println(contexts.peek());
+        FunctionValue func = (FunctionValue) contexts.peek().get("func");
+        Value result = func.call(contexts, Arrays.asList(new NumberValue(9)));
+        System.out.println(result);
+
     }
 }

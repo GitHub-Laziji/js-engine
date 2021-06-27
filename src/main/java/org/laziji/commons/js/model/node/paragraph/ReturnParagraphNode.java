@@ -1,10 +1,16 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.*;
+import org.laziji.commons.js.model.value.UndefinedValue;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
@@ -14,8 +20,20 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public boolean shouldEndFlag() {
-        return true;
+    public Value run(Stack<Context> contexts) throws Exception {
+        Value value = new UndefinedValue();
+        if (current[1].getSelf() instanceof ValueParagraphNode) {
+            value = current[1].run(contexts);
+        }
+        for (int i = contexts.size() - 1; i >= 0; i--) {
+            Context context = contexts.get(i);
+            context.close();
+            if (context instanceof FunctionContext) {
+                ((FunctionContext) context).setReturnValue(value);
+                return null;
+            }
+        }
+        throw new RunException();
     }
 
     @Override
@@ -24,6 +42,11 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
             return current[0].toString(depth, start);
         }
         return String.format("%s %s", current[0].toString(depth, start), current[1].toString(depth, false));
+    }
+
+    @Override
+    public boolean shouldEndFlag() {
+        return true;
     }
 
     @Override
