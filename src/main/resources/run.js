@@ -3,6 +3,8 @@ c = 3;
 c += a;
 c = c * (2 + 1);
 
-function func(a) {
-    return a*a;
+function func(a,b,c) {
+    return a*(b+c);
 }
+
+let re = func(2,3,4);

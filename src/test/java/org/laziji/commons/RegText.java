@@ -66,9 +66,9 @@ public class RegText {
         node.run(contexts);
 
         System.out.println(contexts.peek());
-        FunctionValue func = (FunctionValue) contexts.peek().get("func");
-        Value result = func.call(contexts, Arrays.asList(new NumberValue(9)));
-        System.out.println(result);
+//        FunctionValue func = (FunctionValue) contexts.peek().get("func");
+//        Value result = func.call(contexts, Arrays.asList(new NumberValue(9)));
+//        System.out.println(result);
 
     }
 }

@@ -1,21 +1,36 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.node.BasePlanNode;
-import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.ProxyNode;
-import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
+import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.value.Value;
+import sun.invoke.empty.Empty;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class CallFunctionParamsInternalNode extends BasePlanNode implements InternalNode {
 
     public CallFunctionParamsInternalNode(Node parent) {
         super(parent);
+    }
+
+    public List<Value> getArguments(Stack<Context> contexts) throws Exception {
+        if (current[1].getSelf() instanceof EmptyNode) {
+            return new ArrayList<>();
+        }
+        ValueParagraphNode argsNode = (ValueParagraphNode) current[1].getSelf();
+        List<Value> arguments = new ArrayList<>();
+        for (SentenceNode node : argsNode.getNodes()) {
+            arguments.add(node.run(contexts));
+        }
+        return arguments;
     }
 
     @Override

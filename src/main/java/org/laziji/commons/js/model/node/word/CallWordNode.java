@@ -7,6 +7,7 @@ import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,16 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
 
     public CallWordNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(Stack<Context> contexts) throws Exception {
+        List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
+        Value value = current[0].run(contexts);
+        for (ProxyCallParamsInternalNode node : nodes) {
+            value = node.run(value, contexts);
+        }
+        return value;
     }
 
     @Override
@@ -32,9 +43,9 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                (self, pre) -> new CallNameInternalNode(this),
+                (self, pre) -> new CallNameInternalNode(self),
                 (self, pre) -> new ListNode<>(
-                        this,
+                        self,
                         (subSelf, o) -> new ProxyCallParamsInternalNode(subSelf),
                         false
                 )
