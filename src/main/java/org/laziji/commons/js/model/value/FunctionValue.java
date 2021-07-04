@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.value;
 
-import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.context.name.LetName;
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.function.Function;
 
-public class FunctionValue extends BaseValue {
+public class FunctionValue extends ObjectValue {
 
     private List<Param> params;
     private Executor executor;
