@@ -1,8 +1,14 @@
 package org.laziji.commons.js.model.value;
 
-public class FunctionClass extends ObjectValue {
+import java.util.List;
 
-    private static final FunctionClass instance = new FunctionClass();
+public class FunctionClass extends FunctionValue {
+
+    private static final FunctionClass instance = new FunctionClass(null, null, true);
+
+    public FunctionClass(List<Param> params, Executor executor, boolean function) {
+        super(params, executor, function);
+    }
 
     public static FunctionClass getInstance() {
         return instance;
