@@ -32,6 +32,11 @@ public class FunctionValue extends ObjectValue {
         return context.getReturnValue();
     }
 
+    @Override
+    public ObjectValue getProto() {
+        return FunctionClass.getInstance().getPrototype();
+    }
+
     public static class Param {
         private String name;
         private Function<List<Value>, Value> fetchValue;

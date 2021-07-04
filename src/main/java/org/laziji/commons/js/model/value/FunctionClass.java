@@ -9,4 +9,8 @@ public class FunctionClass extends ObjectValue {
     }
 
 
+    @Override
+    public ObjectValue getProto() {
+        return FunctionClass.getInstance().getPrototype();
+    }
 }
