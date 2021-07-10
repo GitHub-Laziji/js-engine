@@ -7,6 +7,6 @@ public class ObjectValue extends BaseValue {
     }
 
     public ObjectValue getProto() {
-        return null;
+        return ObjectClass.getInstance().getPrototype();
     }
 }
