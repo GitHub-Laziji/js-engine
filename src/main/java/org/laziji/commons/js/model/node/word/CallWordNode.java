@@ -1,12 +1,18 @@
 package org.laziji.commons.js.model.node.word;
 
+import jdk.nashorn.internal.runtime.Undefined;
 import org.laziji.commons.js.exception.ReferenceException;
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
+import org.laziji.commons.js.model.value.NullValue;
+import org.laziji.commons.js.model.value.ObjectValue;
+import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -37,7 +43,13 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
 
     @Override
     public Context.Entry getPosition(Stack<Context> contexts) throws Exception {
-        throw new ReferenceException();
+        Value value = current[0].run(contexts);
+        List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            Context.Entry position = nodes.get(i).getPosition(value, contexts);
+            value = position.getValue();
+        }
+        return nodes.get(nodes.size() - 1).getPosition(value, contexts);
     }
 
     @Override

@@ -21,10 +21,16 @@ public interface Context {
     class Entry {
         private Name name;
         private Value value;
+        private Context parent;
 
-        public Entry(Name name, Value value) {
+        public Entry(Context parent, Name name, Value value) {
             this.name = name;
             this.value = value;
+            this.parent = parent;
+        }
+
+        public Context getParent() {
+            return parent;
         }
 
         public Name getName() {

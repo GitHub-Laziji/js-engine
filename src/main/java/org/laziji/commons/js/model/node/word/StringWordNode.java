@@ -18,12 +18,6 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    protected Set<Token> getTokens() {
-        return Collections.singleton(Token.STRING);
-    }
-
-
-    @Override
     public Value run(Stack<Context> contexts) {
         String code = getUnit().getValue();
         StringBuilder sb = new StringBuilder();
@@ -45,5 +39,10 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
             i++;
         }
         return new StringValue(sb.toString());
+    }
+
+    @Override
+    protected Set<Token> getTokens() {
+        return Collections.singleton(Token.STRING);
     }
 }

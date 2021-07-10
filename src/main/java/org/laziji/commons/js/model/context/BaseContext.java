@@ -12,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class BaseContext implements Context {
 
-    private Map<String, Entry> context;
-    private boolean close = false;
+    protected Map<String, Entry> context;
+    protected boolean close = false;
 
     public BaseContext() {
         this.context = new ConcurrentHashMap<>();
@@ -27,7 +27,7 @@ public abstract class BaseContext implements Context {
         if (!name.isVariable() && value == null) {
             throw new SyntaxException("Missing initializer in const declaration");
         }
-        this.context.put(name.getName(), new Entry(name, value));
+        this.context.put(name.getName(), new Entry(this, name, value));
     }
 
     @Override
