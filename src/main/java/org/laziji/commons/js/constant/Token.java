@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Token {
+
     EOF("\0"),
 
     NEWLINE("^(\\n+)[\\s\\S]*"),
@@ -70,6 +71,9 @@ public enum Token {
     DIV("^(\\/)[\\s\\S]*"),
     MOD("^(\\%)[\\s\\S]*"),
     AND("^(\\&\\&)[\\s\\S]*"),
+    SHR("^(>>>)[\\s\\S]*"),
+    SAR("^(>>)[\\s\\S]*"),
+    SHL("^(<<)[\\s\\S]*"),
     OR("^(\\|\\|)[\\s\\S]*"),
     NON("^(\\!)[\\s\\S]*"),
     EQUAL("^(\\=\\=)([^\\=][\\s\\S]*|$)"),
@@ -96,8 +100,15 @@ public enum Token {
 
     private Pattern reg;
 
-    Token(String reg) {
+    private int precedence;
+
+    Token(String reg, int precedence) {
         this.reg = Pattern.compile(reg);
+        this.precedence = precedence;
+    }
+
+    Token(String reg) {
+        this(reg, 0);
     }
 
     public String match(String text) {
@@ -108,4 +119,7 @@ public enum Token {
         return matcher.group(1);
     }
 
+    public int getPrecedence() {
+        return precedence;
+    }
 }
