@@ -19,14 +19,40 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
     }
 
     public Value run(Value value, Stack<Context> contexts) throws Exception {
+        ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
-        if (self instanceof CallFunctionParamsInternalNode && value instanceof FunctionValue) {
-            return ((FunctionValue) value).call(contexts, ((CallFunctionParamsInternalNode) self).getArguments(contexts));
+        if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
+            return ((FunctionValue) objectValue).call(contexts, ((CallFunctionParamsInternalNode) self).getArguments(contexts));
         }
-        throw new RunException();
+        String name;
+        if (self instanceof CallObjectParamsInternalNode) {
+            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(contexts).toString();
+        } else if (self instanceof CallMemberNameInternalNode) {
+            name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
+        } else {
+            throw new TypeException();
+        }
+        return objectValue.getContext().get(name);
     }
 
     public Context.Entry getPosition(Value value, Stack<Context> contexts) throws Exception {
+        ObjectValue objectValue = castObjectValue(value);
+        Node self = getSelf();
+        if (self instanceof CallFunctionParamsInternalNode) {
+            throw new TypeException();
+        }
+        String name;
+        if (self instanceof CallObjectParamsInternalNode) {
+            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(contexts).toString();
+        } else if (self instanceof CallMemberNameInternalNode) {
+            name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
+        } else {
+            throw new TypeException();
+        }
+        return objectValue.getContext().getEntry(name);
+    }
+
+    private ObjectValue castObjectValue(Value value) throws Exception {
         if (value == null) {
             throw new RunException();
         }
@@ -39,16 +65,6 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         if (!(value instanceof ObjectValue)) {
             throw new TypeException();
         }
-        Node self = getSelf();
-        if (self instanceof CallFunctionParamsInternalNode) {
-            throw new TypeException();
-        }
-        String name;
-        if (self instanceof CallObjectParamsInternalNode) {
-            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(contexts).toString();
-        } else {
-            name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
-        }
-        return ((ObjectValue) value).getContext().getEntry(name);
+        return (ObjectValue) value;
     }
 }

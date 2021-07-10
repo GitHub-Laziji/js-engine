@@ -12,3 +12,8 @@ let re = func(2,3,4);
 let str="123";
 
 let stradd = str+"["+a+"]";
+
+str.a="a";
+
+
+let p = "["+str.a+"]";
