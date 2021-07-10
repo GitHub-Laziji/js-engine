@@ -2,32 +2,48 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.node.BasePlanNode;
+import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.word.WordNode;
+import org.laziji.commons.js.model.value.StringValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import java.util.Stack;
-import java.util.function.BiFunction;
 
-public class StringWordNode extends BasePlanNode implements WordNode {
+public class StringWordNode extends BaseUnitNode implements WordNode {
 
     public StringWordNode(Node parent) {
         super(parent);
     }
 
     @Override
-    protected List<BiFunction<Node, Node, Node>> getPlan() {
-        return Collections.singletonList(
-                (self, pre) -> new UnitNode(this, Token.STRING)
-        );
+    protected Set<Token> getTokens() {
+        return Collections.singleton(Token.STRING);
     }
 
+
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
-        return super.run(contexts);
+    public Value run(Stack<Context> contexts) {
+        String code = getUnit().getValue();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < code.length() - 1; i++) {
+            char ch = code.charAt(i);
+            if (ch != '\\') {
+                sb.append(ch);
+                continue;
+            }
+            char nextCh = code.charAt(i + 1);
+            switch (nextCh) {
+                case 'n':
+                    sb.append('\n');
+                    break;
+                default:
+                    sb.append(nextCh);
+                    break;
+            }
+            i++;
+        }
+        return new StringValue(sb.toString());
     }
 }

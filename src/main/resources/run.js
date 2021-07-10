@@ -8,3 +8,7 @@ function func(a,b,c) {
 }
 
 let re = func(2,3,4);
+
+let str="123";
+
+let stradd = str+"["+a+"]";
