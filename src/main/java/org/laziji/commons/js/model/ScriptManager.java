@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class ScriptManager {
 
-    private final GlobalValue global;
+    private final ObjectValue global;
     private final ObjectClass objectClass;
     private final FunctionClass functionClass;
     private final StringClass stringClass;
@@ -27,7 +27,7 @@ public class ScriptManager {
         objectClass = new ObjectClass();
         stringClass = new StringClass();
         numberClass = new NumberClass();
-        global = new GlobalValue();
+        global = new ObjectValue();
 
         functionClass.setInstanceClass(functionClass);
         objectClass.setInstanceClass(functionClass);
@@ -69,5 +69,25 @@ public class ScriptManager {
         NumberValue numberValue = new NumberValue(value);
         numberValue.setInstanceClass(numberClass);
         return numberValue;
+    }
+
+    public ObjectValue getGlobal() {
+        return global;
+    }
+
+    public ObjectClass getObjectClass() {
+        return objectClass;
+    }
+
+    public FunctionClass getFunctionClass() {
+        return functionClass;
+    }
+
+    public StringClass getStringClass() {
+        return stringClass;
+    }
+
+    public NumberClass getNumberClass() {
+        return numberClass;
     }
 }
