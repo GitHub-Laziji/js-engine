@@ -13,6 +13,7 @@ public class FunctionValue extends ObjectValue {
     private List<Param> params;
     private Executor executor;
     private boolean function;
+    private ObjectValue prototype;
 
     public FunctionValue(List<Param> params, Executor executor, boolean function) {
         this.params = params;
@@ -37,9 +38,12 @@ public class FunctionValue extends ObjectValue {
         return context.getReturnValue();
     }
 
-    @Override
-    public ObjectValue getProto() {
-        return FunctionClass.getInstance().getPrototype();
+    public void setPrototype(ObjectValue prototype) {
+        this.prototype = prototype;
+    }
+
+    public ObjectValue getPrototype() {
+        return prototype;
     }
 
     public static class Param {

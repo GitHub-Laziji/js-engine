@@ -5,17 +5,37 @@ import org.laziji.commons.js.model.context.ObjectContext;
 
 public class ObjectValue extends BaseValue {
 
-    private Context context = new ObjectContext();
+    private final Context context;
+    private FunctionValue instanceClass;
+
+    public ObjectValue(FunctionClass instanceClass) {
+        this.instanceClass = instanceClass;
+        this.context = new ObjectContext();
+    }
+
+    public ObjectValue() {
+        this.context = new ObjectContext();
+    }
 
     public Context getContext() {
         return context;
     }
 
-    public ObjectValue getPrototype() {
-        return null;
+    public void setInstanceClass(FunctionValue instanceClass) {
+        if (this.instanceClass != null) {
+            throw new RuntimeException();
+        }
+        this.instanceClass = instanceClass;
+    }
+
+    public ObjectValue getInstanceClass() {
+        return instanceClass;
     }
 
     public ObjectValue getProto() {
-        return ObjectClass.getInstance().getPrototype();
+        if (instanceClass == null) {
+            return null;
+        }
+        return instanceClass.getPrototype();
     }
 }

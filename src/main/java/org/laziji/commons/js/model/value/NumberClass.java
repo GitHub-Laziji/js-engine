@@ -1,8 +1,8 @@
 package org.laziji.commons.js.model.value;
 
-public class ObjectClass extends FunctionValue {
+public class NumberClass extends FunctionValue {
 
-    public ObjectClass() {
+    public NumberClass() {
         super(null, null, true);
     }
 

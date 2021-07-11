@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
 
-public class NumberValue extends BaseValue {
+public class NumberValue extends ObjectValue {
 
     private double value;
 
