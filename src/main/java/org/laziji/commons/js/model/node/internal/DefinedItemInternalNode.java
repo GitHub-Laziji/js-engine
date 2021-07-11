@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.name.ConstName;
 import org.laziji.commons.js.model.context.name.LetName;
@@ -13,7 +14,6 @@ import org.laziji.commons.js.model.value.NullValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.List;
-import java.util.Stack;
 
 public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> implements InternalNode {
 
@@ -21,8 +21,8 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
         super(parent);
     }
 
-    public Value run(Stack<Context> contexts, Token type) throws Exception {
-        Context context = contexts.peek();
+    public Value run(ScriptManager manager, Token type) throws Exception {
+        Context context = manager.getContexts().peek();
         for (ProxyNode<Node> node : nodes) {
             PlanNode self = (PlanNode) node.getSelf();
             List<Node> current = self.getNodes();
@@ -32,7 +32,7 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
                 continue;
             }
             ProxySentenceNode valueNode = (ProxySentenceNode) current.get(2);
-            context.defined(createName(type, nameNode.getUnit().getValue()), valueNode.run(contexts));
+            context.defined(createName(type, nameNode.getUnit().getValue()), valueNode.run(manager));
         }
         return null;
     }

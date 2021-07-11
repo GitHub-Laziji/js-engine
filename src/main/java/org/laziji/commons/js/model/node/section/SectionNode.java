@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.node.section;
 
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
@@ -24,12 +25,12 @@ public class SectionNode extends BaseListNode<SectionItemInternalNode> {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         for (Node node : nodes) {
-            if (contexts.peek().isClose()) {
+            if (manager.getContexts().peek().isClose()) {
                 return null;
             }
-            node.run(contexts);
+            node.run(manager);
         }
         return null;
     }

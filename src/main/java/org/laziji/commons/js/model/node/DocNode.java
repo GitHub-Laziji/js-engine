@@ -1,13 +1,12 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class DocNode extends BasePlanNode {
@@ -20,8 +19,8 @@ public class DocNode extends BasePlanNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
-        return current[0].run(contexts);
+    public Value run(ScriptManager manager) throws Exception {
+        return current[0].run(manager);
     }
 
     @Override

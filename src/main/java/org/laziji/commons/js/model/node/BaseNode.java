@@ -1,13 +1,12 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 public abstract class BaseNode implements Node {
 
@@ -44,7 +43,7 @@ public abstract class BaseNode implements Node {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         throw new RunException("%s Not yet supported.", this.getClass().getSimpleName());
     }
 

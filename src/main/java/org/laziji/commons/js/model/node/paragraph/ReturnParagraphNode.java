@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.*;
@@ -10,7 +11,6 @@ import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
@@ -20,13 +20,13 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         Value value = new UndefinedValue();
         if (current[1].getSelf() instanceof ValueParagraphNode) {
-            value = current[1].run(contexts);
+            value = current[1].run(manager);
         }
-        for (int i = contexts.size() - 1; i >= 0; i--) {
-            Context context = contexts.get(i);
+        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
+            Context context = manager.getContexts().get(i);
             context.close();
             if (context instanceof FunctionContext) {
                 ((FunctionContext) context).setReturnValue(value);

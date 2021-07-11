@@ -1,14 +1,15 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.node.*;
+import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.node.BasePlanNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.internal.DefinedItemInternalNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode {
@@ -18,10 +19,10 @@ public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode 
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         UnitNode definedNode = (UnitNode) current[0];
         DefinedItemInternalNode itemNode = (DefinedItemInternalNode) current[1];
-        itemNode.run(contexts, definedNode.getUnit().getToken());
+        itemNode.run(manager, definedNode.getUnit().getToken());
         return null;
     }
 

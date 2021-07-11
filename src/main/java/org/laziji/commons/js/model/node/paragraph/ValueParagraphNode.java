@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -10,8 +10,6 @@ import org.laziji.commons.js.model.node.word.ClassWordNode;
 import org.laziji.commons.js.model.node.word.FunctionWordNode;
 import org.laziji.commons.js.model.value.Value;
 
-import java.util.Stack;
-
 public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implements ParagraphNode {
 
     public ValueParagraphNode(Node parent) {
@@ -19,10 +17,10 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         Value value = null;
         for (Node node : nodes) {
-            value = node.run(contexts);
+            value = node.run(manager);
         }
         return value;
     }

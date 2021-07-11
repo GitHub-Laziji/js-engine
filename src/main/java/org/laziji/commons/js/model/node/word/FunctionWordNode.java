@@ -1,19 +1,16 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.name.LetName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
-import org.laziji.commons.js.model.node.word.WordNode;
-import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.FunctionValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class FunctionWordNode extends BasePlanNode implements WordNode {
@@ -23,14 +20,14 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         FunctionValue value = new FunctionValue(
                 ((FunctionParamsInternalNode) current[2]).getParams(),
                 cs -> current[3].run(cs),
                 true);
         if (current[1].getSelf() instanceof NameWordNode) {
             NameWordNode nameNode = (NameWordNode) current[1].getSelf();
-            contexts.peek().defined(new LetName(nameNode.getUnit().getValue()), value);
+            manager.getContexts().peek().defined(new LetName(nameNode.getUnit().getValue()), value);
         }
         return value;
     }

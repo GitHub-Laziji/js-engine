@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.value.Value;
 
@@ -21,7 +22,7 @@ public interface Node {
 
     String toString(int depth, boolean start);
 
-    Value run(Stack<Context> contexts) throws Exception;
+    Value run(ScriptManager manager) throws Exception;
 
     class TokenUnit {
 

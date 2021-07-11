@@ -1,11 +1,10 @@
 package org.laziji.commons.js.model.value;
 
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.context.name.LetName;
 
 import java.util.List;
-import java.util.Stack;
 import java.util.function.Function;
 
 public class FunctionValue extends ObjectValue {
@@ -21,20 +20,20 @@ public class FunctionValue extends ObjectValue {
         this.function = function;
     }
 
-    public Value call(ObjectValue caller, Stack<Context> contexts, List<Value> arguments) throws Exception {
+    public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
         FunctionContext context;
         if (function) {
             context = new FunctionContext(caller == null ? GlobalValue.getInstance() : caller);
         } else {
             context = new FunctionContext(null);
         }
-        contexts.push(context);
+        manager.getContexts().push(context);
         for (Param param : params) {
             context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
         }
         System.out.println(context);
-        executor.run(contexts);
-        contexts.pop();
+        executor.run(manager);
+        manager.getContexts().pop();
         return context.getReturnValue();
     }
 
@@ -74,6 +73,6 @@ public class FunctionValue extends ObjectValue {
 
     @FunctionalInterface
     public interface Executor {
-        Value run(Stack<Context> contexts) throws Exception;
+        Value run(ScriptManager manager) throws Exception;
     }
 }

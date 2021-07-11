@@ -2,15 +2,13 @@ package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 import org.laziji.commons.js.model.node.word.WordNode;
 import org.laziji.commons.js.model.value.Value;
-
-import java.util.Stack;
 
 /**
  * a+b+c
@@ -30,13 +28,13 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
-        return calc(contexts, 0, nodes.size());
+    public Value run(ScriptManager manager) throws Exception {
+        return calc(manager, 0, nodes.size());
     }
 
-    private Value calc(Stack<Context> contexts, int start, int end) throws Exception {
+    private Value calc(ScriptManager manager, int start, int end) throws Exception {
         if (start + 1 == end) {
-            return nodes.get(start).run(contexts);
+            return nodes.get(start).run(manager);
         }
         for (Token token : tokens) {
             for (int i = start; i < end - 1; i++) {
@@ -45,7 +43,7 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
                 if (operator != token) {
                     continue;
                 }
-                return calc(contexts, start, i + 1).binaryOperation(operator, calc(contexts, i + 1, end));
+                return calc(manager, start, i + 1).binaryOperation(operator, calc(manager, i + 1, end));
             }
         }
         throw new OperationException();

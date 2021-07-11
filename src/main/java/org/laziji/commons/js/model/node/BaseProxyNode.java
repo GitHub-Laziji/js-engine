@@ -1,12 +1,11 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 public abstract class BaseProxyNode<T extends Node> extends BaseNode {
 
@@ -62,8 +61,8 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
-        return getSelf().run(contexts);
+    public Value run(ScriptManager manager) throws Exception {
+        return getSelf().run(manager);
     }
 
     protected void addProxyItem(T node) {

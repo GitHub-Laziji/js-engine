@@ -40,11 +40,11 @@ public class ScriptManager {
     }
 
     public void run(String text) throws Exception {
-        compile(text).run(contexts);
+        compile(text).run(this);
     }
 
     public void run(DocNode doc) throws Exception {
-        doc.run(contexts);
+        doc.run(this);
     }
 
     public DocNode compile(String text) throws Exception {

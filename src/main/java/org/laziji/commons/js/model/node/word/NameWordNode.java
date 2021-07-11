@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.ReferenceException;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
@@ -9,7 +10,6 @@ import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
 import java.util.Set;
-import java.util.Stack;
 
 public class NameWordNode extends BaseUnitNode implements VariableWordNode {
 
@@ -18,10 +18,10 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         String name = getUnit().getValue();
-        for (int i = contexts.size() - 1; i >= 0; i--) {
-            Value value = contexts.get(i).get(name);
+        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
+            Value value = manager.getContexts().get(i).get(name);
             if (value != null) {
                 return value;
             }
@@ -30,10 +30,10 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Context.Entry getPosition(Stack<Context> contexts) throws Exception {
+    public Context.Entry getPosition(ScriptManager manager) throws Exception {
         String name = getUnit().getValue();
-        for (int i = contexts.size() - 1; i >= 0; i--) {
-            Context.Entry entry = contexts.get(i).getEntry(name);
+        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
+            Context.Entry entry = manager.getContexts().get(i).getEntry(name);
             if (entry != null) {
                 return entry;
             }

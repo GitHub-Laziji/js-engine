@@ -4,6 +4,7 @@ import jdk.nashorn.internal.runtime.Undefined;
 import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
@@ -27,12 +28,12 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(Stack<Context> contexts) throws Exception {
+    public Value run(ScriptManager manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
-        Value value = current[0].run(contexts);
+        Value value = current[0].run(manager);
         ObjectValue caller = null;
         for (ProxyCallParamsInternalNode node : nodes) {
-            Value tempValue = node.run(caller, value, contexts);
+            Value tempValue = node.run(caller, value, manager);
             caller = (ObjectValue) value;
             value = tempValue;
         }
@@ -45,14 +46,14 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Context.Entry getPosition(Stack<Context> contexts) throws Exception {
-        Value value = current[0].run(contexts);
+    public Context.Entry getPosition(ScriptManager manager) throws Exception {
+        Value value = current[0].run(manager);
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
         for (int i = 0; i < nodes.size() - 1; i++) {
-            Context.Entry position = nodes.get(i).getPosition(value, contexts);
+            Context.Entry position = nodes.get(i).getPosition(value, manager);
             value = position.getValue();
         }
-        return nodes.get(nodes.size() - 1).getPosition(value, contexts);
+        return nodes.get(nodes.size() - 1).getPosition(value, manager);
     }
 
     @Override

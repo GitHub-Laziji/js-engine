@@ -2,12 +2,11 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
+import org.laziji.commons.js.model.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
-
-import java.util.Stack;
 
 public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> implements InternalNode {
 
@@ -18,15 +17,15 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         addProxyItem(new CallMemberNameInternalNode(null));
     }
 
-    public Value run(ObjectValue caller, Value value, Stack<Context> contexts) throws Exception {
+    public Value run(ObjectValue caller, Value value, ScriptManager manager) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(caller, contexts, ((CallFunctionParamsInternalNode) self).getArguments(contexts));
+            return ((FunctionValue) objectValue).call(caller, manager, ((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {
-            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(contexts).toString();
+            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(manager).toString();
         } else if (self instanceof CallMemberNameInternalNode) {
             name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
         } else {
@@ -35,7 +34,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         return objectValue.getContext().get(name);
     }
 
-    public Context.Entry getPosition(Value value, Stack<Context> contexts) throws Exception {
+    public Context.Entry getPosition(Value value, ScriptManager manager) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode) {
@@ -43,7 +42,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {
-            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(contexts).toString();
+            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(manager).toString();
         } else if (self instanceof CallMemberNameInternalNode) {
             name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
         } else {
