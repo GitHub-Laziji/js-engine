@@ -46,10 +46,6 @@ public class ListNode<T extends Node> extends BaseListNode<T> {
         return allowEmpty;
     }
 
-    @Override
-    public Node getSelf() {
-        return super.getSelf();
-    }
 
     @Override
     public String getSeparatorFormat() {

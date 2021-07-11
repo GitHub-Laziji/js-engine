@@ -34,11 +34,6 @@ public abstract class BaseNode implements Node {
     }
 
     @Override
-    public Node init() {
-        return this;
-    }
-
-    @Override
     public String toString() {
         return toString(0, true);
     }

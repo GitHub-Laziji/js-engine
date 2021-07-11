@@ -29,7 +29,7 @@ public abstract class BasePlanNode extends BaseNode {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
             }
             current[i] = plan.get(i).apply(this, i > 0 ? current[i - 1] : null);
-            return current[i].init().append(unit);
+            return current[i].append(unit);
         }
         if (!current[plan.size() - 1].isDone()) {
             throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));

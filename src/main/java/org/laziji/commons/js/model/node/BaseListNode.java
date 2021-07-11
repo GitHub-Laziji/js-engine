@@ -30,7 +30,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
             }
             T node = getNextNode();
             nodes.add(node);
-            return node.init().append(unit);
+            return node.append(unit);
         } else {
             if (!last(nodes).isDone()) {
                 throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
@@ -54,7 +54,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
                     throw new Exception(String.format("[%s] is not the expected token.", unit.getToken().toString()));
                 }
                 separators.add(separator);
-                return separator.init().append(unit);
+                return separator.append(unit);
             }
         }
     }
@@ -103,7 +103,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
         try {
             T temp = getNextNode();
             temp.setParent(null);
-            temp.init().append(unit);
+            temp.append(unit);
             return true;
         } catch (Exception e) {
             return false;
@@ -114,7 +114,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
         try {
             Node temp = getNextSeparator();
             temp.setParent(null);
-            temp.init().append(unit);
+            temp.append(unit);
             return true;
         } catch (Exception e) {
             return false;

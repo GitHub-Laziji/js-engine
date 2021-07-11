@@ -78,7 +78,7 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
 
         public ProxyItem(T root) {
             this.root = root;
-            this.current = root.init();
+            this.current = root;
         }
 
         public T getRoot() {
