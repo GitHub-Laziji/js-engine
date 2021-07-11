@@ -30,8 +30,11 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     public Value run(Stack<Context> contexts) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
         Value value = current[0].run(contexts);
+        ObjectValue caller = null;
         for (ProxyCallParamsInternalNode node : nodes) {
-            value = node.run(value, contexts);
+            Value tempValue = node.run(caller, value, contexts);
+            caller = (ObjectValue) value;
+            value = tempValue;
         }
         return value;
     }

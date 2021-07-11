@@ -1,23 +1,20 @@
 package org.laziji.commons.js.model.context;
 
 
+import org.laziji.commons.js.model.value.ObjectValue;
 import org.laziji.commons.js.model.value.Value;
 
-public class FunctionContext extends BaseContext {
+public class FunctionContext extends BaseContext implements InstanceContext {
 
     private Value returnValue;
-    private boolean function;
+    private ObjectValue instance;
 
-    public FunctionContext(boolean function) {
-        this.function = function;
+    public FunctionContext(ObjectValue instance) {
+        this.instance = instance;
     }
 
-    public boolean isFunction() {
-        return function;
-    }
-
-    public boolean isLambda() {
-        return !function;
+    public ObjectValue getInstance() {
+        return instance;
     }
 
     public void setReturnValue(Value returnValue) {

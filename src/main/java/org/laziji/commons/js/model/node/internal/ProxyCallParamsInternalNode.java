@@ -18,11 +18,11 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         addProxyItem(new CallMemberNameInternalNode(null));
     }
 
-    public Value run(Value value, Stack<Context> contexts) throws Exception {
+    public Value run(ObjectValue caller, Value value, Stack<Context> contexts) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(contexts, ((CallFunctionParamsInternalNode) self).getArguments(contexts));
+            return ((FunctionValue) objectValue).call(caller, contexts, ((CallFunctionParamsInternalNode) self).getArguments(contexts));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {

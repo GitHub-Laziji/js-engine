@@ -20,8 +20,13 @@ public class FunctionValue extends ObjectValue {
         this.function = function;
     }
 
-    public Value call(Stack<Context> contexts, List<Value> arguments) throws Exception {
-        FunctionContext context = new FunctionContext(function);
+    public Value call(ObjectValue caller, Stack<Context> contexts, List<Value> arguments) throws Exception {
+        FunctionContext context;
+        if (function) {
+            context = new FunctionContext(caller == null ? GlobalValue.getInstance() : caller);
+        } else {
+            context = new FunctionContext(null);
+        }
         contexts.push(context);
         for (Param param : params) {
             context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
