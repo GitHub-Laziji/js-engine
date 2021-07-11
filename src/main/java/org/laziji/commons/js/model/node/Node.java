@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.TokenUnit;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.value.Value;
 
@@ -24,5 +24,32 @@ public interface Node {
     String toString(int depth, boolean start);
 
     Value run(Stack<Context> contexts) throws Exception;
+
+    class TokenUnit {
+
+        private Token token;
+        private String value;
+
+        public TokenUnit(Token token, String value) {
+            this.token = token;
+            this.value = value;
+        }
+
+        public Token getToken() {
+            return token;
+        }
+
+        public void setToken(Token token) {
+            this.token = token;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 
 }

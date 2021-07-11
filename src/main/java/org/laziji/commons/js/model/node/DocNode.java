@@ -3,7 +3,6 @@ package org.laziji.commons.js.model.node;
 import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
-import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.model.value.Value;
@@ -51,7 +50,7 @@ public class DocNode extends BasePlanNode {
         List<TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
         Node p = this.init();
         for (TokenUnit token : tokens) {
-            System.out.println(JSON.toJSONString(token)+" "+p.getSelf().getClass().getSimpleName());
+            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
             p = p.append(token);
         }
         if (!this.isDone()) {

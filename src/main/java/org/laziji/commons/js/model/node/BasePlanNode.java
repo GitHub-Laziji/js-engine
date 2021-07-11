@@ -1,7 +1,6 @@
 package org.laziji.commons.js.model.node;
 
 import com.google.common.collect.ImmutableList;
-import org.laziji.commons.js.model.TokenUnit;
 
 import java.util.Arrays;
 import java.util.List;

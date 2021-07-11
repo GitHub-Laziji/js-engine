@@ -1,7 +1,5 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.ProxyItem;
-import org.laziji.commons.js.model.TokenUnit;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.value.Value;
 
@@ -72,4 +70,31 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
         proxyItems.add(new ProxyItem<>(node));
     }
 
+
+    public class ProxyItem<T extends Node> {
+
+        private T root;
+        private Node current;
+
+        public ProxyItem(T root) {
+            this.root = root;
+            this.current = root.init();
+        }
+
+        public T getRoot() {
+            return root;
+        }
+
+        public void setRoot(T root) {
+            this.root = root;
+        }
+
+        public Node getCurrent() {
+            return current;
+        }
+
+        public void setCurrent(Node current) {
+            this.current = current;
+        }
+    }
 }

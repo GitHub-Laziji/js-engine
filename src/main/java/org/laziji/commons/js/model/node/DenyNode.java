@@ -1,7 +1,5 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.TokenUnit;
-
 public class DenyNode extends BaseNode {
 
     public DenyNode(Node parent) {
