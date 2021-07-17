@@ -18,7 +18,7 @@ public class ImportDefaultFromParagraphNode extends BasePlanNode implements Para
 
     @Override
     public boolean shouldEndFlag() {
-        return true;
+        return configuration.isStrict();
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ImportAllAsFromParagraphNode extends BasePlanNode implements Paragr
 
     @Override
     public boolean shouldEndFlag() {
-        return true;
+        return configuration.isStrict();
     }
 
     @Override

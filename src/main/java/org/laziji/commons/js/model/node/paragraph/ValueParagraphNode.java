@@ -27,6 +27,9 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
 
     @Override
     public boolean shouldEndFlag() {
+        if (!configuration.isStrict()) {
+            return false;
+        }
         if (nodes.size() == 1) {
             try {
                 Class<? extends Node> wordClass = nodes.get(0).getSingleWord();

@@ -17,7 +17,7 @@ public class ExportDefinedParagraphNode extends BasePlanNode implements Paragrap
 
     @Override
     public boolean shouldEndFlag() {
-        return true;
+        return configuration.isStrict();
     }
 
     @Override

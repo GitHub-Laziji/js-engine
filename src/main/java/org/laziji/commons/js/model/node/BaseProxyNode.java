@@ -66,6 +66,7 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     protected void addProxyItem(T node) {
+        node.setConfiguration(configuration);
         proxyItems.add(new ProxyItem<>(node));
     }
 

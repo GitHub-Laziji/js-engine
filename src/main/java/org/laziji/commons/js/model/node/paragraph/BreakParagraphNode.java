@@ -17,7 +17,7 @@ public class BreakParagraphNode extends BasePlanNode implements ParagraphNode {
 
     @Override
     public boolean shouldEndFlag() {
-        return true;
+        return configuration.isStrict();
     }
 
     @Override
