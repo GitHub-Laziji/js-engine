@@ -19,10 +19,10 @@ public class ProxySentenceNode extends BaseProxyNode<SentenceNode> implements Se
 
     public Class<? extends Node> getSingleWord() throws Exception {
         Node self = getSelf();
-        if(!(self instanceof CalculationSentenceNode)){
+        if (!(self instanceof CalculationSentenceNode)) {
             throw new Exception();
         }
-        CalculationSentenceNode calcNode =(CalculationSentenceNode)self;
+        CalculationSentenceNode calcNode = (CalculationSentenceNode) self;
         if (!isDone() || calcNode.getNodes().size() > 1) {
             throw new Exception();
         }

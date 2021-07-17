@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.name.LetName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;

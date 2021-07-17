@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.ArrayList;

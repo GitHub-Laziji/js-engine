@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;

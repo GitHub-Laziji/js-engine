@@ -1,24 +1,17 @@
 package org.laziji.commons.js.model.node.word;
 
-import jdk.nashorn.internal.runtime.Undefined;
-import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
-import org.laziji.commons.js.model.value.NullValue;
 import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class CallWordNode extends BasePlanNode implements VariableWordNode {

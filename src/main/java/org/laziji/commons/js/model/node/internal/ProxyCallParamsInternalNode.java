@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;

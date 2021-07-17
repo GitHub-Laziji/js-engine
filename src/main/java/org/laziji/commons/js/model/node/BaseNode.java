@@ -1,7 +1,8 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.NodeConfiguration;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collection;
@@ -10,10 +11,22 @@ import java.util.List;
 
 public abstract class BaseNode implements Node {
 
-    private Node parent;
-
+    protected NodeConfiguration configuration;
+    protected Node parent;
 
     public BaseNode(Node parent) {
+        this.parent = parent;
+        if (parent != null) {
+            this.configuration = parent.getConfiguration();
+        }
+        if (this.configuration == null) {
+            this.configuration = new NodeConfiguration();
+            this.configuration.setStrict(true);
+        }
+    }
+
+    public BaseNode(NodeConfiguration configuration, Node parent) {
+        this.configuration = configuration;
         this.parent = parent;
     }
 
@@ -35,6 +48,16 @@ public abstract class BaseNode implements Node {
     @Override
     public String toString() {
         return toString(0, true);
+    }
+
+    @Override
+    public NodeConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    @Override
+    public void setConfiguration(NodeConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     @Override

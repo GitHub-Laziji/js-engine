@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.value;
 
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.context.name.LetName;
 

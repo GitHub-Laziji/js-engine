@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node;
 
 import com.google.common.collect.ImmutableList;
+import org.laziji.commons.js.model.manager.NodeConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,10 @@ public abstract class BasePlanNode extends BaseNode {
 
     public BasePlanNode(Node parent) {
         super(parent);
+    }
+
+    public BasePlanNode(NodeConfiguration configuration, Node parent) {
+        super(configuration, parent);
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.ScriptManager;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
@@ -15,7 +15,6 @@ import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 /**

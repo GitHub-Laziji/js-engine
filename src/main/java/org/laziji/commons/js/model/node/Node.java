@@ -1,13 +1,15 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.manager.NodeConfiguration;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.value.Value;
 
-import java.util.Stack;
-
 public interface Node {
+
+    NodeConfiguration getConfiguration();
+
+    void setConfiguration(NodeConfiguration configuration);
 
     Node getParent();
 

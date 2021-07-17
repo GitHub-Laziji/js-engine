@@ -1,4 +1,4 @@
-package org.laziji.commons.js.model;
+package org.laziji.commons.js.model.manager;
 
 import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.CompileException;
@@ -14,6 +14,8 @@ import java.util.Stack;
 
 public class ScriptManager {
 
+    private final boolean strict;
+
     private final ObjectValue global;
     private final ObjectClass objectClass;
     private final FunctionClass functionClass;
@@ -22,7 +24,8 @@ public class ScriptManager {
 
     private final Stack<Context> contexts;
 
-    public ScriptManager() {
+    public ScriptManager(boolean strict) {
+        this.strict = strict;
         functionClass = new FunctionClass();
         objectClass = new ObjectClass();
         stringClass = new StringClass();
@@ -48,7 +51,9 @@ public class ScriptManager {
     }
 
     public DocNode compile(String text) throws Exception {
-        DocNode doc = new DocNode();
+        NodeConfiguration configuration = new NodeConfiguration();
+        configuration.setStrict(strict);
+        DocNode doc = new DocNode(configuration);
         List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
         Node p = doc;
         for (Node.TokenUnit token : tokens) {
