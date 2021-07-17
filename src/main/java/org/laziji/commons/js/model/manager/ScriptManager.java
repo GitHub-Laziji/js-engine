@@ -57,7 +57,7 @@ public class ScriptManager {
         List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
         Node p = doc;
         for (Node.TokenUnit token : tokens) {
-            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
+//            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
             p = p.append(token);
         }
         if (!doc.isDone()) {

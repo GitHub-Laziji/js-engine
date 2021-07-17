@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.BlockContext;
 import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
@@ -20,7 +21,10 @@ public class BigBracketParagraphNode extends BasePlanNode implements ParagraphNo
 
     @Override
     public Value run(ScriptManager manager) throws Exception {
-        return current[1].run(manager);
+        manager.getContexts().push(new BlockContext());
+        current[1].run(manager);
+        manager.getContexts().pop();
+        return null;
     }
 
     @Override

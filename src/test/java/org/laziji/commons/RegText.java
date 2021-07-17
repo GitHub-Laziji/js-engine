@@ -38,7 +38,7 @@ public class RegText {
         ScriptManager manager = new ScriptManager(true);
         manager.run(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
 //        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
-        System.out.println(manager.getContexts().peek());
+        System.out.println(manager.getContexts().peek().toSimpleString());
 //        FunctionValue func = (FunctionValue) contexts.peek().get("func");
 //        Value result = func.call(contexts, Arrays.asList(new NumberValue(9)));
 //        System.out.println(result);

@@ -52,10 +52,10 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public Entry getEntry(String name) throws ReferenceException {
+    public Entry getEntry(String name) {
         Entry item = this.context.get(name);
         if (item == null) {
-            throw new ReferenceException("%s is not defined", name);
+            return null;
         }
         return item;
     }
@@ -75,4 +75,12 @@ public abstract class BaseContext implements Context {
         return JSON.toJSONString(context, true);
     }
 
+    @Override
+    public String toSimpleString() {
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<String, Entry> entry : context.entrySet()) {
+            result.append(entry.getKey()).append(": ").append(entry.getValue().getValue().toString()).append('\n');
+        }
+        return result.toString();
+    }
 }

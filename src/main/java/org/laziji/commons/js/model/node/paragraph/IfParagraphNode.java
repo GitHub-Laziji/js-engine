@@ -1,13 +1,30 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.IfInternalNode;
+import org.laziji.commons.js.model.value.Value;
 
 public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements ParagraphNode {
 
     public IfParagraphNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        for (Node node : getNodes()) {
+            node = node.getSelf();
+            if (node instanceof IfInternalNode && ((IfInternalNode) node).runExp(manager).toBoolean().getValue()) {
+                ((IfInternalNode) node).runBody(manager);
+                break;
+            } else if (node instanceof BigBracketParagraphNode) {
+                node.run(manager);
+                break;
+            }
+        }
+        return null;
     }
 
     @Override

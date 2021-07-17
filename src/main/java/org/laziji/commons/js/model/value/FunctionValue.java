@@ -31,7 +31,6 @@ public class FunctionValue extends ObjectValue {
         for (Param param : params) {
             context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
         }
-        System.out.println(context);
         executor.run(manager);
         manager.getContexts().pop();
         return context.getReturnValue();

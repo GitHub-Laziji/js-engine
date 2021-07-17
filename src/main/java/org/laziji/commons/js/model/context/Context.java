@@ -18,6 +18,8 @@ public interface Context {
 
     boolean isClose();
 
+    String toSimpleString();
+
     class Entry {
         private Name name;
         private Value value;

@@ -15,5 +15,13 @@ let stradd = str+"["+a+"]";
 
 str.a="a";
 
-
+let sw = 44;
 let p = "["+str.a+"]";
+
+if(sw==1){
+    p="<<"+str.a+">>1";
+}else if(sw==2){
+    p="<<"+str.a+">>2";
+}else{
+    p="<<"+str.a+">>else";
+}
