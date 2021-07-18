@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.manager;
 
-import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.InstanceContext;
@@ -18,6 +17,7 @@ public class ScriptManager {
 
     private final ObjectValue global;
     private final ObjectClass objectClass;
+    private final ArrayClass arrayClass;
     private final FunctionClass functionClass;
     private final StringClass stringClass;
     private final NumberClass numberClass;
@@ -28,12 +28,14 @@ public class ScriptManager {
         this.strict = strict;
         functionClass = new FunctionClass();
         objectClass = new ObjectClass();
+        arrayClass = new ArrayClass();
         stringClass = new StringClass();
         numberClass = new NumberClass();
         global = new ObjectValue();
 
         functionClass.setInstanceClass(functionClass);
         objectClass.setInstanceClass(functionClass);
+        arrayClass.setInstanceClass(functionClass);
         stringClass.setInstanceClass(functionClass);
         numberClass.setInstanceClass(functionClass);
         global.setInstanceClass(objectClass);
@@ -82,6 +84,10 @@ public class ScriptManager {
 
     public ObjectClass getObjectClass() {
         return objectClass;
+    }
+
+    public ArrayClass getArrayClass() {
+        return arrayClass;
     }
 
     public FunctionClass getFunctionClass() {
