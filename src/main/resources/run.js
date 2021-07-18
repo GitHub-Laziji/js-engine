@@ -62,3 +62,9 @@ let arr = [1,2,"333aa",["a","b","c"],i3];
 let arr_2=arr[3][1];
 
 let arrLength = arr.length;
+
+let farr= [1,3,5,7,9];
+let fs = 0;
+for(let fi=0;fi<farr.length;fi+=1){
+    fs+=farr[fi];
+}
