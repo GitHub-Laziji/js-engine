@@ -1,10 +1,14 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.LoopContext;
+import org.laziji.commons.js.model.context.LoopUnitContext;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.word.SmallBracketWordNode;
+import org.laziji.commons.js.model.node.section.SectionNode;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +22,30 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
 
     @Override
     public String toString(int depth, boolean start) {
-        return String.format("%s%s%s %s", getTabString(depth, start), current[0].toString(depth, start),
-                current[1].toString(depth, false), current[2].toString(depth, false));
+        return String.format("%s %s%s%s %s\n%s\n%s",
+                current[0].toString(depth, start),
+                current[1].toString(depth, false),
+                current[2].toString(depth, false),
+                current[3].toString(depth, false),
+                current[4].toString(depth, false),
+                current[5].toString(depth + 1, true),
+                current[6].toString(depth, true));
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        LoopContext context = new LoopContext();
+        manager.getContexts().push(new LoopContext());
+        while (current[2].run(manager).toBoolean().getValue()) {
+            if (context.isClose()) {
+                break;
+            }
+            manager.getContexts().push(new LoopUnitContext());
+            current[5].run(manager);
+            manager.getContexts().pop();
+        }
+        manager.getContexts().pop();
+        return null;
     }
 
     @Override
@@ -30,9 +56,13 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
     @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                (self, pre) -> new UnitNode(this, Token.WHILE),
-                (self, pre) -> new SmallBracketWordNode(this),
-                (self, pre) -> new BigBracketParagraphNode(this)
+                (self, pre) -> new UnitNode(self, Token.WHILE),
+                (self, pre) -> new UnitNode(self, Token.BRACKET_SML_OPEN),
+                (self, pre) -> new ValueParagraphNode(self),
+                (self, pre) -> new UnitNode(self, Token.BRACKET_SML_CLOSE),
+                (self, pre) -> new UnitNode(self, Token.BRACKET_BIG_OPEN),
+                (self, pre) -> new SectionNode(self),
+                (self, pre) -> new UnitNode(self, Token.BRACKET_BIG_CLOSE)
         );
     }
 }

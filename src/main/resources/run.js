@@ -18,10 +18,18 @@ str.a="a";
 let sw = 44;
 let p = "["+str.a+"]";
 
+let i=10;
+let sum=0;
+
+while(i>0){
+    sum+=i;
+    i=i-1;
+}
+
 if(sw==1){
-    p="<<"+str.a+">>1";
+    p="<<"+str.a+">>1"+sum;
 }else if(sw==2){
-    p="<<"+str.a+">>2";
+    p="<<"+str.a+">>2"+sum;
 }else{
-    p="<<"+str.a+">>else";
+    p="<<"+str.a+">>else"+sum;
 }
