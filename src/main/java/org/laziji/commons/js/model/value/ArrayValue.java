@@ -12,6 +12,12 @@ public class ArrayValue extends ObjectValue {
     }
 
     @Override
+    public void put(String name, Value value) throws Exception {
+        // TODO length
+        super.put(name, value);
+    }
+
+    @Override
     public String toString() {
         return "[...]";
     }
