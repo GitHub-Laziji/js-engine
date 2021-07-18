@@ -22,7 +22,7 @@ public enum Token {
     BRACKET_BIG_OPEN("^(\\{)[\\s\\S]*"),
     BRACKET_BIG_CLOSE("^(\\})[\\s\\S]*"),
     REMARK("^(/\\*[\\s\\S]*?\\*/)[\\s\\S]*"),
-    REMARK_OF_LINE("^(//.*)\\r?[\\n$][\\s\\S]*"),
+    REMARK_OF_LINE("^(//.*)\\r?(\\n|$)[\\s\\S]*"),
 
     CONST("^(const)([^\\w\\$][\\s\\S]*|$)"),
     VAR("^(var)([^\\w\\$][\\s\\S]*|$)"),

@@ -1,7 +1,9 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.*;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +13,11 @@ public class LineRemarkParagraphNode extends BasePlanNode implements ParagraphNo
 
     public LineRemarkParagraphNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        return null;
     }
 
     @Override

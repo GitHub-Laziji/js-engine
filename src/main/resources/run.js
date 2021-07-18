@@ -62,9 +62,37 @@ let arr = [1,2,"333aa",["a","b","c"],i3];
 let arr_2=arr[3][1];
 
 let arrLength = arr.length;
-
+//
 let farr= [1,3,5,7,9];
 let fs = 0;
 for(let fi=0;fi<farr.length;fi+=1){
     fs+=farr[fi];
 }
+
+
+
+function sort(arr, i, j) {
+    if (i >= j) {
+        return;
+    }
+    let p = i, q = j;
+    let temp = arr[p];
+    while (p < q) {
+        while (p < q && arr[q] >= temp) {
+            q-=1;
+        }
+        arr[p] = arr[q];
+        while (p < q && arr[p] <= temp) {
+            p+=1;
+        }
+        arr[q] = arr[p];
+    }
+    arr[q] = temp;
+    sort(arr, i, q - 1);
+    sort(arr, q + 1, j);
+}
+
+let arr2 = [234, 57, 12, 123, 346, 1234, 2];
+
+sort(arr2, 0, arr2.length - 1);
+//asd

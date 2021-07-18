@@ -44,4 +44,11 @@ public class RegText {
 //        System.out.println(result);
 
     }
+
+    @Test
+    public void runSort() throws Exception {
+        ScriptManager manager = new ScriptManager(true);
+        manager.run(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
+        System.out.println(manager.getContexts().peek().toSimpleString());
+    }
 }

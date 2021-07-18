@@ -19,6 +19,24 @@ public class ArrayValue extends ObjectValue {
 
     @Override
     public String toString() {
+        try {
+            StringBuilder result = new StringBuilder();
+            result.append("[");
+            Value lengthValue = context.get("length");
+            if (!(lengthValue instanceof NumberValue)) {
+                throw new Exception();
+            }
+            int length = (int) ((NumberValue) lengthValue).getValue();
+            for (int i = 0; i < length; i++) {
+                result.append(context.get(i + "").toString());
+                if (i != length - 1) {
+                    result.append(", ");
+                }
+            }
+            result.append("]");
+            return result.toString();
+        } catch (Exception ignored) {
+        }
         return "[...]";
     }
 

@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.manager;
 
+import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.InstanceContext;
