@@ -39,3 +39,19 @@ let sum2 = 0;
 for(let ii=1;ii<=10;ii=ii+1){
     sum2+=ii;
 }
+
+let i3=10;
+let sum3=0;
+
+do{
+    if(i3==10){
+        i3=i3-1;
+        continue;
+    }
+    sum3+=i3;
+    i3=i3-1;
+
+    if(i3<8){
+        break;
+    }
+}while(i3>0);

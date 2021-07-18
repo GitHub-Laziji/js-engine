@@ -27,7 +27,7 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
     @Override
     public Value run(ScriptManager manager) throws Exception {
         LoopContext context = new LoopContext();
-        manager.getContexts().push(new LoopContext());
+        manager.getContexts().push(context);
         while (current[2].run(manager).toBoolean().getValue()) {
             if (context.isClose()) {
                 break;

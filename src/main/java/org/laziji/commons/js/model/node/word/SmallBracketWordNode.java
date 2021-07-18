@@ -6,6 +6,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
+import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -36,6 +37,10 @@ public class SmallBracketWordNode extends BasePlanNode implements WordNode {
     public String toString(int depth, boolean start) {
         return String.format("%s%s%s", current[0].toString(depth, start), current[1].toString(depth, false),
                 current[2].toString(depth, false));
+    }
+
+    public ValueParagraphNode getBody() {
+        return (ValueParagraphNode) current[1];
     }
 
 }
