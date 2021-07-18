@@ -7,7 +7,6 @@ import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -21,15 +20,8 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public String toString(int depth, boolean start) {
-        return String.format("%s %s%s%s %s\n%s\n%s",
-                current[0].toString(depth, start),
-                current[1].toString(depth, false),
-                current[2].toString(depth, false),
-                current[3].toString(depth, false),
-                current[4].toString(depth, false),
-                current[5].toString(depth + 1, true),
-                current[6].toString(depth, true));
+    protected String getStringFormat() {
+        return "%s %s%s%s %s";
     }
 
     @Override
@@ -41,7 +33,7 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
                 break;
             }
             manager.getContexts().push(new LoopUnitContext());
-            current[5].run(manager);
+            ((BigBracketParagraphNode) current[4]).getBody().run(manager);
             manager.getContexts().pop();
         }
         manager.getContexts().pop();
@@ -60,9 +52,7 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
                 (self, pre) -> new UnitNode(self, Token.BRACKET_SML_OPEN),
                 (self, pre) -> new ValueParagraphNode(self),
                 (self, pre) -> new UnitNode(self, Token.BRACKET_SML_CLOSE),
-                (self, pre) -> new UnitNode(self, Token.BRACKET_BIG_OPEN),
-                (self, pre) -> new SectionNode(self),
-                (self, pre) -> new UnitNode(self, Token.BRACKET_BIG_CLOSE)
+                (self, pre) -> new BigBracketParagraphNode(self)
         );
     }
 }

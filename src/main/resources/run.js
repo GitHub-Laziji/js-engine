@@ -33,3 +33,9 @@ if(sw==1){
 }else{
     p="<<"+str.a+">>else"+sum;
 }
+
+let sum2 = 0;
+
+for(let ii=1;ii<=10;ii=ii+1){
+    sum2+=ii;
+}

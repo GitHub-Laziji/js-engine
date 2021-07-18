@@ -7,6 +7,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
+import org.laziji.commons.js.model.node.sentence.SentenceNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -46,4 +47,9 @@ public class BigBracketParagraphNode extends BasePlanNode implements ParagraphNo
                 (self, pre) -> new UnitNode(this, Token.BRACKET_BIG_CLOSE)
         );
     }
+
+    public SectionNode getBody() {
+        return (SectionNode) current[1];
+    }
+
 }

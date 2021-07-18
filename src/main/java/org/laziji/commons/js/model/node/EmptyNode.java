@@ -1,9 +1,17 @@
 package org.laziji.commons.js.model.node;
 
+import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.value.Value;
+
 public class EmptyNode extends BaseNode {
 
     public EmptyNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        return null;
     }
 
     @Override

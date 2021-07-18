@@ -1,10 +1,14 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.LoopContext;
+import org.laziji.commons.js.model.context.LoopUnitContext;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +18,24 @@ public class ForParagraphNode extends BasePlanNode implements ParagraphNode {
 
     public ForParagraphNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        LoopContext context = new LoopContext();
+        manager.getContexts().push(new LoopContext());
+        current[2].run(manager);
+        while (current[4].run(manager).toBoolean().getValue()) {
+            if (context.isClose()) {
+                break;
+            }
+            manager.getContexts().push(new LoopUnitContext());
+            ((BigBracketParagraphNode) current[8]).getBody().run(manager);
+            manager.getContexts().pop();
+            current[6].run(manager);
+        }
+        manager.getContexts().pop();
+        return null;
     }
 
     @Override
