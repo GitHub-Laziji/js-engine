@@ -42,6 +42,10 @@ public class NumberValue extends ObjectValue {
 
     @Override
     public String toString() {
-        return value + "";
+        String v = value + "";
+        if(v.endsWith(".0")){
+            return v.substring(0,v.length()-2);
+        }
+        return v;
     }
 }

@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.context.ObjectContext;
 
 public class ObjectValue extends BaseValue {
 
-    private final Context context;
+    protected final Context context;
     private FunctionValue instanceClass;
 
     public ObjectValue(FunctionClass instanceClass) {
@@ -37,5 +37,17 @@ public class ObjectValue extends BaseValue {
             return null;
         }
         return instanceClass.getPrototype();
+    }
+
+    public void put(String name, Value value) throws Exception {
+        context.getEntry(name).setValue(value);
+    }
+
+    public Value get(String name) throws Exception {
+        return context.get(name);
+    }
+
+    public Context.Entry getEntry(String name) throws Exception {
+        return context.getEntry(name);
     }
 }

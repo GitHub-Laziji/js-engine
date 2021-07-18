@@ -31,7 +31,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.getContext().get(name);
+        return objectValue.get(name);
     }
 
     public Context.Entry getPosition(Value value, ScriptManager manager) throws Exception {
@@ -48,7 +48,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.getContext().getEntry(name);
+        return objectValue.getEntry(name);
     }
 
     private ObjectValue castObjectValue(Value value) throws Exception {

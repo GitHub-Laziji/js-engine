@@ -4,10 +4,11 @@ import java.util.List;
 
 public class ArrayValue extends ObjectValue {
 
-    private List<Value> value;
-
-    public ArrayValue(List<Value> value) {
-        this.value = value;
+    public ArrayValue(List<Value> values) throws Exception {
+        put("length", new NumberValue(values.size()));
+        for (int i = 0; i < values.size(); i++) {
+            put(i + "", values.get(i));
+        }
     }
 
     @Override
@@ -15,7 +16,4 @@ public class ArrayValue extends ObjectValue {
         return "[...]";
     }
 
-    public List<Value> getValue() {
-        return value;
-    }
 }

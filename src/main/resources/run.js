@@ -55,3 +55,10 @@ do{
         break;
     }
 }while(i3>0);
+
+
+let arr = [1,2,"333aa",4];
+
+let arr_2=arr[2];
+
+let arrLength = arr.length;
