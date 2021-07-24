@@ -21,7 +21,11 @@ public class DocNode extends BasePlanNode {
 
     @Override
     public Value run(ScriptManager manager) throws Exception {
-        return current[0].run(manager);
+        current[0].run(manager);
+        if(!manager.isMain()){
+
+        }
+        return null;
     }
 
     @Override

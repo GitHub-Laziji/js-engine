@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.value.SystemModuleValue;
 
 public class RegText {
 
@@ -49,6 +50,15 @@ public class RegText {
     public void runSort() throws Exception {
         ScriptManager manager = new ScriptManager(true);
         manager.run(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
+        System.out.println(manager.getContexts().peek().toSimpleString());
+    }
+
+
+    @Test
+    public void runImport() throws Exception {
+        ScriptManager manager = new ScriptManager(true);
+        manager.addInternalModules("sys", new SystemModuleValue());
+        manager.run(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
         System.out.println(manager.getContexts().peek().toSimpleString());
     }
 }

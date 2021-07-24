@@ -41,6 +41,10 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
         throw new ReferenceException("%s is not defined", name);
     }
 
+    public String getName() {
+        return getUnit().getValue();
+    }
+
     @Override
     protected Set<Token> getTokens() {
         return Collections.singleton(Token.NAME);
