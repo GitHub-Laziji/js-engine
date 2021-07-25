@@ -9,13 +9,13 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
 import org.laziji.commons.js.util.TokenUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class ScriptManager {
 
+    private final Queue<Runner> macroTasks = new LinkedList<>();
+    private final Set<String> delayMacroTaskIds = new HashSet<>();
+    private final Queue<Runner> microTasks = new LinkedList<>();
     private final Map<String, ModuleValue> internalModules = new HashMap<>();
     private final Map<String, ModuleValue> externalMudules = new HashMap<>();
     private final boolean strict;
@@ -55,12 +55,20 @@ public class ScriptManager {
         internalModules.put(name, module);
     }
 
-    public void run(String text) throws Exception {
-        compile(text).run(this);
+    public synchronized void addMacroTask(Runner runner) {
+        macroTasks.add(runner);
     }
 
-    public void run(DocNode doc) throws Exception {
-        doc.run(this);
+    public synchronized void addMicroTask(Runner runner) {
+        microTasks.add(runner);
+    }
+
+    public void eval(String text) throws Exception {
+        eval(compile(text));
+    }
+
+    public void eval(DocNode doc) {
+        addMacroTask(() -> doc.run(this));
     }
 
     public DocNode compile(String text) throws Exception {
@@ -77,6 +85,23 @@ public class ScriptManager {
             throw new CompileException();
         }
         return doc;
+    }
+
+    public void loop() throws Exception {
+        while (true) {
+            synchronized (this) {
+                while (!macroTasks.isEmpty()) {
+                    macroTasks.poll().run();
+                }
+                while (!microTasks.isEmpty()) {
+                    microTasks.poll().run();
+                }
+                if (delayMacroTaskIds.isEmpty()) {
+                    break;
+                }
+            }
+            wait();
+        }
     }
 
     public Stack<Context> getContexts() {
@@ -131,5 +156,11 @@ public class ScriptManager {
 
     public boolean isMain() {
         return scriptFilePath == null;
+    }
+
+    @FunctionalInterface
+    public interface Runner {
+
+        void run() throws Exception;
     }
 }

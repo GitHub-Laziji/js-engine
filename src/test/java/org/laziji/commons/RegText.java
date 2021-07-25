@@ -37,7 +37,7 @@ public class RegText {
     @Test
     public void run() throws Exception {
         ScriptManager manager = new ScriptManager(true);
-        manager.run(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
+        manager.eval(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
 //        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
         System.out.println(manager.getContexts().peek().toSimpleString());
 //        FunctionValue func = (FunctionValue) contexts.peek().get("func");
@@ -49,7 +49,8 @@ public class RegText {
     @Test
     public void runSort() throws Exception {
         ScriptManager manager = new ScriptManager(true);
-        manager.run(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
+        manager.eval(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
+        manager.loop();
         System.out.println(manager.getContexts().peek().toSimpleString());
     }
 
@@ -58,7 +59,7 @@ public class RegText {
     public void runImport() throws Exception {
         ScriptManager manager = new ScriptManager(true);
         manager.addInternalModules("sys", new SystemModuleValue());
-        manager.run(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
+        manager.eval(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
         System.out.println(manager.getContexts().peek().toSimpleString());
     }
 }
