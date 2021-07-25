@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.manager;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Context;
@@ -13,11 +15,11 @@ import java.util.*;
 
 public class ScriptManager {
 
-    private final Queue<Runner> macroTasks = new LinkedList<>();
-    private final Set<String> delayMacroTaskIds = new HashSet<>();
-    private final Queue<Runner> microTasks = new LinkedList<>();
-    private final Map<String, ModuleValue> internalModules = new HashMap<>();
-    private final Map<String, ModuleValue> externalMudules = new HashMap<>();
+    private final Queue<Runner> macroTasks;
+    private final Set<String> delayMacroTaskIds;
+    private final Queue<Runner> microTasks;
+    private final Map<String, ModuleValue> internalModules;
+    private final Map<String, ModuleValue> externalMudules;
     private final boolean strict;
 
     private final ObjectValue global;
@@ -33,6 +35,13 @@ public class ScriptManager {
 
     public ScriptManager(boolean strict) {
         this.strict = strict;
+
+        macroTasks = new LinkedList<>();
+        delayMacroTaskIds = new HashSet<>();
+        microTasks = new LinkedList<>();
+        internalModules = new HashMap<>();
+        externalMudules = new HashMap<>();
+
         functionClass = new FunctionClass();
         objectClass = new ObjectClass();
         arrayClass = new ArrayClass();
@@ -51,12 +60,42 @@ public class ScriptManager {
         contexts.push(new InstanceContext(global));
     }
 
+    public ScriptManager(ScriptManager manager) {
+        this.strict = manager.strict;
+
+        macroTasks = manager.macroTasks;
+        delayMacroTaskIds = manager.delayMacroTaskIds;
+        microTasks = manager.microTasks;
+        internalModules = manager.internalModules;
+        externalMudules = manager.externalMudules;
+
+        functionClass = manager.functionClass;
+        objectClass = manager.objectClass;
+        arrayClass = manager.arrayClass;
+        stringClass = manager.stringClass;
+        numberClass = manager.numberClass;
+        global = manager.global;
+
+
+        contexts = new Stack<>();
+        contexts.addAll(manager.getContexts());
+    }
+
     public void addInternalModules(String name, ModuleValue module) {
         internalModules.put(name, module);
     }
 
     public synchronized void addMacroTask(Runner runner) {
         macroTasks.add(runner);
+        notifyAll();
+    }
+
+    public synchronized void addDelayMacroTaskId(String id) {
+        delayMacroTaskIds.add(id);
+    }
+
+    public synchronized void deleteDelayMacroTaskId(String id) {
+        delayMacroTaskIds.remove(id);
     }
 
     public synchronized void addMicroTask(Runner runner) {
@@ -99,8 +138,8 @@ public class ScriptManager {
                 if (delayMacroTaskIds.isEmpty()) {
                     break;
                 }
+                wait();
             }
-            wait();
         }
     }
 
@@ -156,6 +195,10 @@ public class ScriptManager {
 
     public boolean isMain() {
         return scriptFilePath == null;
+    }
+
+    public ScriptManager fork() {
+        return new ScriptManager(this);
     }
 
     @FunctionalInterface

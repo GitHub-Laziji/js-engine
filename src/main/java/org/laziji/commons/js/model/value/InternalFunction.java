@@ -22,4 +22,9 @@ public class InternalFunction extends FunctionValue {
     public interface Handler {
         Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception;
     }
+
+    @Override
+    public String toString() {
+        return "function() { [native code] }";
+    }
 }

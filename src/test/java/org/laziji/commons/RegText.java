@@ -60,6 +60,7 @@ public class RegText {
         ScriptManager manager = new ScriptManager(true);
         manager.addInternalModules("sys", new SystemModuleValue());
         manager.eval(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
+        manager.loop();
         System.out.println(manager.getContexts().peek().toSimpleString());
     }
 }

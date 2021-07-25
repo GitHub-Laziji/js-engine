@@ -26,9 +26,7 @@ public class ImportDefaultFromParagraphNode extends BasePlanNode implements Para
     public Value run(ScriptManager manager) throws Exception {
         String variableName = ((NameWordNode) current[1]).getName();
         String moduleName = ((StringWordNode) current[3]).run(manager).toString();
-        System.out.println(moduleName);
         ModuleValue module = manager.getModule(moduleName);
-        System.out.println(module.getClass().getName());
         if (module.getDefaultExportValue() != null) {
             manager.getContexts().peek().defined(new LetName(variableName), module.getDefaultExportValue());
         } else {

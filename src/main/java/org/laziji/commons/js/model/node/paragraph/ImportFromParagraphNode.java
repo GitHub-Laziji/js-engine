@@ -1,8 +1,14 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.name.LetName;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.word.NameWordNode;
+import org.laziji.commons.js.model.node.word.StringWordNode;
+import org.laziji.commons.js.model.value.ModuleValue;
+import org.laziji.commons.js.model.value.UndefinedValue;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +18,30 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
 
     public ImportFromParagraphNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        String moduleName = ((StringWordNode) current[5]).run(manager).toString();
+        ModuleValue module = manager.getModule(moduleName);
+        for (Node node : ((ListNode<Node>) current[2]).getNodes()) {
+            node = node.getSelf();
+            String importName;
+            String variableName;
+            if (node instanceof NameWordNode) {
+                variableName = importName = ((NameWordNode) node).getName();
+            } else {
+                importName = ((NameWordNode) ((PlanNode) node).getNodes().get(0)).getName();
+                variableName = ((NameWordNode) ((PlanNode) node).getNodes().get(2)).getName();
+            }
+            Value exportValue = module.getExportValue(importName);
+            if (exportValue != null) {
+                manager.getContexts().peek().defined(new LetName(variableName), exportValue);
+            } else {
+                manager.getContexts().peek().defined(new LetName(variableName), new UndefinedValue());
+            }
+        }
+        return null;
     }
 
     @Override
@@ -37,7 +67,7 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
                 ),
                 (self, pre) -> new UnitNode(self, Token.BRACKET_BIG_CLOSE),
                 (self, pre) -> new UnitNode(self, Token.FROM),
-                (self, pre) -> new UnitNode(self, Token.STRING)
+                (self, pre) -> new StringWordNode(self)
         );
     }
 

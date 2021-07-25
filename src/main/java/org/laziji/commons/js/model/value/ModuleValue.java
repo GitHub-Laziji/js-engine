@@ -21,7 +21,7 @@ public class ModuleValue extends BaseValue {
         export.put(name, value);
     }
 
-    public Value getExportvalue(String name) {
+    public Value getExportValue(String name) {
         return export.get(name);
     }
 
