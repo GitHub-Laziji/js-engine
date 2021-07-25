@@ -1,8 +1,8 @@
 import sysfunc from "sys";
-import {setTimeout,print} from "sys";
+import {setTimeout,print as p} from "sys";
 
 let a = sysfunc("hello");
 
 setTimeout(function(){
-    print("setTimeout delay 3000ms");
+    p("setTimeout delay 3000ms");
 },3000);
