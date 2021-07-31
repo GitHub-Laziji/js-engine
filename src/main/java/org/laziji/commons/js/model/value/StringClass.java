@@ -1,9 +1,34 @@
 package org.laziji.commons.js.model.value;
 
-public class StringClass extends FunctionValue {
+import org.laziji.commons.js.exception.RunException;
+
+public class StringClass extends InternalFunction {
+
+    {
+        prototype = new ObjectValue();
+        try {
+            prototype.put("substring", new InternalFunction((caller, manager, arguments) -> {
+                if (arguments.size() < 1) {
+                    throw new RunException();
+                }
+                if (!(caller.getInstanceClass() instanceof StringClass)) {
+                    throw new RunException();
+                }
+                if (arguments.size() == 1) {
+                    return new StringValue(caller.toString().substring(arguments.get(0).toNumber().getIntValue()));
+                }
+                return new StringValue(caller.toString().substring(
+                        arguments.get(0).toNumber().getIntValue(),
+                        arguments.get(1).toNumber().getIntValue()
+                ));
+            }));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public StringClass() {
-        super(null, null, true);
+        super(null);
     }
 
 }

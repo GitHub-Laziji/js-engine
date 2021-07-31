@@ -11,5 +11,7 @@ public interface Value {
 
     BooleanValue toBoolean();
 
+    NumberValue toNumber();
+
     Value copy();
 }

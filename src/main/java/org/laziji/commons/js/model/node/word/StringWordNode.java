@@ -37,7 +37,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
             }
             i++;
         }
-        return new StringValue(sb.toString());
+        return manager.createStringValue(sb.toString());
     }
 
     @Override

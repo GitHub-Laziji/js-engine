@@ -65,6 +65,11 @@ public abstract class BaseValue implements Value {
     }
 
     @Override
+    public NumberValue toNumber() {
+        throw new RuntimeException();
+    }
+
+    @Override
     public Value copy() {
         return this;
     }

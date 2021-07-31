@@ -153,6 +153,12 @@ public class ScriptManager {
         return numberValue;
     }
 
+    public StringValue createStringValue(String value) {
+        StringValue stringValue = new StringValue(value);
+        stringValue.setInstanceClass(stringClass);
+        return stringValue;
+    }
+
     public ObjectValue getGlobal() {
         return global;
     }

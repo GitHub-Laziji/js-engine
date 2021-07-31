@@ -36,15 +36,28 @@ public class NumberValue extends ObjectValue {
         return new BooleanValue(value == 0);
     }
 
+    @Override
+    public NumberValue toNumber() {
+        return this;
+    }
+
     public double getValue() {
         return value;
+    }
+
+    public int getIntValue() {
+        return (int) value;
+    }
+
+    public long getLongValue() {
+        return (long) value;
     }
 
     @Override
     public String toString() {
         String v = value + "";
-        if(v.endsWith(".0")){
-            return v.substring(0,v.length()-2);
+        if (v.endsWith(".0")) {
+            return v.substring(0, v.length() - 2);
         }
         return v;
     }

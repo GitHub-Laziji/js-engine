@@ -44,7 +44,12 @@ public class ObjectValue extends BaseValue {
     }
 
     public Value get(String name) throws Exception {
-        return context.get(name);
+        Value value = context.get(name);
+        ObjectValue proto = getProto();
+        if (value instanceof UndefinedValue && proto != null && proto != this) {
+            return proto.get(name);
+        }
+        return value;
     }
 
     public Context.Entry getEntry(String name) throws Exception {

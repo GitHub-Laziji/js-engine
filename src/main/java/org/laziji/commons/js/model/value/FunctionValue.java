@@ -12,7 +12,7 @@ public class FunctionValue extends ObjectValue {
     private List<Param> params;
     private Executor executor;
     private boolean function;
-    private ObjectValue prototype;
+    protected ObjectValue prototype;
 
     public FunctionValue(List<Param> params, Executor executor, boolean function) {
         this.params = params;
