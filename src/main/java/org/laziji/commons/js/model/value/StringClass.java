@@ -4,31 +4,35 @@ import org.laziji.commons.js.exception.RunException;
 
 public class StringClass extends InternalFunction {
 
+    public StringClass() {
+        super(null);
+    }
+
     {
-        prototype = new ObjectValue();
         try {
-            prototype.put("substring", new InternalFunction((caller, manager, arguments) -> {
-                if (arguments.size() < 1) {
-                    throw new RunException();
-                }
-                if (!(caller.getInstanceClass() instanceof StringClass)) {
-                    throw new RunException();
-                }
-                if (arguments.size() == 1) {
-                    return new StringValue(caller.toString().substring(arguments.get(0).toNumber().getIntValue()));
-                }
-                return new StringValue(caller.toString().substring(
-                        arguments.get(0).toNumber().getIntValue(),
-                        arguments.get(1).toNumber().getIntValue()
-                ));
-            }));
+            init();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public StringClass() {
-        super(null);
+    private void init() throws Exception {
+        prototype = new ObjectValue();
+        prototype.put("substring", new InternalFunction((caller, manager, arguments) -> {
+            if (arguments.size() < 1) {
+                throw new RunException();
+            }
+            if (!(caller.getInstanceClass() instanceof StringClass)) {
+                throw new RunException();
+            }
+            if (arguments.size() == 1) {
+                return new StringValue(caller.toString().substring(arguments.get(0).toNumber().getIntValue()));
+            }
+            return new StringValue(caller.toString().substring(
+                    arguments.get(0).toNumber().getIntValue(),
+                    arguments.get(1).toNumber().getIntValue()
+            ));
+        }));
     }
 
 }
