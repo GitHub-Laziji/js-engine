@@ -1,11 +1,13 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.internal.ObjectContentInternalNode;
 import org.laziji.commons.js.model.node.word.WordNode;
+import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,11 @@ public class ObjectWordNode extends BasePlanNode implements WordNode {
 
     public ObjectWordNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    public Value run(ScriptManager manager) throws Exception {
+        return current[1].run(manager);
     }
 
     @Override

@@ -55,4 +55,9 @@ public class ObjectValue extends BaseValue {
     public Context.Entry getEntry(String name) throws Exception {
         return context.getEntry(name);
     }
+
+    @Override
+    public String toString() {
+        return context.toString();
+    }
 }
