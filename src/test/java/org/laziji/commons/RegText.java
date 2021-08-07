@@ -63,4 +63,13 @@ public class RegText {
         manager.loop();
         System.out.println(manager.getContexts().peek().toSimpleString());
     }
+
+    @Test
+    public void runString() throws Exception {
+        ScriptManager manager = new ScriptManager(true);
+        manager.addInternalModules("sys", new SystemModuleValue());
+        manager.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
+        manager.loop();
+        System.out.println(manager.getContexts().peek().toSimpleString());
+    }
 }

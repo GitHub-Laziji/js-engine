@@ -3,6 +3,9 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.ObjectContext;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ObjectValue extends BaseValue {
 
     protected final Context context;
@@ -44,16 +47,21 @@ public class ObjectValue extends BaseValue {
     }
 
     public Value get(String name) throws Exception {
-        Value value = context.get(name);
-        ObjectValue proto = getProto();
-        if (value instanceof UndefinedValue && proto != null && proto != this) {
-            return proto.get(name);
-        }
-        return value;
+        return get(name, new HashSet<>());
     }
 
     public Context.Entry getEntry(String name) throws Exception {
         return context.getEntry(name);
+    }
+
+    private Value get(String name, Set<ObjectValue> values) throws Exception {
+        values.add(this);
+        Value value = context.get(name);
+        ObjectValue proto = getProto();
+        if (value instanceof UndefinedValue && proto != null && !values.contains(proto)) {
+            return proto.get(name, values);
+        }
+        return value;
     }
 
     @Override
