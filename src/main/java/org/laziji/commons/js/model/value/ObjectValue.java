@@ -20,10 +20,6 @@ public class ObjectValue extends BaseValue {
         this.context = new ObjectContext();
     }
 
-    public Context getContext() {
-        return context;
-    }
-
     public void setInstanceClass(FunctionValue instanceClass) {
         if (this.instanceClass != null) {
             throw new RuntimeException();
