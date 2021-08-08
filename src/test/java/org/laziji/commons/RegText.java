@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.value.SystemModuleValue;
 
 public class RegText {
@@ -24,7 +25,8 @@ public class RegText {
     @Test
     public void letTest() throws Exception {
         ScriptManager manager = new ScriptManager(true);
-        System.out.println(manager.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};").toString());
+        DocNode doc = manager.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
+        System.out.println(doc.toString());
     }
 
     @Test
