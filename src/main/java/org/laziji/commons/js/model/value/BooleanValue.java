@@ -9,7 +9,7 @@ public class BooleanValue extends BaseValue {
     }
 
     @Override
-    public BooleanValue toBoolean() {
+    public BooleanValue toBooleanValue() {
         return this;
     }
 

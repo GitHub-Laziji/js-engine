@@ -16,7 +16,7 @@ public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements Pa
     public Value run(ScriptManager manager) throws Exception {
         for (Node node : getNodes()) {
             node = node.getSelf();
-            if (node instanceof IfInternalNode && ((IfInternalNode) node).runExp(manager).toBoolean().getValue()) {
+            if (node instanceof IfInternalNode && ((IfInternalNode) node).runExp(manager).toBoolean()) {
                 ((IfInternalNode) node).runBody(manager);
                 break;
             } else if (node instanceof BigBracketParagraphNode) {

@@ -9,7 +9,7 @@ public abstract class BaseValue implements Value {
     public Value unaryOperation(Token operator) throws OperationException {
         switch (operator) {
             case NON:
-                return new BooleanValue(!this.toBoolean().getValue());
+                return new BooleanValue(!this.toBoolean());
             default:
                 throw new OperationException("Unrealized.");
         }
@@ -21,17 +21,17 @@ public abstract class BaseValue implements Value {
             case ADD:
                 return new StringValue(toString() + o.toString());
             case OR:
-                return new BooleanValue(toBoolean().getValue() || o.toBoolean().getValue());
+                return new BooleanValue(toBoolean() || o.toBoolean());
             case AND:
-                return new BooleanValue(toBoolean().getValue() && o.toBoolean().getValue());
+                return new BooleanValue(toBoolean() && o.toBoolean());
             case EQUAL:
                 return new BooleanValue(toString().equals(o.toString()));
             case ABS_EQUAL:
                 return new BooleanValue(getClass().equals(o.getClass()) && toString().equals(o.toString()));
             case UNEQUAL:
-                return new BooleanValue(!binaryOperation(Token.EQUAL, o).toBoolean().getValue());
+                return new BooleanValue(!binaryOperation(Token.EQUAL, o).toBoolean());
             case ABS_UNEQUAL:
-                return new BooleanValue(!binaryOperation(Token.ABS_EQUAL, o).toBoolean().getValue());
+                return new BooleanValue(!binaryOperation(Token.ABS_EQUAL, o).toBoolean());
             case GT:
                 if (this instanceof NumberValue || o instanceof NumberValue) {
                     try {
@@ -41,8 +41,8 @@ public abstract class BaseValue implements Value {
                 }
                 return new BooleanValue(this.toString().compareTo(o.toString()) > 0);
             case GT_EQUAL:
-                return new BooleanValue(binaryOperation(Token.EQUAL, o).toBoolean().getValue()
-                        || binaryOperation(Token.GT, o).toBoolean().getValue());
+                return new BooleanValue(binaryOperation(Token.EQUAL, o).toBoolean()
+                        || binaryOperation(Token.GT, o).toBoolean());
             case LT:
                 if (this instanceof NumberValue || o instanceof NumberValue) {
                     try {
@@ -52,21 +52,31 @@ public abstract class BaseValue implements Value {
                 }
                 return new BooleanValue(this.toString().compareTo(o.toString()) < 0);
             case LT_EQUAL:
-                return new BooleanValue(binaryOperation(Token.EQUAL, o).toBoolean().getValue()
-                        || binaryOperation(Token.LT, o).toBoolean().getValue());
+                return new BooleanValue(binaryOperation(Token.EQUAL, o).toBoolean()
+                        || binaryOperation(Token.LT, o).toBoolean());
             default:
                 throw new OperationException("Unrealized.");
         }
     }
 
     @Override
-    public BooleanValue toBoolean() {
+    public BooleanValue toBooleanValue() {
         return new BooleanValue(true);
     }
 
     @Override
-    public NumberValue toNumber() {
+    public NumberValue toNumberValue() {
         throw new RuntimeException();
+    }
+
+    @Override
+    public Boolean toBoolean() {
+        return toBooleanValue().getValue();
+    }
+
+    @Override
+    public Double toNumber() {
+        return toNumberValue().getValue();
     }
 
     @Override

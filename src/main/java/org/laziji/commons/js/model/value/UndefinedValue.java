@@ -6,7 +6,7 @@ public class UndefinedValue extends BaseValue {
     }
 
     @Override
-    public BooleanValue toBoolean() {
+    public BooleanValue toBooleanValue() {
         return new BooleanValue(false);
     }
 

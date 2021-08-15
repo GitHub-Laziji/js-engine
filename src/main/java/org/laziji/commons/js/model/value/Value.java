@@ -9,9 +9,13 @@ public interface Value {
 
     Value unaryOperation(Token operator) throws OperationException;
 
-    BooleanValue toBoolean();
+    BooleanValue toBooleanValue();
 
-    NumberValue toNumber();
+    NumberValue toNumberValue();
+
+    Boolean toBoolean();
+
+    Double toNumber();
 
     Value copy();
 }

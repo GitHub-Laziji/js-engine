@@ -26,11 +26,11 @@ public class StringClass extends InternalFunction {
                 throw new RunException();
             }
             if (arguments.size() == 1) {
-                return new StringValue(caller.toString().substring(arguments.get(0).toNumber().getIntValue()));
+                return new StringValue(caller.toString().substring(arguments.get(0).toNumber().intValue()));
             }
             return new StringValue(caller.toString().substring(
-                    arguments.get(0).toNumber().getIntValue(),
-                    arguments.get(1).toNumber().getIntValue()
+                    arguments.get(0).toNumber().intValue(),
+                    arguments.get(1).toNumber().intValue()
             ));
         }));
     }

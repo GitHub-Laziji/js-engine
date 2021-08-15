@@ -25,7 +25,7 @@ public class ForParagraphNode extends BasePlanNode implements ParagraphNode {
         LoopContext context = new LoopContext();
         manager.getContexts().push(new LoopContext());
         current[2].run(manager);
-        while (current[4].run(manager).toBoolean().getValue()) {
+        while (current[4].run(manager).toBoolean()) {
             if (context.isClose()) {
                 break;
             }

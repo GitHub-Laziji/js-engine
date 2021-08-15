@@ -32,25 +32,17 @@ public class NumberValue extends ObjectValue {
     }
 
     @Override
-    public BooleanValue toBoolean() {
+    public BooleanValue toBooleanValue() {
         return new BooleanValue(value == 0);
     }
 
     @Override
-    public NumberValue toNumber() {
+    public NumberValue toNumberValue() {
         return this;
     }
 
     public double getValue() {
         return value;
-    }
-
-    public int getIntValue() {
-        return (int) value;
-    }
-
-    public long getLongValue() {
-        return (long) value;
     }
 
     @Override

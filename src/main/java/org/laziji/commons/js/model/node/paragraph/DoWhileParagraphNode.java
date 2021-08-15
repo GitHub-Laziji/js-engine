@@ -32,7 +32,7 @@ public class DoWhileParagraphNode extends BasePlanNode implements ParagraphNode 
             manager.getContexts().push(new LoopUnitContext());
             ((BigBracketParagraphNode) current[1]).getBody().run(manager);
             manager.getContexts().pop();
-        } while (((SmallBracketWordNode) current[3]).getBody().run(manager).toBoolean().getValue());
+        } while (((SmallBracketWordNode) current[3]).getBody().run(manager).toBoolean());
         manager.getContexts().pop();
         return null;
     }
