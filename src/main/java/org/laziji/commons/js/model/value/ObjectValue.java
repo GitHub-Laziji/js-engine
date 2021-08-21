@@ -64,4 +64,18 @@ public class ObjectValue extends BaseValue {
     public String toString() {
         return context.toString();
     }
+
+    public Value addProperty(String name, Value value, PropertyAttributes attributes) {
+        return null;
+    }
+
+
+    public enum PropertyAttributes {
+        NONE,
+        READ_ONLY,
+        DONT_ENUM,
+        DONT_DELETE,
+        INTERCEPTED,
+        ABSENT
+    }
 }
