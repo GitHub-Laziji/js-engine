@@ -65,7 +65,11 @@ public class ObjectValue extends BaseValue {
         return context.toString();
     }
 
-    public Value addProperty(String name, Value value, PropertyAttributes attributes) {
+    public Value addProperty(String key, Value value, PropertyAttributes attributes) {
+        return null;
+    }
+
+    public Value getProperty(String key) {
         return null;
     }
 
