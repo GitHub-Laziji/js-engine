@@ -1,7 +1,5 @@
 package org.laziji.commons.js.model.manager;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Context;
@@ -19,7 +17,7 @@ public class ScriptManager {
     private final Set<String> delayMacroTaskIds;
     private final Queue<Runner> microTasks;
     private final Map<String, ModuleValue> internalModules;
-    private final Map<String, ModuleValue> externalMudules;
+    private final Map<String, ModuleValue> externalModules;
     private final boolean strict;
 
     private final ObjectValue global;
@@ -40,7 +38,7 @@ public class ScriptManager {
         delayMacroTaskIds = new HashSet<>();
         microTasks = new LinkedList<>();
         internalModules = new HashMap<>();
-        externalMudules = new HashMap<>();
+        externalModules = new HashMap<>();
 
         functionClass = new FunctionClass();
         objectClass = new ObjectClass();
@@ -67,7 +65,7 @@ public class ScriptManager {
         delayMacroTaskIds = manager.delayMacroTaskIds;
         microTasks = manager.microTasks;
         internalModules = manager.internalModules;
-        externalMudules = manager.externalMudules;
+        externalModules = manager.externalModules;
 
         functionClass = manager.functionClass;
         objectClass = manager.objectClass;
