@@ -4,7 +4,7 @@ public class UndefinedValue extends BaseValue {
 
     private static final UndefinedValue instance = new UndefinedValue();
 
-    private UndefinedValue() {
+    public UndefinedValue() {
     }
 
     public static UndefinedValue getInstance() {
