@@ -17,7 +17,7 @@ public class StringClass extends InternalFunction {
     }
 
     private void init() throws Exception {
-        prototype = new ObjectValue();
+        prototype = new StringValue("");
         prototype.put("substring", new InternalFunction((caller, manager, arguments) -> {
             if (arguments.size() < 1) {
                 throw new RunException();

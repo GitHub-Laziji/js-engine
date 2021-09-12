@@ -1,28 +1,17 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.manager.ScriptManager;
+
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+
 public class Top {
 
-    private static ThreadLocalTop threadLocalTop;
-
-    public static void setThreadLocalTop(ThreadLocalTop threadLocalTop) {
-        Top.threadLocalTop = threadLocalTop;
-    }
-
-
-    public static Object getContext() {
-        return threadLocalTop.getContext();
-    }
-
-
-    public static Object getSecurityContext() {
-        return threadLocalTop.getSecurityContext();
-    }
-
-    public static Object getSaveContext(){
-        return threadLocalTop.getSaveContext();
-    }
-
-    public static void InitializeThreadLocal(){
-
-    }
+    private static Queue<ScriptManager.Runner> macroTasks;
+    private static Set<String> delayMacroTaskIds;
+    private static Queue<ScriptManager.Runner> microTasks;
+    private static Map<String, ModuleValue> internalModules;
+    private static Map<String, ModuleValue> externalModules;
+    private static boolean strict;
 }
