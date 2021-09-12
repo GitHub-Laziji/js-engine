@@ -3,13 +3,20 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.ObjectContext;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+/**
+ * properties
+ */
 public class ObjectValue extends BaseValue {
 
+    private Map<String, Dictionary> properties = new HashMap<>();
     protected final Context context;
     private FunctionValue instanceClass;
+    private ObjectValue proto;
 
     public ObjectValue(FunctionClass instanceClass) {
         this.instanceClass = instanceClass;
@@ -36,6 +43,10 @@ public class ObjectValue extends BaseValue {
             return null;
         }
         return instanceClass.getPrototype();
+    }
+
+    public void setProto(ObjectValue proto) {
+        this.proto = proto;
     }
 
     public void put(String name, Value value) throws Exception {
@@ -65,21 +76,68 @@ public class ObjectValue extends BaseValue {
         return context.toString();
     }
 
-    public Value addProperty(String key, Value value, PropertyAttributes attributes) {
-        return null;
+    public Value addProperty(String key, Value value, PropertyType type) {
+        if (!properties.containsKey(key)) {
+            properties.get(key).setValue(value);
+        }
+        properties.put(key, new Dictionary(key, value, type));
+        return value;
     }
 
     public Value getProperty(String key) {
-        return null;
+        if (!properties.containsKey(key)) {
+            return properties.get(key).getValue();
+        }
+        return UndefinedValue.getInstance();
     }
 
 
-    public enum PropertyAttributes {
+    public enum PropertyType {
         NONE,
         READ_ONLY,
-        DONT_ENUM,
-        DONT_DELETE,
-        INTERCEPTED,
-        ABSENT
+        DONT_DELETE
+    }
+
+    public static class Dictionary {
+        private String key;
+        private Value value;
+        private PropertyType type;
+        private FunctionValue getter;
+        private FunctionValue setter;
+
+        public Dictionary(String key, Value value, PropertyType type) {
+            this.key = key;
+            this.value = value;
+            this.type = type;
+        }
+
+        public Dictionary(String key, Value value) {
+            this.key = key;
+            this.value = value;
+            this.type = PropertyType.NONE;
+        }
+
+        public Dictionary(String key) {
+            this.key = key;
+            this.value = UndefinedValue.getInstance();
+            this.type = PropertyType.NONE;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setValue(Value value) {
+            if (type == PropertyType.READ_ONLY) {
+                return;
+            }
+            //TODO setter
+            this.value = value;
+        }
+
+        public Value getValue() {
+            //TODO getter
+            return value;
+        }
     }
 }
