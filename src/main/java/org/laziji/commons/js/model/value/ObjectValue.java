@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * properties
- */
 public class ObjectValue extends BaseValue {
 
     private Map<String, Dictionary> properties = new HashMap<>();
@@ -76,6 +73,16 @@ public class ObjectValue extends BaseValue {
         return context.toString();
     }
 
+    public void removeProperty(String key) {
+        if (!properties.containsKey(key)) {
+            return;
+        }
+        if (properties.get(key).getType() == PropertyType.READ_ONLY) {
+            return;
+        }
+        properties.remove(key);
+    }
+
     public Value addProperty(String key, Value value, PropertyType type) {
         if (!properties.containsKey(key)) {
             properties.get(key).setValue(value);
@@ -94,8 +101,7 @@ public class ObjectValue extends BaseValue {
 
     public enum PropertyType {
         NONE,
-        READ_ONLY,
-        DONT_DELETE
+        READ_ONLY
     }
 
     public static class Dictionary {
@@ -125,6 +131,10 @@ public class ObjectValue extends BaseValue {
 
         public String getKey() {
             return key;
+        }
+
+        public PropertyType getType() {
+            return type;
         }
 
         public void setValue(Value value) {
