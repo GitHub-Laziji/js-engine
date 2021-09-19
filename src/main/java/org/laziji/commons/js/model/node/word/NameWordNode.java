@@ -41,6 +41,11 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
         throw new ReferenceException("%s is not defined", name);
     }
 
+    @Override
+    public Value assignment(Value value) throws Exception {
+        return null;
+    }
+
     public String getName() {
         return getUnit().getValue();
     }

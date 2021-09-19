@@ -50,6 +50,11 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
+    public Value assignment(Value value) throws Exception {
+        return null;
+    }
+
+    @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
                 (self, pre) -> new CallNameInternalNode(self),
