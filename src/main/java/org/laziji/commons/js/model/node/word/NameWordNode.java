@@ -6,6 +6,7 @@ import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
@@ -20,30 +21,29 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     @Override
     public Value run(ScriptManager manager) throws Exception {
         String name = getUnit().getValue();
-        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
-            Value value = manager.getContexts().get(i).get(name);
-            if (value != null) {
-                return value;
+        for (Context context : manager.getReContexts()) {
+            if (context.hasProperty(name)) {
+                context.getProperty(name);
             }
         }
         throw new ReferenceException("%s is not defined", name);
     }
 
     @Override
-    public Context.Entry getPosition(ScriptManager manager) throws Exception {
+    public Value assignment(ScriptManager manager, Value value) throws Exception {
         String name = getUnit().getValue();
-        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
-            Context.Entry entry = manager.getContexts().get(i).getEntry(name);
-            if (entry != null) {
-                return entry;
+        for (Context context : manager.getReContexts()) {
+            if (context.hasProperty(name)) {
+                context.addProperty(name, value);
             }
         }
         throw new ReferenceException("%s is not defined", name);
     }
 
-    @Override
-    public Value assignment(Value value) throws Exception {
-        return null;
+    public void define(ScriptManager manager, Value value, Context.ContextPropertyType type) throws Exception {
+        String name = getUnit().getValue();
+        manager.getContexts().peek().addProperty(name, value, type);
+        throw new ReferenceException("%s is not defined", name);
     }
 
     public String getName() {

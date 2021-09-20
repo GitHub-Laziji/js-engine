@@ -37,28 +37,21 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
     public Value run(ScriptManager manager) throws Exception {
         VariableWordNode node = (VariableWordNode) current[0].getSelf();
         UnitNode op = (UnitNode) current[1];
-        Context.Entry position = node.getPosition(manager);
         Value value = current[2].run(manager);
         switch (op.getUnit().getToken()) {
             case ASSIGNMENT:
-                position.setValue(value);
-                break;
+                return node.assignment(manager, value);
             case SELF_ADD_BY:
-                position.setValue(position.getValue().binaryOperation(Token.ADD, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.ADD, value));
             case SELF_SUB_BY:
-                position.setValue(position.getValue().binaryOperation(Token.SUB, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.SUB, value));
             case SELF_MUL_BY:
-                position.setValue(position.getValue().binaryOperation(Token.MUL, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.MUL, value));
             case SELF_DIV_BY:
-                position.setValue(position.getValue().binaryOperation(Token.DIV, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.DIV, value));
             default:
                 throw new OperationException();
         }
-        return position.getValue();
     }
 
     @Override

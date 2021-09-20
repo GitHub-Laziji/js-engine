@@ -18,11 +18,11 @@ public class StringClass extends InternalFunction {
 
     private void init() throws Exception {
         prototype = new StringValue("");
-        prototype.put("substring", new InternalFunction((caller, manager, arguments) -> {
+        prototype.addProperty("substring", new InternalFunction((caller, manager, arguments) -> {
             if (arguments.size() < 1) {
                 throw new RunException();
             }
-            if (!(caller.getInstanceClass() instanceof StringClass)) {
+            if (!(caller.getProto() instanceof StringValue)) {
                 throw new RunException();
             }
             if (arguments.size() == 1) {
@@ -32,7 +32,7 @@ public class StringClass extends InternalFunction {
                     arguments.get(0).toNumber().intValue(),
                     arguments.get(1).toNumber().intValue()
             ));
-        }));
+        }), ObjectPropertyType.READ_ONLY);
     }
 
 }

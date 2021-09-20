@@ -1,9 +1,10 @@
 package org.laziji.commons.js.model.value;
 
-public class ObjectClass extends FunctionValue {
+public class ObjectClass extends InternalFunction {
 
     public ObjectClass() {
-        super(null, null, true);
+        super(null);
+        prototype = new ObjectPrototype();
     }
 
 }

@@ -14,4 +14,39 @@ public class Top {
     private static Map<String, ModuleValue> internalModules;
     private static Map<String, ModuleValue> externalModules;
     private static boolean strict;
+
+    private static ObjectValue global;
+    private static ObjectClass objectClass;
+    private static FunctionClass functionClass;
+    private static StringClass stringClass;
+    private static NumberClass numberClass;
+    private static BooleanClass booleanClass;
+
+    static {
+        objectClass = new ObjectClass();
+    }
+
+    public static ObjectValue getGlobal() {
+        return global;
+    }
+
+    public static ObjectClass getObjectClass() {
+        return objectClass;
+    }
+
+    public static FunctionClass getFunctionClass() {
+        return functionClass;
+    }
+
+    public static StringClass getStringClass() {
+        return stringClass;
+    }
+
+    public static NumberClass getNumberClass() {
+        return numberClass;
+    }
+
+    public static BooleanClass getBooleanClass() {
+        return booleanClass;
+    }
 }

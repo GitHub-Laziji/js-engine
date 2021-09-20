@@ -11,6 +11,7 @@ import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.NullValue;
+import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.List;
@@ -22,17 +23,14 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
     }
 
     public Value run(ScriptManager manager, Token type) throws Exception {
-        Context context = manager.getContexts().peek();
         for (ProxyNode<Node> node : nodes) {
             PlanNode self = (PlanNode) node.getSelf();
             List<Node> current = self.getNodes();
             NameWordNode nameNode = (NameWordNode) current.get(0);
-            if (current.size() == 1) {
-                context.defined(createName(type, nameNode.getUnit().getValue()), new NullValue());
-                continue;
-            }
-            ProxySentenceNode valueNode = (ProxySentenceNode) current.get(2);
-            context.defined(createName(type, nameNode.getUnit().getValue()), valueNode.run(manager));
+            nameNode.define(
+                    manager,
+                    current.size() == 1 ? UndefinedValue.getInstance() : current.get(2).run(manager),
+                    Context.ContextPropertyType.match(type));
         }
         return null;
     }

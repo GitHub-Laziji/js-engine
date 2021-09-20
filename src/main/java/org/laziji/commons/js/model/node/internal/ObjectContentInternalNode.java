@@ -23,10 +23,10 @@ public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> imp
             node = node.getSelf();
             if (node instanceof NameWordNode) {
                 NameWordNode nameNode = (NameWordNode) node;
-                value.put(nameNode.getName(), nameNode.run(manager));
+                value.addProperty(nameNode.getName(), nameNode.run(manager));
             } else if (node instanceof ObjectContentItemInternalNode) {
                 ObjectContentItemInternalNode itemNode = (ObjectContentItemInternalNode) node;
-                value.put(itemNode.getKey(manager), itemNode.getValue(manager));
+                value.addProperty(itemNode.getKey(manager), itemNode.getValue(manager));
             }
         }
         return value;

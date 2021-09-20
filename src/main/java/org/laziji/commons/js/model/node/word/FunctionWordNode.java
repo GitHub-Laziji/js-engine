@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.name.LetName;
 import org.laziji.commons.js.model.node.*;
@@ -27,7 +28,7 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
                 true);
         if (current[1].getSelf() instanceof NameWordNode) {
             NameWordNode nameNode = (NameWordNode) current[1].getSelf();
-            manager.getContexts().peek().defined(new LetName(nameNode.getUnit().getValue()), value);
+            manager.getContexts().peek().addProperty(nameNode.getUnit().getValue(), value, Context.ContextPropertyType.LET);
         }
         return value;
     }

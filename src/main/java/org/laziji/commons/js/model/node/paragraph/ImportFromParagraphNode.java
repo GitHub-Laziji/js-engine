@@ -1,6 +1,7 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.name.LetName;
 import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.*;
@@ -35,10 +36,10 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
                 variableName = ((NameWordNode) ((PlanNode) node).getNodes().get(2)).getName();
             }
             Value exportValue = module.getExportValue(importName);
-            if (exportValue != null) {
-                manager.getContexts().peek().defined(new LetName(variableName), exportValue);
+            if (module.getDefaultExportValue() != null) {
+                manager.getContexts().peek().addProperty(variableName, exportValue, Context.ContextPropertyType.CONST);
             } else {
-                manager.getContexts().peek().defined(new LetName(variableName), new UndefinedValue());
+                manager.getContexts().peek().addProperty(variableName, new UndefinedValue(), Context.ContextPropertyType.CONST);
             }
         }
         return null;

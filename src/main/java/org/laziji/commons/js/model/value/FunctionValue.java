@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.context.name.LetName;
@@ -29,7 +30,7 @@ public class FunctionValue extends ObjectValue {
         }
         manager.getContexts().push(context);
         for (Param param : params) {
-            context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
+            context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
         }
         executor.run(manager);
         manager.getContexts().pop();

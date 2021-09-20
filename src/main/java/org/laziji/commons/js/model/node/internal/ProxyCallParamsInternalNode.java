@@ -31,10 +31,10 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.get(name);
+        return objectValue.getProperty(name);
     }
 
-    public Context.Entry getPosition(Value value, ScriptManager manager) throws Exception {
+    public Value assignment(Value value, ScriptManager manager) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode) {
@@ -48,7 +48,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.getEntry(name);
+        return objectValue.addProperty(name, value);
     }
 
     private ObjectValue castObjectValue(Value value) throws Exception {

@@ -4,6 +4,7 @@ import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.InstanceContext;
+import org.laziji.commons.js.model.context.LoopUnitContext;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
@@ -47,12 +48,7 @@ public class ScriptManager {
         numberClass = new NumberClass();
         global = new ObjectValue();
 
-        functionClass.setInstanceClass(functionClass);
-        objectClass.setInstanceClass(functionClass);
-        arrayClass.setInstanceClass(functionClass);
-        stringClass.setInstanceClass(functionClass);
-        numberClass.setInstanceClass(functionClass);
-        global.setInstanceClass(objectClass);
+
 
         contexts = new Stack<>();
         contexts.push(new InstanceContext(global));
@@ -143,6 +139,14 @@ public class ScriptManager {
 
     public Stack<Context> getContexts() {
         return contexts;
+    }
+
+    public List<Context> getReContexts() {
+        List<Context> reContexts = new ArrayList<>();
+        for (int i = contexts.size() - 1; i >= 0; i--) {
+            reContexts.add(contexts.get(i));
+        }
+        return reContexts;
     }
 
     public NumberValue createNumberValue(double value) {
