@@ -6,13 +6,14 @@ import java.util.Map;
 public class ObjectValue extends BaseValue {
 
     private Map<String, ObjectProperty> properties = new HashMap<>();
-    private ObjectValue proto;
+    protected ObjectValue proto;
 
     public ObjectValue() {
+        proto = Top.getObjectClass().getPrototype();
     }
 
     public ObjectValue getProto() {
-        return Top.getObjectClass().getPrototype();
+        return proto;
     }
 
     public void removeProperty(String key) {

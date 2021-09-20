@@ -17,8 +17,10 @@ public class Top {
 
     private static ObjectValue global;
     private static ObjectClass objectClass;
+    private static ObjectPrototype objectPrototype;
     private static FunctionClass functionClass;
     private static StringClass stringClass;
+    private static StringPrototype stringPrototype;
     private static NumberClass numberClass;
     private static BooleanClass booleanClass;
 
@@ -48,5 +50,13 @@ public class Top {
 
     public static BooleanClass getBooleanClass() {
         return booleanClass;
+    }
+
+    public static ObjectPrototype getObjectPrototype() {
+        return objectPrototype;
+    }
+
+    public static StringPrototype getStringPrototype() {
+        return stringPrototype;
     }
 }
