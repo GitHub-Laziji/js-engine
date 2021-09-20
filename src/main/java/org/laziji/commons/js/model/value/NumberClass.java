@@ -1,9 +1,9 @@
 package org.laziji.commons.js.model.value;
 
-public class NumberClass extends FunctionValue {
+public class NumberClass extends InternalFunction {
 
     public NumberClass() {
-        super(null, null, true);
+        super(null);
     }
 
 }

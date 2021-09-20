@@ -9,6 +9,7 @@ public class NumberValue extends ObjectValue {
 
     public NumberValue(double value) {
         this.value = value;
+        proto = Top.getNumberPrototype();
     }
 
     @Override

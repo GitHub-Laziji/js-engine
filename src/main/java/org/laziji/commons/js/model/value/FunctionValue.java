@@ -19,6 +19,7 @@ public class FunctionValue extends ObjectValue {
         this.params = params;
         this.executor = executor;
         this.function = function;
+        proto = Top.getFunctionPrototype();
     }
 
     public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {

@@ -16,13 +16,21 @@ public class Top {
     private static boolean strict;
 
     private static ObjectValue global;
+
     private static ObjectClass objectClass;
     private static ObjectPrototype objectPrototype;
+
     private static FunctionClass functionClass;
+    private static FunctionPrototype functionPrototype;
+
     private static StringClass stringClass;
     private static StringPrototype stringPrototype;
+
     private static NumberClass numberClass;
+    private static NumberPrototype numberPrototype;
+
     private static BooleanClass booleanClass;
+    private static BooleanPrototype booleanPrototype;
 
     static {
         objectClass = new ObjectClass();
@@ -58,5 +66,17 @@ public class Top {
 
     public static StringPrototype getStringPrototype() {
         return stringPrototype;
+    }
+
+    public static FunctionPrototype getFunctionPrototype() {
+        return functionPrototype;
+    }
+
+    public static NumberPrototype getNumberPrototype() {
+        return numberPrototype;
+    }
+
+    public static BooleanPrototype getBooleanPrototype() {
+        return booleanPrototype;
     }
 }
