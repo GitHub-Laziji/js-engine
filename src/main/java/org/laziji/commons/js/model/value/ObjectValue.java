@@ -43,6 +43,7 @@ public class ObjectValue extends BaseValue {
     }
 
     public Value addProperty(String key, Value value) {
+        System.out.println(this.getClass().getSimpleName() + ":" + key + "=" + value);
         return addProperty(key, value, ObjectPropertyType.NONE);
     }
 

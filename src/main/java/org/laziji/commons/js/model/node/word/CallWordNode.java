@@ -22,14 +22,14 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     @Override
     public Value run(Contexts manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
-        Value value = current[0].run(manager);
+        Value pre = current[0].run(manager);
         ObjectValue caller = null;
         for (ProxyCallParamsInternalNode node : nodes) {
-            Value tempValue = node.run(caller, value, manager);
-            caller = (ObjectValue) value;
-            value = tempValue;
+            Value tempValue = node.run(caller, pre, manager);
+            caller = (ObjectValue) pre;
+            pre = tempValue;
         }
-        return value;
+        return pre;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
             caller = (ObjectValue) pre;
             pre = tempValue;
         }
-        return nodes.get(nodes.size() - 1).assignment(value, manager);
+        return nodes.get(nodes.size() - 1).assignment(pre, manager, value);
     }
 
     @Override
