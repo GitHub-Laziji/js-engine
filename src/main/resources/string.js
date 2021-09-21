@@ -9,12 +9,17 @@ p(str.toString());
 
 let a = sysfunc("hello".substring(1,3));
 
-setTimeout(function(){
-    p("setTimeout delay 3000ms");
-},3000);
 
 let obj = {
     a:"abc",
     1:"123",
     "asd":{a}
 };
+
+String.prototype.a = "prototype_a"
+
+p(String.prototype)
+p(String.prototype.a)
+p(String.prototype.b)
+p(str.a)
+p(str.b)

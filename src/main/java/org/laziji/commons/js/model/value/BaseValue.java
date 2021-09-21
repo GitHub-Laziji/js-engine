@@ -70,6 +70,11 @@ public abstract class BaseValue implements Value {
     }
 
     @Override
+    public StringValue toStringValue() {
+        return new StringValue(toString());
+    }
+
+    @Override
     public Boolean toBoolean() {
         return toBooleanValue().getValue();
     }

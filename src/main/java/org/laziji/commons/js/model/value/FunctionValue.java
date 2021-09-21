@@ -13,6 +13,10 @@ public class FunctionValue extends ObjectValue {
     private Executor executor;
     private boolean function;
 
+    {
+        addInternalProperty("prototype", this::getPrototype);
+    }
+
     public FunctionValue(List<Param> params, Executor executor, boolean function) {
         this.params = params;
         this.executor = executor;

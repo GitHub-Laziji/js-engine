@@ -13,9 +13,13 @@ public interface Value {
 
     NumberValue toNumberValue();
 
+    StringValue toStringValue();
+
     Boolean toBoolean();
 
     Double toNumber();
+
+    String toString();
 
     Value copy();
 }

@@ -20,6 +20,7 @@ public class StringPrototype extends StringValue {
                     arguments.get(1).toNumber().intValue()
             ));
         }), ObjectPropertyType.READ_ONLY);
+        addProperty("b",new StringValue("p_b"));
     }
 
     public StringPrototype() {
@@ -29,5 +30,10 @@ public class StringPrototype extends StringValue {
     @Override
     public Value getProto() {
         return Top.getObjectPrototype();
+    }
+
+    @Override
+    public String toString() {
+        return "StringPrototype";
     }
 }

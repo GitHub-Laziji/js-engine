@@ -8,10 +8,8 @@ public class GlobalObjectValue extends ObjectValue {
     private static StringClass stringClass;
     private static NumberClass numberClass;
 
-
-
-    public GlobalObjectValue() {
+    {
+        addInternalProperty("String", Top::getStringClass);
     }
-
 
 }
