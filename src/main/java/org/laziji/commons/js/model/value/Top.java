@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.util.TokenUtils;
@@ -12,14 +12,14 @@ import java.util.*;
 
 public class Top {
 
-    private static Queue<ScriptManager.Runner> macroTasks = new LinkedList<>();
+    private static Queue<Runner> macroTasks = new LinkedList<>();
     private static Set<String> delayMacroTaskIds = new HashSet<>();
-    private static Queue<ScriptManager.Runner> microTasks = new LinkedList<>();
+    private static Queue<Runner> microTasks = new LinkedList<>();
     private static Map<String, ModuleValue> internalModules = new HashMap<>();
     private static Map<String, ModuleValue> externalModules = new HashMap<>();
     private static boolean strict;
 
-    private static ScriptManager mainContexts = new ScriptManager();
+    private static Contexts mainContexts = new Contexts();
 
     private static ObjectValue global;
 
@@ -47,7 +47,7 @@ public class Top {
         internalModules.put(name, module);
     }
 
-    public static synchronized void addMacroTask(ScriptManager.Runner runner) {
+    public static synchronized void addMacroTask(Runner runner) {
         macroTasks.add(runner);
         Top.class.notifyAll();
     }
@@ -60,7 +60,7 @@ public class Top {
         delayMacroTaskIds.remove(id);
     }
 
-    public static synchronized void addMicroTask(ScriptManager.Runner runner) {
+    public static synchronized void addMicroTask(Runner runner) {
         microTasks.add(runner);
     }
 
@@ -162,7 +162,13 @@ public class Top {
         Top.strict = strict;
     }
 
-    public static ScriptManager getMainContexts() {
+    public static Contexts getMainContexts() {
         return mainContexts;
+    }
+
+    @FunctionalInterface
+    public interface Runner {
+
+        void run() throws Exception;
     }
 }

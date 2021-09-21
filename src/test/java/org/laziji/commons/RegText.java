@@ -4,7 +4,6 @@ import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.value.SystemModuleValue;
 import org.laziji.commons.js.model.value.Top;

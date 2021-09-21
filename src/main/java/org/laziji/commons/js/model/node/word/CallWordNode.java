@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node.word;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
@@ -20,7 +20,7 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
         Value value = current[0].run(manager);
         ObjectValue caller = null;
@@ -38,7 +38,7 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value assignment(ScriptManager manager, Value value) throws Exception {
+    public Value assignment(Contexts manager, Value value) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
         Value pre = current[0].run(manager);
         ObjectValue caller = null;

@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.name.ConstName;
 import org.laziji.commons.js.model.context.name.LetName;
@@ -10,7 +10,6 @@ import org.laziji.commons.js.model.context.name.VarName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.NullValue;
 import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
@@ -22,7 +21,7 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
         super(parent);
     }
 
-    public Value run(ScriptManager manager, Token type) throws Exception {
+    public Value run(Contexts manager, Token type) throws Exception {
         for (ProxyNode<Node> node : nodes) {
             PlanNode self = (PlanNode) node.getSelf();
             List<Node> current = self.getNodes();

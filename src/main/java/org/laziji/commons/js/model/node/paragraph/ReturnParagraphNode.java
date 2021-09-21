@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.*;
@@ -20,7 +20,7 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         Value value = new UndefinedValue();
         if (current[1].getSelf() instanceof ValueParagraphNode) {
             value = current[1].run(manager);

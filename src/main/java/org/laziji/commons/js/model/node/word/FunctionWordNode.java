@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.name.LetName;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
@@ -21,7 +20,7 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         FunctionValue value = new FunctionValue(
                 ((FunctionParamsInternalNode) current[2]).getParams(),
                 cs -> current[3].run(cs),

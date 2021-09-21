@@ -1,9 +1,8 @@
 package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
-import org.laziji.commons.js.model.context.name.LetName;
 
 import java.util.List;
 import java.util.function.Function;
@@ -20,7 +19,7 @@ public class FunctionValue extends ObjectValue {
         this.function = function;
     }
 
-    public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
+    public Value call(ObjectValue caller, Contexts manager, List<Value> arguments) throws Exception {
         FunctionContext context;
         if (function) {
             context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
@@ -73,6 +72,6 @@ public class FunctionValue extends ObjectValue {
 
     @FunctionalInterface
     public interface Executor {
-        Value run(ScriptManager manager) throws Exception;
+        Value run(Contexts manager) throws Exception;
     }
 }

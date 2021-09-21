@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -26,7 +26,7 @@ public class SystemModuleValue extends ModuleValue {
             }
             String id = UUID.randomUUID().toString();
             Top.addDelayMacroTaskId(id);
-            ScriptManager subManager = manager.fork();
+            Contexts subManager = manager.fork();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

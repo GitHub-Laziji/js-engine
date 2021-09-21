@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node.section;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.SectionItemInternalNode;
@@ -22,7 +22,7 @@ public class SectionNode extends BaseListNode<SectionItemInternalNode> {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         for (Node node : nodes) {
             if (manager.getContexts().peek().isClose()) {
                 return null;

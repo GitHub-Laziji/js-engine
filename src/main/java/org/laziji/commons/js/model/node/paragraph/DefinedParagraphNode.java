@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -19,7 +19,7 @@ public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode 
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         UnitNode definedNode = (UnitNode) current[0];
         DefinedItemInternalNode itemNode = (DefinedItemInternalNode) current[1];
         itemNode.run(manager, definedNode.getUnit().getToken());

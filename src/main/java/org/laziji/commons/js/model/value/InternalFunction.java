@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.value;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ public class InternalFunction extends FunctionValue {
     }
 
     @Override
-    public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
+    public Value call(ObjectValue caller, Contexts manager, List<Value> arguments) throws Exception {
         return handler.call(caller, manager, arguments);
     }
 
     @FunctionalInterface
     public interface Handler {
-        Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception;
+        Value call(ObjectValue caller, Contexts manager, List<Value> arguments) throws Exception;
     }
 
     @Override

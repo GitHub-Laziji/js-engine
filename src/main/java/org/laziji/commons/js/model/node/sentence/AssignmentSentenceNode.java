@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
@@ -34,7 +33,7 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         VariableWordNode node = (VariableWordNode) current[0].getSelf();
         UnitNode op = (UnitNode) current[1];
         Value value = current[2].run(manager);

@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.context.name.LetName;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -25,7 +24,7 @@ public class ImportDefaultFromParagraphNode extends BasePlanNode implements Para
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         String variableName = ((NameWordNode) current[1]).getName();
         String moduleName = ((StringWordNode) current[3]).run(manager).toString();
         ModuleValue module = Top.getModule(moduleName);

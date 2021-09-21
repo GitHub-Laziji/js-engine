@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
@@ -17,7 +16,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         addProxyItem(new CallMemberNameInternalNode(null));
     }
 
-    public Value run(ObjectValue caller, Value value, ScriptManager manager) throws Exception {
+    public Value run(ObjectValue caller, Value value, Contexts manager) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
@@ -34,7 +33,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         return objectValue.getProperty(name);
     }
 
-    public Value assignment(Value value, ScriptManager manager) throws Exception {
+    public Value assignment(Value value, Contexts manager) throws Exception {
         ObjectValue objectValue = castObjectValue(value);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode) {

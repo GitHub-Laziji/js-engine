@@ -1,14 +1,13 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
-import org.laziji.commons.js.model.node.word.WordNode;
 import org.laziji.commons.js.model.value.ArrayValue;
 import org.laziji.commons.js.model.value.Value;
 
@@ -24,7 +23,7 @@ public class ArrayWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         List<Value> values = new ArrayList<>();
         Node body = current[1].getSelf();
         if (body instanceof ValueParagraphNode) {

@@ -2,11 +2,10 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Collections;
@@ -19,18 +18,13 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts contexts) throws Exception {
         String name = getUnit().getValue();
-        for (Context context : manager.getReContexts()) {
-            if (context.hasProperty(name)) {
-                return context.getProperty(name);
-            }
-        }
-        throw new ReferenceException("%s is not defined", name);
+        return contexts.getProperty(name);
     }
 
     @Override
-    public Value assignment(ScriptManager manager, Value value) throws Exception {
+    public Value assignment(Contexts manager, Value value) throws Exception {
         String name = getUnit().getValue();
         for (Context context : manager.getReContexts()) {
             if (context.hasProperty(name)) {
@@ -40,7 +34,7 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
         throw new ReferenceException("%s is not defined", name);
     }
 
-    public void define(ScriptManager manager, Value value, Context.ContextPropertyType type) throws Exception {
+    public void define(Contexts manager, Value value, Context.ContextPropertyType type) throws Exception {
         String name = getUnit().getValue();
         manager.getContexts().peek().addProperty(name, value, type);
     }
