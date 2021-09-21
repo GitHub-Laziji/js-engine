@@ -48,7 +48,11 @@ public class ObjectValue extends BaseValue {
     }
 
     protected void addInternalProperty(String key, Supplier<Value> handler) {
-        properties.put(key, new ObjectProperty(key, handler));
+        properties.put(key, new ObjectProperty(key, handler, ObjectPropertyType.READ_ONLY));
+    }
+
+    protected void addInternalProperty(String key, InternalFunction.Handler handler) {
+        properties.put(key, new ObjectProperty(key, new InternalFunction(handler), ObjectPropertyType.READ_ONLY));
     }
 
     public Value getProperty(String key) {
@@ -86,10 +90,10 @@ public class ObjectValue extends BaseValue {
             this.type = type;
         }
 
-        public ObjectProperty(String key, Supplier<Value> handler) {
+        public ObjectProperty(String key, Supplier<Value> handler, ObjectPropertyType type) {
             this.key = key;
             this.handler = handler;
-            this.type = ObjectPropertyType.READ_ONLY;
+            this.type = type;
         }
 
         public ObjectProperty(String key, Value value) {

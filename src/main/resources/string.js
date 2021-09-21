@@ -11,3 +11,8 @@ p(String.prototype.a)
 p(String.prototype.b)
 p(str.a)
 p(str.b)
+
+p(str.substring(2,5))
+
+p("indexOf:"+str.indexOf("56"))
+p("indexOf:"+str.indexOf("ww"))
