@@ -23,7 +23,7 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
         String name = getUnit().getValue();
         for (Context context : manager.getReContexts()) {
             if (context.hasProperty(name)) {
-                context.getProperty(name);
+                return context.getProperty(name);
             }
         }
         throw new ReferenceException("%s is not defined", name);
@@ -43,7 +43,6 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     public void define(ScriptManager manager, Value value, Context.ContextPropertyType type) throws Exception {
         String name = getUnit().getValue();
         manager.getContexts().peek().addProperty(name, value, type);
-        throw new ReferenceException("%s is not defined", name);
     }
 
     public String getName() {

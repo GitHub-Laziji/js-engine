@@ -6,7 +6,11 @@ public class StringValue extends ObjectValue {
 
     public StringValue(String value) {
         this.value = value;
-        proto = Top.getStringPrototype();
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getStringPrototype();
     }
 
     @Override

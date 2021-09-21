@@ -4,7 +4,11 @@ public class ObjectClass extends InternalFunction {
 
     public ObjectClass() {
         super(null);
-        prototype = new ObjectPrototype();
+    }
+
+    @Override
+    public Value getPrototype() {
+        return Top.getObjectPrototype();
     }
 
 }

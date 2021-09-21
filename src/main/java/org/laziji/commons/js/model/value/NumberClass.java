@@ -6,4 +6,8 @@ public class NumberClass extends InternalFunction {
         super(null);
     }
 
+    @Override
+    public Value getPrototype() {
+        return Top.getNumberPrototype();
+    }
 }

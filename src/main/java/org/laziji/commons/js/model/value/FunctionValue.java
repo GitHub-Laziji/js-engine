@@ -13,13 +13,11 @@ public class FunctionValue extends ObjectValue {
     private List<Param> params;
     private Executor executor;
     private boolean function;
-    protected ObjectValue prototype;
 
     public FunctionValue(List<Param> params, Executor executor, boolean function) {
         this.params = params;
         this.executor = executor;
         this.function = function;
-        proto = Top.getFunctionPrototype();
     }
 
     public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
@@ -38,12 +36,13 @@ public class FunctionValue extends ObjectValue {
         return context.getReturnValue();
     }
 
-    public void setPrototype(ObjectValue prototype) {
-        this.prototype = prototype;
+    public Value getPrototype() {
+        return UndefinedValue.getInstance();
     }
 
-    public ObjectValue getPrototype() {
-        return prototype;
+    @Override
+    public Value getProto() {
+        return Top.getFunctionPrototype();
     }
 
     public static class Param {

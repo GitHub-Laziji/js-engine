@@ -1,9 +1,13 @@
 package org.laziji.commons.js.model.value;
 
-public class BooleanClass extends FunctionValue {
+public class BooleanClass extends InternalFunction {
 
     public BooleanClass() {
-        super(null, null, true);
+        super(null);
     }
 
+    @Override
+    public Value getPrototype() {
+        return Top.getBooleanPrototype();
+    }
 }

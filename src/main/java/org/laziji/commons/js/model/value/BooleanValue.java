@@ -6,7 +6,11 @@ public class BooleanValue extends ObjectValue {
 
     public BooleanValue(boolean value) {
         this.value = value;
-        proto = Top.getBooleanPrototype();
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getBooleanPrototype();
     }
 
     @Override

@@ -24,7 +24,10 @@ public class StringPrototype extends StringValue {
 
     public StringPrototype() {
         super("");
-        proto = Top.getObjectPrototype();
     }
 
+    @Override
+    public Value getProto() {
+        return Top.getObjectPrototype();
+    }
 }

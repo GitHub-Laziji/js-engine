@@ -17,23 +17,23 @@ public class Top {
 
     private static ObjectValue global;
 
-    private static ObjectClass objectClass;
-    private static ObjectPrototype objectPrototype;
+    private static ObjectClass objectClass = new ObjectClass();
+    private static ObjectValue objectPrototype = new ObjectPrototype();
 
-    private static FunctionClass functionClass;
-    private static FunctionPrototype functionPrototype;
+    private static FunctionClass functionClass = new FunctionClass();
+    private static FunctionValue functionPrototype = new FunctionPrototype();
 
-    private static StringClass stringClass;
-    private static StringPrototype stringPrototype;
+    private static StringClass stringClass = new StringClass();
+    private static StringValue stringPrototype = new StringPrototype();
 
-    private static NumberClass numberClass;
-    private static NumberPrototype numberPrototype;
+    private static NumberClass numberClass = new NumberClass();
+    private static NumberValue numberPrototype = new NumberPrototype();
 
-    private static BooleanClass booleanClass;
-    private static BooleanPrototype booleanPrototype;
+    private static BooleanClass booleanClass = new BooleanClass();
+    private static BooleanValue booleanPrototype = new BooleanPrototype();
 
     static {
-        objectClass = new ObjectClass();
+
     }
 
     public static ObjectValue getGlobal() {
@@ -60,23 +60,23 @@ public class Top {
         return booleanClass;
     }
 
-    public static ObjectPrototype getObjectPrototype() {
+    public static ObjectValue getObjectPrototype() {
         return objectPrototype;
     }
 
-    public static StringPrototype getStringPrototype() {
+    public static StringValue getStringPrototype() {
         return stringPrototype;
     }
 
-    public static FunctionPrototype getFunctionPrototype() {
+    public static FunctionValue getFunctionPrototype() {
         return functionPrototype;
     }
 
-    public static NumberPrototype getNumberPrototype() {
+    public static NumberValue getNumberPrototype() {
         return numberPrototype;
     }
 
-    public static BooleanPrototype getBooleanPrototype() {
+    public static BooleanValue getBooleanPrototype() {
         return booleanPrototype;
     }
 }

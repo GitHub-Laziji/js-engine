@@ -8,6 +8,10 @@ public class NumberPrototype extends NumberValue {
 
     public NumberPrototype() {
         super(0);
-        proto = Top.getObjectPrototype();
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getObjectPrototype();
     }
 }

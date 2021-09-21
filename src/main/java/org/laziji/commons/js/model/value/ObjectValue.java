@@ -6,14 +6,12 @@ import java.util.Map;
 public class ObjectValue extends BaseValue {
 
     private Map<String, ObjectProperty> properties = new HashMap<>();
-    protected ObjectValue proto;
 
     public ObjectValue() {
-        proto = Top.getObjectClass().getPrototype();
     }
 
-    public ObjectValue getProto() {
-        return proto;
+    public Value getProto() {
+        return Top.getObjectPrototype();
     }
 
     public void removeProperty(String key) {
@@ -47,7 +45,15 @@ public class ObjectValue extends BaseValue {
         if (properties.containsKey(key)) {
             return properties.get(key).getValue();
         }
+        Value proto = getProto();
+        if (proto != null && proto instanceof ObjectValue) {
+            return ((ObjectValue) proto).getProperty(key);
+        }
         return UndefinedValue.getInstance();
+    }
+
+    public boolean hasProperty(String key) {
+        return properties.containsKey(key);
     }
 
     public enum ObjectPropertyType {

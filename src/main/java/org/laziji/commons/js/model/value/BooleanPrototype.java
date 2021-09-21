@@ -1,13 +1,17 @@
 package org.laziji.commons.js.model.value;
 
-public class BooleanPrototype extends NumberValue {
+public class BooleanPrototype extends BooleanValue {
 
     {
 
     }
 
     public BooleanPrototype() {
-        super(0);
-        proto = Top.getObjectPrototype();
+        super(false);
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getObjectPrototype();
     }
 }

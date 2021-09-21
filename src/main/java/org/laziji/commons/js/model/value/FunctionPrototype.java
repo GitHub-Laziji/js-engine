@@ -8,6 +8,10 @@ public class FunctionPrototype extends InternalFunction {
 
     public FunctionPrototype() {
         super(null);
-        proto = Top.getObjectPrototype();
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getObjectPrototype();
     }
 }
