@@ -24,19 +24,14 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Value assignment(Contexts manager, Value value) throws Exception {
+    public Value assignment(Contexts contexts, Value value) throws Exception {
         String name = getUnit().getValue();
-        for (Context context : manager.getReContexts()) {
-            if (context.hasProperty(name)) {
-                context.addProperty(name, value);
-            }
-        }
-        throw new ReferenceException("%s is not defined", name);
+        return contexts.addProperty(name, value);
     }
 
-    public void define(Contexts manager, Value value, Context.ContextPropertyType type) throws Exception {
+    public void define(Contexts contexts, Value value, Context.ContextPropertyType type) throws Exception {
         String name = getUnit().getValue();
-        manager.getContexts().peek().addProperty(name, value, type);
+        contexts.addProperty(name, value, type);
     }
 
     public String getName() {

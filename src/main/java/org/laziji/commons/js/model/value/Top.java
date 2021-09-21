@@ -21,7 +21,7 @@ public class Top {
 
     private static Contexts mainContexts = new Contexts();
 
-    private static ObjectValue global;
+    private static ObjectValue global = new GlobalObjectValue();
 
     private static ObjectClass objectClass = new ObjectClass();
     private static ObjectValue objectPrototype = new ObjectPrototype();

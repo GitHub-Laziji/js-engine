@@ -20,11 +20,22 @@ public class Contexts {
         contexts.addAll(manager.getContexts());
     }
 
-//    public Value addProperty(String key, Value value, Context.ContextPropertyType type) throws Exception;
-//
-//    public Value addProperty(String key, Value value){
-//
-//    }
+    public Value addProperty(String key, Value value, Context.ContextPropertyType type) throws Exception {
+        return contexts.peek().addProperty(key, value, type);
+    }
+
+    public Value addProperty(String key, Value value) throws Exception {
+        for (int i = contexts.size() - 1; i >= 0; i--) {
+            Context context = contexts.get(i);
+            if (context.hasProperty(key)) {
+                return context.addProperty(key, value);
+            }
+        }
+        if (Top.getGlobal().hasProperty(key)) {
+            return Top.getGlobal().addProperty(key, value);
+        }
+        throw new ReferenceException("%s is not defined", key);
+    }
 
     public Value getProperty(String key) throws Exception {
         for (int i = contexts.size() - 1; i >= 0; i--) {
