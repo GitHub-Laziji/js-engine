@@ -8,6 +8,7 @@ import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
 import org.laziji.commons.js.model.value.ModuleValue;
+import org.laziji.commons.js.model.value.Top;
 import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
@@ -24,7 +25,7 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
     @Override
     public Value run(ScriptManager manager) throws Exception {
         String moduleName = ((StringWordNode) current[5]).run(manager).toString();
-        ModuleValue module = manager.getModule(moduleName);
+        ModuleValue module = Top.getModule(moduleName);
         for (Node node : ((ListNode<Node>) current[2]).getNodes()) {
             node = node.getSelf();
             String importName;

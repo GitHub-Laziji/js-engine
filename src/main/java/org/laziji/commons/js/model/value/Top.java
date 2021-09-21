@@ -1,19 +1,25 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.exception.CompileException;
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.node.DocNode;
+import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.util.TokenUtils;
 
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class Top {
 
-    private static Queue<ScriptManager.Runner> macroTasks;
-    private static Set<String> delayMacroTaskIds;
-    private static Queue<ScriptManager.Runner> microTasks;
-    private static Map<String, ModuleValue> internalModules;
-    private static Map<String, ModuleValue> externalModules;
+    private static Queue<ScriptManager.Runner> macroTasks = new LinkedList<>();
+    private static Set<String> delayMacroTaskIds = new HashSet<>();
+    private static Queue<ScriptManager.Runner> microTasks = new LinkedList<>();
+    private static Map<String, ModuleValue> internalModules = new HashMap<>();
+    private static Map<String, ModuleValue> externalModules = new HashMap<>();
     private static boolean strict;
+
+    private static ScriptManager mainContexts = new ScriptManager();
 
     private static ObjectValue global;
 
@@ -35,6 +41,78 @@ public class Top {
     static {
 
     }
+
+
+    public static void addInternalModules(String name, ModuleValue module) {
+        internalModules.put(name, module);
+    }
+
+    public static synchronized void addMacroTask(ScriptManager.Runner runner) {
+        macroTasks.add(runner);
+        Top.class.notifyAll();
+    }
+
+    public static synchronized void addDelayMacroTaskId(String id) {
+        delayMacroTaskIds.add(id);
+    }
+
+    public static synchronized void deleteDelayMacroTaskId(String id) {
+        delayMacroTaskIds.remove(id);
+    }
+
+    public static synchronized void addMicroTask(ScriptManager.Runner runner) {
+        microTasks.add(runner);
+    }
+
+    public static void eval(String text) throws Exception {
+        eval(compile(text));
+    }
+
+    public static void eval(DocNode doc) {
+        addMacroTask(() -> doc.run(mainContexts));
+    }
+
+    public static DocNode compile(String text) throws Exception {
+        NodeConfiguration configuration = new NodeConfiguration();
+        configuration.setStrict(strict);
+        DocNode doc = new DocNode(configuration);
+        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
+        Node p = doc;
+        for (Node.TokenUnit token : tokens) {
+//            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
+            p = p.append(token);
+        }
+        if (!doc.isDone()) {
+            throw new CompileException();
+        }
+        return doc;
+    }
+
+    public static void loop() throws Exception {
+        while (true) {
+            synchronized (Top.class) {
+                while (!macroTasks.isEmpty()) {
+                    macroTasks.poll().run();
+                }
+                while (!microTasks.isEmpty()) {
+                    microTasks.poll().run();
+                }
+                if (delayMacroTaskIds.isEmpty()) {
+                    break;
+                }
+                Top.class.wait();
+            }
+        }
+    }
+
+    public static ModuleValue getModule(String name) throws RunException {
+        if (internalModules.containsKey(name)) {
+            return internalModules.get(name);
+        }
+        // TODO
+        throw new RunException("Module not find");
+    }
+
 
     public static ObjectValue getGlobal() {
         return global;
@@ -78,5 +156,13 @@ public class Top {
 
     public static BooleanValue getBooleanPrototype() {
         return booleanPrototype;
+    }
+
+    public static void setStrict(boolean strict) {
+        Top.strict = strict;
+    }
+
+    public static ScriptManager getMainContexts() {
+        return mainContexts;
     }
 }

@@ -23,7 +23,7 @@ public class FunctionValue extends ObjectValue {
     public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
         FunctionContext context;
         if (function) {
-            context = new FunctionContext(caller == null ? manager.getGlobal() : caller);
+            context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
         } else {
             context = new FunctionContext(null);
         }

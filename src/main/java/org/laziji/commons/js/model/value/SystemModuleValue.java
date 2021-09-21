@@ -25,15 +25,15 @@ public class SystemModuleValue extends ModuleValue {
                 throw new RunException();
             }
             String id = UUID.randomUUID().toString();
-            manager.addDelayMacroTaskId(id);
+            Top.addDelayMacroTaskId(id);
             ScriptManager subManager = manager.fork();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     try {
-                        manager.addMacroTask(() ->
+                        Top.addMacroTask(() ->
                                 ((FunctionValue) arguments.get(0)).call(null, subManager, new ArrayList<>()));
-                        manager.deleteDelayMacroTaskId(id);
+                        Top.deleteDelayMacroTaskId(id);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

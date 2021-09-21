@@ -10,6 +10,7 @@ import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
 import org.laziji.commons.js.model.value.ModuleValue;
+import org.laziji.commons.js.model.value.Top;
 import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
@@ -27,7 +28,7 @@ public class ImportDefaultFromParagraphNode extends BasePlanNode implements Para
     public Value run(ScriptManager manager) throws Exception {
         String variableName = ((NameWordNode) current[1]).getName();
         String moduleName = ((StringWordNode) current[3]).run(manager).toString();
-        ModuleValue module = manager.getModule(moduleName);
+        ModuleValue module = Top.getModule(moduleName);
         if (module.getDefaultExportValue() != null) {
             manager.getContexts().peek().addProperty(variableName, module.getDefaultExportValue(), Context.ContextPropertyType.CONST);
         } else {
