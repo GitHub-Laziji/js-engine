@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 public class FunctionValue extends ObjectValue {
 
+    private Contexts contexts;
     private List<Param> params;
     private Executor executor;
     private boolean function;
@@ -17,25 +18,30 @@ public class FunctionValue extends ObjectValue {
         addInternalProperty("prototype", this::getPrototype);
     }
 
-    public FunctionValue(List<Param> params, Executor executor, boolean function) {
+    public FunctionValue(Contexts contexts, List<Param> params, Executor executor, boolean function) {
+        this.contexts = contexts;
         this.params = params;
         this.executor = executor;
         this.function = function;
     }
 
-    public Value call(ObjectValue caller, Contexts manager, List<Value> arguments) throws Exception {
+    protected FunctionValue(){
+
+    }
+
+    public Value call(ObjectValue caller, List<Value> arguments) throws Exception {
         FunctionContext context;
         if (function) {
             context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
         } else {
             context = new FunctionContext(null);
         }
-        manager.getContexts().push(context);
+        contexts.getContexts().push(context);
         for (Param param : params) {
             context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
         }
-        executor.run(manager);
-        manager.getContexts().pop();
+        executor.run(contexts);
+        contexts.getContexts().pop();
         return context.getReturnValue();
     }
 

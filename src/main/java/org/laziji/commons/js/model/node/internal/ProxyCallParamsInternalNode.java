@@ -20,7 +20,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         ObjectValue objectValue = castObjectValue(pre);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(caller, manager, ((CallFunctionParamsInternalNode) self).getArguments(manager));
+            return ((FunctionValue) objectValue).call(caller, ((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {

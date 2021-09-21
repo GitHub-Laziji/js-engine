@@ -11,14 +11,14 @@ import java.util.UUID;
 public class SystemModuleValue extends ModuleValue {
 
     {
-        setDefaultExportValue(new InternalFunction((caller, manager, arguments) -> {
+        setDefaultExportValue(new InternalFunction((caller, arguments) -> {
             if (arguments.size() < 1) {
                 throw new RunException();
             }
             return new StringValue("SystemFunction: " + arguments.get(0).toString());
         }));
 
-        addExportValue("setTimeout", new InternalFunction((caller, manager, arguments) -> {
+        addExportValue("setTimeout", new InternalFunction((caller, arguments) -> {
             if (arguments.size() < 2
                     || !(arguments.get(0) instanceof FunctionValue)
                     || !(arguments.get(1) instanceof NumberValue)) {
@@ -26,13 +26,12 @@ public class SystemModuleValue extends ModuleValue {
             }
             String id = UUID.randomUUID().toString();
             Top.addDelayMacroTaskId(id);
-            Contexts subManager = manager.fork();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     try {
                         Top.addMacroTask(() ->
-                                ((FunctionValue) arguments.get(0)).call(null, subManager, new ArrayList<>()));
+                                ((FunctionValue) arguments.get(0)).call(null, new ArrayList<>()));
                         Top.deleteDelayMacroTaskId(id);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -42,7 +41,7 @@ public class SystemModuleValue extends ModuleValue {
             return new StringValue(id);
         }));
 
-        addExportValue("print", new InternalFunction((caller, manager, arguments) -> {
+        addExportValue("print", new InternalFunction((caller, arguments) -> {
             if (arguments.size() < 1) {
                 throw new RunException();
             }

@@ -1,8 +1,6 @@
 package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.context.Contexts;
-import org.laziji.commons.js.util.RuntimeUtils;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class StringPrototype extends StringValue {
         return "StringPrototype";
     }
 
-    private StringValue substring(ObjectValue caller, Contexts contexts, List<Value> arguments) throws RunException {
+    private StringValue substring(ObjectValue caller, List<Value> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }
@@ -43,7 +41,7 @@ public class StringPrototype extends StringValue {
         ));
     }
 
-    private NumberValue indexOf(ObjectValue caller, Contexts contexts, List<Value> arguments) throws RunException {
+    private NumberValue indexOf(ObjectValue caller, List<Value> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }

@@ -20,14 +20,15 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public Value run(Contexts contexts) throws Exception {
         FunctionValue value = new FunctionValue(
+                contexts.fork(),
                 ((FunctionParamsInternalNode) current[2]).getParams(),
                 cs -> current[3].run(cs),
                 true);
         if (current[1].getSelf() instanceof NameWordNode) {
             NameWordNode nameNode = (NameWordNode) current[1].getSelf();
-            manager.getContexts().peek().addProperty(nameNode.getUnit().getValue(), value, Context.ContextPropertyType.LET);
+            contexts.addProperty(nameNode.getUnit().getValue(), value, Context.ContextPropertyType.LET);
         }
         return value;
     }
