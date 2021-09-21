@@ -25,7 +25,7 @@ public class FunctionValue extends ObjectValue {
         this.function = function;
     }
 
-    protected FunctionValue(){
+    protected FunctionValue() {
 
     }
 
@@ -43,6 +43,11 @@ public class FunctionValue extends ObjectValue {
         executor.run(contexts);
         contexts.getContexts().pop();
         return context.getReturnValue();
+    }
+
+    public ObjectValue instantiate(ObjectValue caller, List<Value> arguments) throws Exception {
+        // TODO
+        return null;
     }
 
     public Value getPrototype() {
