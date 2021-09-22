@@ -7,8 +7,7 @@ public class ObjectClass extends InternalFunction {
     }
 
     @Override
-    public Value getPrototype() {
-        return Top.getObjectPrototype();
+    protected ObjectValue initPrototype() {
+        return new ObjectPrototype();
     }
-
 }

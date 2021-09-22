@@ -13,7 +13,7 @@ public class NumberValue extends ObjectValue {
 
     @Override
     public Value getProto() {
-        return Top.getNumberPrototype();
+        return Top.getNumberClass().getPrototype();
     }
 
     @Override

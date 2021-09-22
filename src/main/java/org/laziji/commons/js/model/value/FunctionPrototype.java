@@ -12,6 +12,6 @@ public class FunctionPrototype extends InternalFunction {
 
     @Override
     public Value getProto() {
-        return Top.getObjectPrototype();
+        return Top.getObjectClass().getPrototype();
     }
 }

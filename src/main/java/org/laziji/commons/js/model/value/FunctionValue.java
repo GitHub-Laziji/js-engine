@@ -13,9 +13,12 @@ public class FunctionValue extends ObjectValue {
     private List<Param> params;
     private Executor executor;
     private boolean function;
+    private ObjectValue prototype;
 
     {
-        addInternalProperty("prototype", this::getPrototype);
+        prototype = initPrototype();
+        prototype.addInternalProperty("constructor", this);
+        addInternalProperty("prototype", prototype);
     }
 
     public FunctionValue(Contexts contexts, List<Param> params, Executor executor, boolean function) {
@@ -50,13 +53,22 @@ public class FunctionValue extends ObjectValue {
         return null;
     }
 
+    protected ObjectValue initPrototype() {
+        return new ObjectValue() {
+            @Override
+            public Value getProto() {
+                return UndefinedValue.getInstance();
+            }
+        };
+    }
+
     public Value getPrototype() {
-        return UndefinedValue.getInstance();
+        return prototype;
     }
 
     @Override
     public Value getProto() {
-        return Top.getFunctionPrototype();
+        return Top.getFunctionClass().getPrototype();
     }
 
     public static class Param {

@@ -10,7 +10,7 @@ public class StringValue extends ObjectValue {
 
     @Override
     public Value getProto() {
-        return Top.getStringPrototype();
+        return Top.getStringClass().getPrototype();
     }
 
     @Override

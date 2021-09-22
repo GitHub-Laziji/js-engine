@@ -24,19 +24,10 @@ public class Top {
     private static ObjectValue global = new GlobalObjectValue();
 
     private static ObjectClass objectClass = new ObjectClass();
-    private static ObjectValue objectPrototype = new ObjectPrototype();
-
     private static FunctionClass functionClass = new FunctionClass();
-    private static FunctionValue functionPrototype = new FunctionPrototype();
-
     private static StringClass stringClass = new StringClass();
-    private static StringValue stringPrototype = new StringPrototype();
-
     private static NumberClass numberClass = new NumberClass();
-    private static NumberValue numberPrototype = new NumberPrototype();
-
     private static BooleanClass booleanClass = new BooleanClass();
-    private static BooleanValue booleanPrototype = new BooleanPrototype();
 
     static {
 
@@ -136,26 +127,6 @@ public class Top {
 
     public static BooleanClass getBooleanClass() {
         return booleanClass;
-    }
-
-    public static ObjectValue getObjectPrototype() {
-        return objectPrototype;
-    }
-
-    public static StringValue getStringPrototype() {
-        return stringPrototype;
-    }
-
-    public static FunctionValue getFunctionPrototype() {
-        return functionPrototype;
-    }
-
-    public static NumberValue getNumberPrototype() {
-        return numberPrototype;
-    }
-
-    public static BooleanValue getBooleanPrototype() {
-        return booleanPrototype;
     }
 
     public static void setStrict(boolean strict) {

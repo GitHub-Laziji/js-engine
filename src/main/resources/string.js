@@ -16,3 +16,6 @@ p(str.substring(2,5))
 
 p("indexOf:"+str.indexOf("56"))
 p("indexOf:"+str.indexOf("ww"))
+
+
+p("constructor:"+str.constructor)

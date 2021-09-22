@@ -21,7 +21,7 @@ public class BooleanValue extends ObjectValue {
 
     @Override
     public Value getProto() {
-        return Top.getBooleanPrototype();
+        return Top.getBooleanClass().getPrototype();
     }
 
     @Override

@@ -17,7 +17,7 @@ public class StringPrototype extends StringValue {
 
     @Override
     public Value getProto() {
-        return Top.getObjectPrototype();
+        return Top.getObjectClass().getPrototype();
     }
 
     @Override

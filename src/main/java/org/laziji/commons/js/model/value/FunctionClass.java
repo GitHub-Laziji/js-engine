@@ -7,7 +7,7 @@ public class FunctionClass extends InternalFunction {
     }
 
     @Override
-    public Value getPrototype() {
-        return Top.getFunctionPrototype();
+    protected ObjectValue initPrototype() {
+        return new FunctionPrototype();
     }
 }

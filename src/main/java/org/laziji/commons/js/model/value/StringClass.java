@@ -7,7 +7,7 @@ public class StringClass extends InternalFunction {
     }
 
     @Override
-    public ObjectValue getPrototype() {
-        return Top.getStringPrototype();
+    protected ObjectValue initPrototype() {
+        return new StringPrototype();
     }
 }

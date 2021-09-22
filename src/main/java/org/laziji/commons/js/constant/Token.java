@@ -51,7 +51,7 @@ public enum Token {
     STATIC("^(static)([^\\w\\$][\\s\\S]*|$)"),
     PRIVATE("^(private)([^\\w\\$][\\s\\S]*|$)"),
     PUBLIC("^(public)([^\\w\\$][\\s\\S]*|$)"),
-    CONSTRUCTOR("^(constructor)([^\\w\\$][\\s\\S]*|$)"),
+//    CONSTRUCTOR("^(constructor)([^\\w\\$][\\s\\S]*|$)"),
 
     SELF_ADD("^(\\+\\+)[\\s\\S]*"),
     SELF_SUB("^(\\-\\-)[\\s\\S]*"),

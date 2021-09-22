@@ -8,6 +8,6 @@ public class BooleanClass extends InternalFunction {
 
     @Override
     public Value getPrototype() {
-        return Top.getBooleanPrototype();
+        return new BooleanPrototype();
     }
 }

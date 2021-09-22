@@ -16,7 +16,7 @@ public class ObjectValue extends BaseValue {
     }
 
     public Value getProto() {
-        return Top.getObjectPrototype();
+        return Top.getObjectClass().getPrototype();
     }
 
     public void removeProperty(String key) {
@@ -53,6 +53,10 @@ public class ObjectValue extends BaseValue {
 
     protected void addInternalProperty(String key, InternalFunction.Handler handler) {
         properties.put(key, new ObjectProperty(key, new InternalFunction(handler), ObjectPropertyType.READ_ONLY));
+    }
+
+    protected void addInternalProperty(String key, Value value) {
+        properties.put(key, new ObjectProperty(key, value, ObjectPropertyType.READ_ONLY));
     }
 
     public Value getProperty(String key) {
