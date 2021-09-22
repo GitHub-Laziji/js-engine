@@ -57,12 +57,12 @@ public class FunctionValue extends ObjectValue {
         return new ObjectValue() {
             @Override
             public Value getProto() {
-                return UndefinedValue.getInstance();
+                return Top.getObjectClass().getPrototype();
             }
         };
     }
 
-    public Value getPrototype() {
+    public ObjectValue getPrototype() {
         return prototype;
     }
 
