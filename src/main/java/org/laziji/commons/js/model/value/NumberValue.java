@@ -12,6 +12,11 @@ public class NumberValue extends ObjectValue {
     }
 
     @Override
+    public Value getProto() {
+        return Top.getNumberPrototype();
+    }
+
+    @Override
     public Value binaryOperation(Token operator, Value o) throws OperationException {
         if (!(o instanceof NumberValue)) {
             return super.binaryOperation(operator, o);

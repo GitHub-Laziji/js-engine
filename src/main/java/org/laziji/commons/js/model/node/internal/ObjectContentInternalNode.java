@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
@@ -17,16 +17,16 @@ public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> imp
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         ObjectValue value = new ObjectValue();
         for (Node node : getNodes()) {
             node = node.getSelf();
             if (node instanceof NameWordNode) {
                 NameWordNode nameNode = (NameWordNode) node;
-                value.put(nameNode.getName(), nameNode.run(manager));
+                value.addProperty(nameNode.getName(), nameNode.run(manager));
             } else if (node instanceof ObjectContentItemInternalNode) {
                 ObjectContentItemInternalNode itemNode = (ObjectContentItemInternalNode) node;
-                value.put(itemNode.getKey(manager), itemNode.getValue(manager));
+                value.addProperty(itemNode.getKey(manager), itemNode.getValue(manager));
             }
         }
         return value;

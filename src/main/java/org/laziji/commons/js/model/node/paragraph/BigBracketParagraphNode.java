@@ -2,12 +2,11 @@ package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.BlockContext;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
-import org.laziji.commons.js.model.node.sentence.SentenceNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class BigBracketParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         manager.getContexts().push(new BlockContext());
         current[1].run(manager);
         manager.getContexts().pop();

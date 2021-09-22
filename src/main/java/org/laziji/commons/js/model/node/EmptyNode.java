@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.node;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.value.Value;
 
 public class EmptyNode extends BaseNode {
@@ -10,7 +10,7 @@ public class EmptyNode extends BaseNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         return null;
     }
 

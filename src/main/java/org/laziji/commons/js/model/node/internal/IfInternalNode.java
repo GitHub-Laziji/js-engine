@@ -1,13 +1,12 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
-import org.laziji.commons.js.model.node.word.SmallBracketWordNode;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Arrays;
@@ -31,11 +30,11 @@ public class IfInternalNode extends BasePlanNode implements InternalNode {
         );
     }
 
-    public Value runExp(ScriptManager manager) throws Exception {
+    public Value runExp(Contexts manager) throws Exception {
         return current[2].run(manager);
     }
 
-    public Value runBody(ScriptManager manager) throws Exception {
+    public Value runBody(Contexts manager) throws Exception {
         return current[4].run(manager);
     }
 

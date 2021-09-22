@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -28,11 +28,11 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         return calc(manager, 0, nodes.size());
     }
 
-    private Value calc(ScriptManager manager, int start, int end) throws Exception {
+    private Value calc(Contexts manager, int start, int end) throws Exception {
         if (start + 1 == end) {
             return nodes.get(start).run(manager);
         }

@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
@@ -17,11 +16,11 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         addProxyItem(new CallMemberNameInternalNode(null));
     }
 
-    public Value run(ObjectValue caller, Value value, ScriptManager manager) throws Exception {
-        ObjectValue objectValue = castObjectValue(value);
+    public Value run(ObjectValue caller, Value pre, Contexts manager) throws Exception {
+        ObjectValue objectValue = castObjectValue(pre);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(caller, manager, ((CallFunctionParamsInternalNode) self).getArguments(manager));
+            return ((FunctionValue) objectValue).call(caller, ((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {
@@ -31,11 +30,11 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.get(name);
+        return objectValue.getProperty(name);
     }
 
-    public Context.Entry getPosition(Value value, ScriptManager manager) throws Exception {
-        ObjectValue objectValue = castObjectValue(value);
+    public Value assignment(Value pre, Contexts manager, Value value) throws Exception {
+        ObjectValue objectValue = castObjectValue(pre);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode) {
             throw new TypeException();
@@ -48,7 +47,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         } else {
             throw new TypeException();
         }
-        return objectValue.getEntry(name);
+        return objectValue.addProperty(name, value);
     }
 
     private ObjectValue castObjectValue(Value value) throws Exception {

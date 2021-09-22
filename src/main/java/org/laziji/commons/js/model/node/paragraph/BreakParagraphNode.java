@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.LoopContext;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
@@ -21,7 +21,7 @@ public class BreakParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
             Context context = manager.getContexts().get(i);
             context.close();

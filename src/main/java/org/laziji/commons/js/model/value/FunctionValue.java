@@ -1,47 +1,62 @@
 package org.laziji.commons.js.model.value;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
-import org.laziji.commons.js.model.context.name.LetName;
 
 import java.util.List;
 import java.util.function.Function;
 
 public class FunctionValue extends ObjectValue {
 
+    private Contexts contexts;
     private List<Param> params;
     private Executor executor;
     private boolean function;
-    protected ObjectValue prototype;
 
-    public FunctionValue(List<Param> params, Executor executor, boolean function) {
+    {
+        addInternalProperty("prototype", this::getPrototype);
+    }
+
+    public FunctionValue(Contexts contexts, List<Param> params, Executor executor, boolean function) {
+        this.contexts = contexts;
         this.params = params;
         this.executor = executor;
         this.function = function;
     }
 
-    public Value call(ObjectValue caller, ScriptManager manager, List<Value> arguments) throws Exception {
+    protected FunctionValue() {
+
+    }
+
+    public Value call(ObjectValue caller, List<Value> arguments) throws Exception {
         FunctionContext context;
         if (function) {
-            context = new FunctionContext(caller == null ? manager.getGlobal() : caller);
+            context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
         } else {
             context = new FunctionContext(null);
         }
-        manager.getContexts().push(context);
+        contexts.getContexts().push(context);
         for (Param param : params) {
-            context.defined(new LetName(param.getName()), param.fetchValue.apply(arguments));
+            context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
         }
-        executor.run(manager);
-        manager.getContexts().pop();
+        executor.run(contexts);
+        contexts.getContexts().pop();
         return context.getReturnValue();
     }
 
-    public void setPrototype(ObjectValue prototype) {
-        this.prototype = prototype;
+    public ObjectValue instantiate(ObjectValue caller, List<Value> arguments) throws Exception {
+        // TODO
+        return null;
     }
 
-    public ObjectValue getPrototype() {
-        return prototype;
+    public Value getPrototype() {
+        return UndefinedValue.getInstance();
+    }
+
+    @Override
+    public Value getProto() {
+        return Top.getFunctionPrototype();
     }
 
     public static class Param {
@@ -72,6 +87,6 @@ public class FunctionValue extends ObjectValue {
 
     @FunctionalInterface
     public interface Executor {
-        Value run(ScriptManager manager) throws Exception;
+        Value run(Contexts manager) throws Exception;
     }
 }

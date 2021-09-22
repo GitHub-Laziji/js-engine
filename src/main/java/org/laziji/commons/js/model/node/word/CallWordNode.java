@@ -1,7 +1,6 @@
 package org.laziji.commons.js.model.node.word;
 
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
@@ -21,16 +20,16 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
-        Value value = current[0].run(manager);
+        Value pre = current[0].run(manager);
         ObjectValue caller = null;
         for (ProxyCallParamsInternalNode node : nodes) {
-            Value tempValue = node.run(caller, value, manager);
-            caller = (ObjectValue) value;
-            value = tempValue;
+            Value tempValue = node.run(caller, pre, manager);
+            caller = (ObjectValue) pre;
+            pre = tempValue;
         }
-        return value;
+        return pre;
     }
 
     @Override
@@ -39,19 +38,16 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Context.Entry getPosition(ScriptManager manager) throws Exception {
-        Value value = current[0].run(manager);
+    public Value assignment(Contexts manager, Value value) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
+        Value pre = current[0].run(manager);
+        ObjectValue caller = null;
         for (int i = 0; i < nodes.size() - 1; i++) {
-            Context.Entry position = nodes.get(i).getPosition(value, manager);
-            value = position.getValue();
+            Value tempValue = nodes.get(i).run(caller, pre, manager);
+            caller = (ObjectValue) pre;
+            pre = tempValue;
         }
-        return nodes.get(nodes.size() - 1).getPosition(value, manager);
-    }
-
-    @Override
-    public Value assignment(Value value) throws Exception {
-        return null;
+        return nodes.get(nodes.size() - 1).assignment(pre, manager, value);
     }
 
     @Override

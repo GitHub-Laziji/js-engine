@@ -1,12 +1,13 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.context.name.LetName;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
 import org.laziji.commons.js.model.value.ModuleValue;
+import org.laziji.commons.js.model.value.Top;
 import org.laziji.commons.js.model.value.UndefinedValue;
 import org.laziji.commons.js.model.value.Value;
 
@@ -21,9 +22,9 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         String moduleName = ((StringWordNode) current[5]).run(manager).toString();
-        ModuleValue module = manager.getModule(moduleName);
+        ModuleValue module = Top.getModule(moduleName);
         for (Node node : ((ListNode<Node>) current[2]).getNodes()) {
             node = node.getSelf();
             String importName;
@@ -35,10 +36,10 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
                 variableName = ((NameWordNode) ((PlanNode) node).getNodes().get(2)).getName();
             }
             Value exportValue = module.getExportValue(importName);
-            if (exportValue != null) {
-                manager.getContexts().peek().defined(new LetName(variableName), exportValue);
+            if (module.getDefaultExportValue() != null) {
+                manager.getContexts().peek().addProperty(variableName, exportValue, Context.ContextPropertyType.CONST);
             } else {
-                manager.getContexts().peek().defined(new LetName(variableName), new UndefinedValue());
+                manager.getContexts().peek().addProperty(variableName, new UndefinedValue(), Context.ContextPropertyType.CONST);
             }
         }
         return null;

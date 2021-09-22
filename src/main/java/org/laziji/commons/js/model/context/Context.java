@@ -1,18 +1,18 @@
 package org.laziji.commons.js.model.context;
 
 
-import org.laziji.commons.js.model.context.name.Name;
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.value.Value;
 
 public interface Context {
 
-    void defined(Name name, Value value) throws Exception;
+    Value addProperty(String key, Value value, ContextPropertyType type) throws Exception;
 
-    void put(String name, Value value) throws Exception;
+    Value addProperty(String key, Value value) throws Exception;
 
-    Value get(String name) throws Exception;
+    Value getProperty(String key) throws Exception;
 
-    Entry getEntry(String name) throws Exception;
+    boolean hasProperty(String key) throws Exception;
 
     void close();
 
@@ -20,35 +20,47 @@ public interface Context {
 
     String toSimpleString();
 
-    class Entry {
-        private Name name;
+    enum ContextPropertyType {
+        LET,
+        VAR,
+        CONST;
+
+        public static ContextPropertyType match(Token token) {
+            if (token == Token.CONST) {
+                return CONST;
+            }
+            if (token == Token.VAR) {
+                return VAR;
+            }
+            return LET;
+        }
+    }
+
+    class ContextProperty {
+        private String key;
         private Value value;
-        private Context parent;
+        private ContextPropertyType type;
 
-        public Entry(Context parent, Name name, Value value) {
-            this.name = name;
+        public ContextProperty(String key, Value value, ContextPropertyType type) {
+            this.key = key;
             this.value = value;
-            this.parent = parent;
+            this.type = type;
         }
 
-        public Context getParent() {
-            return parent;
+        public void setValue(Value value) {
+            this.value = value;
         }
 
-        public Name getName() {
-            return name;
-        }
-
-        public void setName(Name name) {
-            this.name = name;
+        public String getKey() {
+            return key;
         }
 
         public Value getValue() {
             return value;
         }
 
-        public void setValue(Value value) {
-            this.value = value;
+        public ContextPropertyType getType() {
+            return type;
         }
     }
 

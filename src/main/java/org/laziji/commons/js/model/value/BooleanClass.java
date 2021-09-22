@@ -1,14 +1,13 @@
 package org.laziji.commons.js.model.value;
 
-public class ObjectClass extends InternalFunction {
+public class BooleanClass extends InternalFunction {
 
-    public ObjectClass() {
+    public BooleanClass() {
         super(null);
     }
 
     @Override
     public Value getPrototype() {
-        return Top.getObjectPrototype();
+        return Top.getBooleanPrototype();
     }
-
 }

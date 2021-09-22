@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
@@ -20,7 +20,7 @@ public class ObjectContentItemInternalNode extends BasePlanNode implements Inter
     }
 
 
-    public String getKey(ScriptManager manager) throws Exception {
+    public String getKey(Contexts manager) throws Exception {
         Node node = current[0].getSelf();
         if (node instanceof BaseUnitNode) {
             return ((BaseUnitNode) node).getUnit().getValue();
@@ -30,7 +30,7 @@ public class ObjectContentItemInternalNode extends BasePlanNode implements Inter
     }
 
 
-    public Value getValue(ScriptManager manager) throws Exception {
+    public Value getValue(Contexts manager) throws Exception {
         return current[2].run(manager);
     }
 

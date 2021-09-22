@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.StringValue;
@@ -17,7 +17,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) {
+    public Value run(Contexts manager) {
         String code = getUnit().getValue();
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < code.length() - 1; i++) {
@@ -37,7 +37,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
             }
             i++;
         }
-        return manager.createStringValue(sb.toString());
+        return new StringValue(sb.toString());
     }
 
     @Override

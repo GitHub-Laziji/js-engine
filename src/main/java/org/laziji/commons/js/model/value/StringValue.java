@@ -9,6 +9,11 @@ public class StringValue extends ObjectValue {
     }
 
     @Override
+    public Value getProto() {
+        return Top.getStringPrototype();
+    }
+
+    @Override
     public String toString() {
         return value;
     }

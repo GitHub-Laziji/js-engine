@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
@@ -19,7 +19,7 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
         super(parent);
     }
 
-    public List<Value> getArguments(ScriptManager manager) throws Exception {
+    public List<Value> getArguments(Contexts manager) throws Exception {
         if (current[1].getSelf() instanceof EmptyNode) {
             return new ArrayList<>();
         }

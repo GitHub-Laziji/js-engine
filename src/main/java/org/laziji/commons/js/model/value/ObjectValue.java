@@ -1,144 +1,123 @@
 package org.laziji.commons.js.model.value;
 
-import org.laziji.commons.js.model.context.Context;
-import org.laziji.commons.js.model.context.ObjectContext;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Supplier;
 
 public class ObjectValue extends BaseValue {
 
-    private Map<String, Dictionary> properties = new HashMap<>();
-    protected final Context context;
-    private FunctionValue instanceClass;
-    private ObjectValue proto;
+    private Map<String, ObjectProperty> properties = new HashMap<>();
 
-    public ObjectValue(FunctionClass instanceClass) {
-        this.instanceClass = instanceClass;
-        this.context = new ObjectContext();
+    {
+        addInternalProperty("__proto__", this::getProto);
     }
 
     public ObjectValue() {
-        this.context = new ObjectContext();
     }
 
-    public void setInstanceClass(FunctionValue instanceClass) {
-        if (this.instanceClass != null) {
-            throw new RuntimeException();
-        }
-        this.instanceClass = instanceClass;
-    }
-
-    public ObjectValue getInstanceClass() {
-        return instanceClass;
-    }
-
-    public ObjectValue getProto() {
-        if (instanceClass == null) {
-            return null;
-        }
-        return instanceClass.getPrototype();
-    }
-
-    public void setProto(ObjectValue proto) {
-        this.proto = proto;
-    }
-
-    public void put(String name, Value value) throws Exception {
-        context.getEntry(name).setValue(value);
-    }
-
-    public Value get(String name) throws Exception {
-        return get(name, new HashSet<>());
-    }
-
-    public Context.Entry getEntry(String name) throws Exception {
-        return context.getEntry(name);
-    }
-
-    private Value get(String name, Set<ObjectValue> values) throws Exception {
-        values.add(this);
-        Value value = context.get(name);
-        ObjectValue proto = getProto();
-        if (value instanceof UndefinedValue && proto != null && !values.contains(proto)) {
-            return proto.get(name, values);
-        }
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return context.toString();
+    public Value getProto() {
+        return Top.getObjectPrototype();
     }
 
     public void removeProperty(String key) {
         if (!properties.containsKey(key)) {
             return;
         }
-        if (properties.get(key).getType() == PropertyType.READ_ONLY) {
+        if (properties.get(key).getType() == ObjectPropertyType.READ_ONLY) {
             return;
         }
         properties.remove(key);
     }
 
-    public Value addProperty(String key, Value value, PropertyType type) {
-        if (!properties.containsKey(key)) {
-            properties.get(key).setValue(value);
+    public Value addProperty(String key, Value value, ObjectPropertyType type) {
+        if (properties.containsKey(key)) {
+            ObjectProperty property = properties.get(key);
+            if (property.getType() == ObjectPropertyType.READ_ONLY) {
+                return property.getValue();
+            }
+            property.setValue(value);
+            return value;
         }
-        properties.put(key, new Dictionary(key, value, type));
+        properties.put(key, new ObjectProperty(key, value, type));
         return value;
     }
 
+    public Value addProperty(String key, Value value) {
+        System.out.println(this.getClass().getSimpleName() + ":" + key + "=" + value);
+        return addProperty(key, value, ObjectPropertyType.NONE);
+    }
+
+    protected void addInternalProperty(String key, Supplier<Value> handler) {
+        properties.put(key, new ObjectProperty(key, handler, ObjectPropertyType.READ_ONLY));
+    }
+
+    protected void addInternalProperty(String key, InternalFunction.Handler handler) {
+        properties.put(key, new ObjectProperty(key, new InternalFunction(handler), ObjectPropertyType.READ_ONLY));
+    }
+
     public Value getProperty(String key) {
-        if (!properties.containsKey(key)) {
+        if (properties.containsKey(key)) {
             return properties.get(key).getValue();
+        }
+        Value proto = getProto();
+        if (proto instanceof ObjectValue) {
+            return ((ObjectValue) proto).getProperty(key);
         }
         return UndefinedValue.getInstance();
     }
 
+    public boolean hasProperty(String key) {
+        return properties.containsKey(key);
+    }
 
-    public enum PropertyType {
+    public enum ObjectPropertyType {
         NONE,
         READ_ONLY
     }
 
-    public static class Dictionary {
+    public static class ObjectProperty {
         private String key;
         private Value value;
-        private PropertyType type;
+        private ObjectPropertyType type;
         private FunctionValue getter;
         private FunctionValue setter;
 
-        public Dictionary(String key, Value value, PropertyType type) {
+        private Supplier<Value> handler;
+
+        public ObjectProperty(String key, Value value, ObjectPropertyType type) {
             this.key = key;
             this.value = value;
             this.type = type;
         }
 
-        public Dictionary(String key, Value value) {
+        public ObjectProperty(String key, Supplier<Value> handler, ObjectPropertyType type) {
             this.key = key;
-            this.value = value;
-            this.type = PropertyType.NONE;
+            this.handler = handler;
+            this.type = type;
         }
 
-        public Dictionary(String key) {
+        public ObjectProperty(String key, Value value) {
+            this.key = key;
+            this.value = value;
+            this.type = ObjectPropertyType.NONE;
+        }
+
+        public ObjectProperty(String key) {
             this.key = key;
             this.value = UndefinedValue.getInstance();
-            this.type = PropertyType.NONE;
+            this.type = ObjectPropertyType.NONE;
         }
 
         public String getKey() {
             return key;
         }
 
-        public PropertyType getType() {
+        public ObjectPropertyType getType() {
             return type;
         }
 
         public void setValue(Value value) {
-            if (type == PropertyType.READ_ONLY) {
+            if (type == ObjectPropertyType.READ_ONLY) {
                 return;
             }
             //TODO setter
@@ -146,6 +125,9 @@ public class ObjectValue extends BaseValue {
         }
 
         public Value getValue() {
+            if (handler != null) {
+                return handler.get();
+            }
             //TODO getter
             return value;
         }

@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.section.SectionNode;
 import org.laziji.commons.js.model.value.Value;
 
@@ -20,11 +20,9 @@ public class DocNode extends BasePlanNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         current[0].run(manager);
-        if(!manager.isMain()){
-
-        }
+        // TODO export
         return null;
     }
 

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.exception.SyntaxException;
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.context.name.Name;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.Map;
@@ -12,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class BaseContext implements Context {
 
-    protected Map<String, Entry> context;
+    protected Map<String, ContextProperty> context;
     protected boolean close = false;
 
     public BaseContext() {
@@ -20,44 +19,38 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public void defined(Name name, Value value) throws SyntaxException {
-        if (this.context.containsKey(name.getName())) {
-            throw new SyntaxException("Identifier '%s' has already been declared", name.getName());
+    public Value addProperty(String key, Value value, ContextPropertyType type) throws SyntaxException {
+        if (context.containsKey(key)) {
+            throw new SyntaxException("Identifier '%s' has already been declared", key);
         }
-        if (!name.isVariable() && value == null) {
-            throw new SyntaxException("Missing initializer in const declaration");
-        }
-        this.context.put(name.getName(), new Entry(this, name, value));
+        context.put(key, new ContextProperty(key, value, type));
+        return value;
     }
 
     @Override
-    public void put(String name, Value value) throws ReferenceException, TypeException {
-        Entry item = this.context.get(name);
-        if (item == null) {
-            throw new ReferenceException("%s is not defined", name);
+    public Value addProperty(String key, Value value) throws ReferenceException, TypeException {
+        if (context.containsKey(key)) {
+            ContextProperty property = context.get(key);
+            if (property.getType() == ContextPropertyType.CONST) {
+                throw new TypeException("Assignment to constant variable");
+            }
+            property.setValue(value);
+            return value;
         }
-        if (!item.getName().isVariable()) {
-            throw new TypeException("Assignment to constant variable");
-        }
-        item.setValue(value);
+        throw new ReferenceException("%s is not defined", key);
     }
 
     @Override
-    public Value get(String name) {
-        Entry item = this.context.get(name);
-        if (item == null) {
-            return null;
+    public Value getProperty(String key) throws ReferenceException {
+        if (!context.containsKey(key)) {
+            throw new ReferenceException("%s is not defined", key);
         }
-        return item.getValue();
+        return context.get(key).getValue();
     }
 
     @Override
-    public Entry getEntry(String name) {
-        Entry item = this.context.get(name);
-        if (item == null) {
-            return null;
-        }
-        return item;
+    public boolean hasProperty(String key) {
+        return context.containsKey(key);
     }
 
     @Override
@@ -78,7 +71,7 @@ public abstract class BaseContext implements Context {
     @Override
     public String toSimpleString() {
         StringBuilder result = new StringBuilder();
-        for (Map.Entry<String, Entry> entry : context.entrySet()) {
+        for (Map.Entry<String, ContextProperty> entry : context.entrySet()) {
             result.append(entry.getKey()).append(": ").append(entry.getValue().getValue().toString()).append('\n');
         }
         return result.toString();

@@ -4,17 +4,17 @@ import java.util.List;
 
 public class ArrayValue extends ObjectValue {
 
-    public ArrayValue(List<Value> values) throws Exception {
-        put("length", new NumberValue(values.size()));
+    public ArrayValue(List<Value> values) {
+        addProperty("length", new NumberValue(values.size()));
         for (int i = 0; i < values.size(); i++) {
-            put(i + "", values.get(i));
+            addProperty(i + "", values.get(i));
         }
     }
 
     @Override
-    public void put(String name, Value value) throws Exception {
+    public Value addProperty(String name, Value value) {
         // TODO length
-        super.put(name, value);
+        return super.addProperty(name, value);
     }
 
     @Override
@@ -22,13 +22,13 @@ public class ArrayValue extends ObjectValue {
         try {
             StringBuilder result = new StringBuilder();
             result.append("[");
-            Value lengthValue = context.get("length");
+            Value lengthValue = getProperty("length");
             if (!(lengthValue instanceof NumberValue)) {
                 throw new Exception();
             }
             int length = (int) ((NumberValue) lengthValue).getValue();
             for (int i = 0; i < length; i++) {
-                result.append(context.get(i + "").toString());
+                result.append(getProperty(i + "").toString());
                 if (i != length - 1) {
                     result.append(", ");
                 }

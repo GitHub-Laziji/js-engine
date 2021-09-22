@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
@@ -18,32 +18,20 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts contexts) throws Exception {
         String name = getUnit().getValue();
-        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
-            Value value = manager.getContexts().get(i).get(name);
-            if (value != null) {
-                return value;
-            }
-        }
-        throw new ReferenceException("%s is not defined", name);
+        return contexts.getProperty(name);
     }
 
     @Override
-    public Context.Entry getPosition(ScriptManager manager) throws Exception {
+    public Value assignment(Contexts contexts, Value value) throws Exception {
         String name = getUnit().getValue();
-        for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
-            Context.Entry entry = manager.getContexts().get(i).getEntry(name);
-            if (entry != null) {
-                return entry;
-            }
-        }
-        throw new ReferenceException("%s is not defined", name);
+        return contexts.addProperty(name, value);
     }
 
-    @Override
-    public Value assignment(Value value) throws Exception {
-        return null;
+    public void define(Contexts contexts, Value value, Context.ContextPropertyType type) throws Exception {
+        String name = getUnit().getValue();
+        contexts.addProperty(name, value, type);
     }
 
     public String getName() {

@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node.paragraph;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.LoopContext;
 import org.laziji.commons.js.model.context.LoopUnitContext;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
@@ -21,7 +21,7 @@ public class ForParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         LoopContext context = new LoopContext();
         manager.getContexts().push(new LoopContext());
         current[2].run(manager);

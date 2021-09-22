@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.manager.ScriptManager;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
@@ -18,7 +18,7 @@ public class SectionItemInternalNode extends BasePlanNode implements InternalNod
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         return current[0].run(manager);
     }
 

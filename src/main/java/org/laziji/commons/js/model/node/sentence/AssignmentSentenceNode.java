@@ -2,8 +2,7 @@ package org.laziji.commons.js.model.node.sentence;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.manager.ScriptManager;
-import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
@@ -34,31 +33,24 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
     }
 
     @Override
-    public Value run(ScriptManager manager) throws Exception {
+    public Value run(Contexts manager) throws Exception {
         VariableWordNode node = (VariableWordNode) current[0].getSelf();
         UnitNode op = (UnitNode) current[1];
-        Context.Entry position = node.getPosition(manager);
         Value value = current[2].run(manager);
         switch (op.getUnit().getToken()) {
             case ASSIGNMENT:
-                position.setValue(value);
-                break;
+                return node.assignment(manager, value);
             case SELF_ADD_BY:
-                position.setValue(position.getValue().binaryOperation(Token.ADD, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.ADD, value));
             case SELF_SUB_BY:
-                position.setValue(position.getValue().binaryOperation(Token.SUB, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.SUB, value));
             case SELF_MUL_BY:
-                position.setValue(position.getValue().binaryOperation(Token.MUL, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.MUL, value));
             case SELF_DIV_BY:
-                position.setValue(position.getValue().binaryOperation(Token.DIV, value));
-                break;
+                return node.assignment(manager, node.run(manager).binaryOperation(Token.DIV, value));
             default:
                 throw new OperationException();
         }
-        return position.getValue();
     }
 
     @Override

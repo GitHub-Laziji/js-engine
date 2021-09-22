@@ -1,14 +1,17 @@
 package org.laziji.commons.js.model.value;
 
-public class ObjectClass extends InternalFunction {
+public class FunctionPrototype extends InternalFunction {
 
-    public ObjectClass() {
+    {
+
+    }
+
+    public FunctionPrototype() {
         super(null);
     }
 
     @Override
-    public Value getPrototype() {
+    public Value getProto() {
         return Top.getObjectPrototype();
     }
-
 }

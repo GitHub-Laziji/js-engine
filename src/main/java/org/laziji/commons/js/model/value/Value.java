@@ -2,7 +2,6 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
-import org.laziji.commons.js.model.manager.ScriptManager;
 
 public interface Value {
 
@@ -14,9 +13,13 @@ public interface Value {
 
     NumberValue toNumberValue();
 
+    StringValue toStringValue();
+
     Boolean toBoolean();
 
     Double toNumber();
+
+    String toString();
 
     Value copy();
 }
