@@ -4,20 +4,21 @@
 ```java
 class Test{
     public static void main(String[] args){
-        ScriptManager manager = new ScriptManager(true);
-        DocNode doc = manager.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
+        Top.setStrict(true);
+        DocNode doc = Top.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
         System.out.println(doc.toString());
     }
 }
 ```
 
 ## 运行
+运行环境线程隔离
 ```java
 class Test{
     public static void main(String[] args){
-        ScriptManager manager = new ScriptManager(true);
-        manager.addInternalModules("sys", new SystemModuleValue());
-        manager.eval(
+        Top.setStrict(true);
+        Top.addInternalModules("sys", new SystemModuleValue());
+        Top.eval(
             "import sysfunc from \"sys\";                     \n" +
             "import {setTimeout,print as p} from \"sys\";     \n" +
             "let a = sysfunc(\"hello\".substring(1,3));       \n" +
@@ -30,8 +31,8 @@ class Test{
             "    \"asd\":{a}                                  \n" +
             "};                                               \n"
         );
-        manager.loop();
-        System.out.println(manager.getContexts().peek().toSimpleString());
+        Top.loop();
+        System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
     }
 }
 ```
