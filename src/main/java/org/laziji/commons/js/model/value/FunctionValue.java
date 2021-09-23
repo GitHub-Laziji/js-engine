@@ -3,6 +3,7 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
+import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.List;
 import java.util.function.Function;

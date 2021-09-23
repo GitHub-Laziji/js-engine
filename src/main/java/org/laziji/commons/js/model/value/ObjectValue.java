@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.value.env.Top;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;

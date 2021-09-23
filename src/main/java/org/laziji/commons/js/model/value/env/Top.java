@@ -1,4 +1,4 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.env;
 
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
@@ -6,53 +6,46 @@ import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.value.*;
 import org.laziji.commons.js.util.TokenUtils;
 
 import java.util.*;
 
 public class Top {
 
-    private static Queue<Runner> macroTasks = new LinkedList<>();
-    private static Set<String> delayMacroTaskIds = new HashSet<>();
-    private static Queue<Runner> microTasks = new LinkedList<>();
-    private static Map<String, ModuleValue> internalModules = new HashMap<>();
-    private static Map<String, ModuleValue> externalModules = new HashMap<>();
-    private static boolean strict;
+    private static ThreadLocal<ThreadLocalTop> local = new ThreadLocal<>();
 
-    private static Contexts mainContexts = new Contexts();
-
-    private static ObjectValue global = new GlobalObjectValue();
-
-    private static ObjectClass objectClass = new ObjectClass();
-    private static FunctionClass functionClass = new FunctionClass();
-    private static StringClass stringClass = new StringClass();
-    private static NumberClass numberClass = new NumberClass();
-    private static BooleanClass booleanClass = new BooleanClass();
-
-    static {
-
+    public static void setThreadLocalTop(ThreadLocalTop threadLocalTop) {
+        local.set(threadLocalTop);
     }
-
 
     public static void addInternalModules(String name, ModuleValue module) {
-        internalModules.put(name, module);
+        getThreadLocalTop().getInternalModules().put(name, module);
     }
 
-    public static synchronized void addMacroTask(Runner runner) {
-        macroTasks.add(runner);
-        Top.class.notifyAll();
+    public static void addMacroTask(Runner runner) {
+        synchronized (getThreadLocalTop()) {
+            getThreadLocalTop().getMacroTasks().add(runner);
+            getThreadLocalTop().notifyAll();
+        }
     }
 
-    public static synchronized void addDelayMacroTaskId(String id) {
-        delayMacroTaskIds.add(id);
+    public static void addDelayMacroTaskId(String id) {
+        synchronized (getThreadLocalTop()) {
+            getThreadLocalTop().getDelayMacroTaskIds().add(id);
+        }
     }
 
-    public static synchronized void deleteDelayMacroTaskId(String id) {
-        delayMacroTaskIds.remove(id);
+    public static void deleteDelayMacroTaskId(String id) {
+        synchronized (getThreadLocalTop()) {
+            getThreadLocalTop().getDelayMacroTaskIds().remove(id);
+        }
     }
 
-    public static synchronized void addMicroTask(Runner runner) {
-        microTasks.add(runner);
+    public static void addMicroTask(Runner runner) {
+        synchronized (getThreadLocalTop()) {
+            getThreadLocalTop().getMicroTasks().add(runner);
+        }
     }
 
     public static void eval(String text) throws Exception {
@@ -60,12 +53,12 @@ public class Top {
     }
 
     public static void eval(DocNode doc) {
-        addMacroTask(() -> doc.run(mainContexts));
+        addMacroTask(() -> doc.run(getThreadLocalTop().getMainContexts()));
     }
 
     public static DocNode compile(String text) throws Exception {
         NodeConfiguration configuration = new NodeConfiguration();
-        configuration.setStrict(strict);
+        configuration.setStrict(getThreadLocalTop().isStrict());
         DocNode doc = new DocNode(configuration);
         List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
         Node p = doc;
@@ -81,7 +74,10 @@ public class Top {
 
     public static void loop() throws Exception {
         while (true) {
-            synchronized (Top.class) {
+            synchronized (getThreadLocalTop()) {
+                Queue<Runner> macroTasks = getThreadLocalTop().getMacroTasks();
+                Queue<Runner> microTasks = getThreadLocalTop().getMicroTasks();
+                Set<String> delayMacroTaskIds = getThreadLocalTop().getDelayMacroTaskIds();
                 while (!macroTasks.isEmpty()) {
                     macroTasks.poll().run();
                 }
@@ -91,12 +87,13 @@ public class Top {
                 if (delayMacroTaskIds.isEmpty()) {
                     break;
                 }
-                Top.class.wait();
+                getThreadLocalTop().wait();
             }
         }
     }
 
     public static ModuleValue getModule(String name) throws RunException {
+        Map<String, ModuleValue> internalModules = getThreadLocalTop().getInternalModules();
         if (internalModules.containsKey(name)) {
             return internalModules.get(name);
         }
@@ -106,35 +103,44 @@ public class Top {
 
 
     public static ObjectValue getGlobal() {
-        return global;
+        return getThreadLocalTop().getGlobal();
     }
 
     public static ObjectClass getObjectClass() {
-        return objectClass;
+        return getThreadLocalTop().getObjectClass();
     }
 
     public static FunctionClass getFunctionClass() {
-        return functionClass;
+        return getThreadLocalTop().getFunctionClass();
     }
 
     public static StringClass getStringClass() {
-        return stringClass;
+        return getThreadLocalTop().getStringClass();
     }
 
     public static NumberClass getNumberClass() {
-        return numberClass;
+        return getThreadLocalTop().getNumberClass();
     }
 
     public static BooleanClass getBooleanClass() {
-        return booleanClass;
+        return getThreadLocalTop().getBooleanClass();
     }
 
     public static void setStrict(boolean strict) {
-        Top.strict = strict;
+        getThreadLocalTop().setStrict(strict);
     }
 
     public static Contexts getMainContexts() {
-        return mainContexts;
+        return getThreadLocalTop().getMainContexts();
+    }
+
+    private static ThreadLocalTop getThreadLocalTop() {
+        ThreadLocalTop threadLocalTop = local.get();
+        if (threadLocalTop == null) {
+            threadLocalTop = new ThreadLocalTop();
+            local.set(threadLocalTop);
+        }
+        return threadLocalTop;
     }
 
     @FunctionalInterface

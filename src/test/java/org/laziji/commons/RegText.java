@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.value.SystemModuleValue;
-import org.laziji.commons.js.model.value.Top;
+import org.laziji.commons.js.model.value.env.Top;
 
 public class RegText {
 
@@ -63,6 +63,18 @@ public class RegText {
 
     @Test
     public void runString() throws Exception {
+        new Thread(()->{
+            try{
+                Top.addInternalModules("sys", new SystemModuleValue());
+                Top.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
+                Top.loop();
+                System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
+            }catch (Exception e){
+
+            }
+        }).start();
+        Thread.sleep(5000);
+        System.out.println("========================");
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
         Top.loop();

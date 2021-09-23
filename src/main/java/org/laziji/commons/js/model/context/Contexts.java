@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.context;
 
 import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.model.value.Top;
+import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.ArrayList;

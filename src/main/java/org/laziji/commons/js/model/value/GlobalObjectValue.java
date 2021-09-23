@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.value.env.Top;
+
 public class GlobalObjectValue extends ObjectValue {
 
     private static ObjectClass objectClass;
