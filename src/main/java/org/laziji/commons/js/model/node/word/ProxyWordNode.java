@@ -24,7 +24,6 @@ public class ProxyWordNode extends BaseProxyNode<WordNode> implements WordNode {
         addProxyItem(new FunctionWordNode(null));
         addProxyItem(new LambdaWordNode(null));
         addProxyItem(new ClassWordNode(null));
-        addProxyItem(new NewInstanceWordNode(null));
     }
 
 }
