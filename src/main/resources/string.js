@@ -19,3 +19,6 @@ p("indexOf:"+str.indexOf("ww"))
 
 
 p("constructor:"+str.constructor)
+
+
+p(new String.prototype.a())

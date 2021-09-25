@@ -13,6 +13,8 @@ import java.util.*;
 
 public class Top {
 
+    private static boolean DEBUG = true;
+
     private static ThreadLocal<ThreadLocalTop> local = new ThreadLocal<>();
 
     public static void setThreadLocalTop(ThreadLocalTop threadLocalTop) {
@@ -68,6 +70,11 @@ public class Top {
         }
         if (!doc.isDone()) {
             throw new CompileException();
+        }
+        if(DEBUG){
+            System.out.println("===DEBUG PRINT===");
+            System.out.println(doc.toString());
+            System.out.println("===DEBUG PRINT===");
         }
         return doc;
     }
