@@ -49,9 +49,16 @@ public class FunctionValue extends ObjectValue {
         return context.getReturnValue();
     }
 
-    public ObjectValue instantiate(ObjectValue caller, List<Value> arguments) throws Exception {
-        // TODO
-        return null;
+    public ObjectValue instantiate(List<Value> arguments) throws Exception {
+        ObjectValue obj = new ObjectValue();
+        FunctionContext context = new FunctionContext(obj);
+        contexts.getContexts().push(context);
+        for (Param param : params) {
+            context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
+        }
+        executor.run(contexts);
+        contexts.getContexts().pop();
+        return obj;
     }
 
     protected ObjectValue initPrototype() {

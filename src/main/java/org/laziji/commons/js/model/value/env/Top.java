@@ -72,9 +72,9 @@ public class Top {
             throw new CompileException();
         }
         if(DEBUG){
-            System.out.println("===DEBUG PRINT===");
+            System.out.println("=== DEBUG PRINT START =========");
             System.out.println(doc.toString());
-            System.out.println("===DEBUG PRINT===");
+            System.out.println("=== DEBUG PRINT END   =========\n\n\n");
         }
         return doc;
     }

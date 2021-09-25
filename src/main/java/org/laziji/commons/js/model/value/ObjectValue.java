@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.HashMap;
@@ -12,6 +14,22 @@ public class ObjectValue extends BaseValue {
 
     {
         addInternalProperty("__proto__", this::getProto);
+    }
+
+    public static ObjectValue cast(Value value) throws Exception {
+        if (value == null) {
+            throw new RunException();
+        }
+        if (value instanceof NullValue) {
+            throw new TypeException("Cannot read property of null");
+        }
+        if (value instanceof UndefinedValue) {
+            throw new TypeException("Cannot read property of undefined");
+        }
+        if (!(value instanceof ObjectValue)) {
+            throw new TypeException();
+        }
+        return (ObjectValue) value;
     }
 
     public ObjectValue() {
@@ -45,7 +63,6 @@ public class ObjectValue extends BaseValue {
     }
 
     public Value addProperty(String key, Value value) {
-        System.out.println(this.getClass().getSimpleName() + ":" + key + "=" + value);
         return addProperty(key, value, ObjectPropertyType.NONE);
     }
 

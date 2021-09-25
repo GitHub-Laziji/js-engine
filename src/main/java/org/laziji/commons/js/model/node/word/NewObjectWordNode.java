@@ -3,13 +3,12 @@ package org.laziji.commons.js.model.node.word;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
-import org.laziji.commons.js.model.node.internal.CallFunctionParamsInternalNode;
-import org.laziji.commons.js.model.node.internal.CallMemberNameInternalNode;
-import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
-import org.laziji.commons.js.model.node.internal.CallObjectParamsInternalNode;
+import org.laziji.commons.js.model.node.internal.*;
+import org.laziji.commons.js.model.value.ObjectValue;
 import org.laziji.commons.js.model.value.StringValue;
 import org.laziji.commons.js.model.value.Value;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -22,7 +21,25 @@ public class NewObjectWordNode extends BasePlanNode implements WordNode {
 
     @Override
     public Value run(Contexts manager) throws Exception {
-        return new StringValue("[TODO]");
+        List<Node> nodes = getFlatNodes();
+        Value pre = current[1].run(manager);
+        ObjectValue caller = null;
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            Node node = nodes.get(i);
+            Value tempValue = null;
+            if (node instanceof CallFunctionParamsInternalNode) {
+                tempValue = ((CallFunctionParamsInternalNode) node).run(caller, pre, manager);
+            }
+            if (node instanceof CallMemberNameInternalNode) {
+                tempValue = ((CallMemberNameInternalNode) node).run(pre);
+            }
+            if (node instanceof CallObjectParamsInternalNode) {
+                tempValue = ((CallObjectParamsInternalNode) node).run(pre, manager);
+            }
+            caller = (ObjectValue) pre;
+            pre = tempValue;
+        }
+        return ((CallFunctionParamsInternalNode) nodes.get(nodes.size() - 1)).instantiate(pre, manager);
     }
 
     @Override
@@ -50,6 +67,19 @@ public class NewObjectWordNode extends BasePlanNode implements WordNode {
                 )
 
         );
+    }
+
+    private List<Node> getFlatNodes() {
+        List<Node> nodes = new ArrayList<>();
+        for (Node item : ((ListNode<?>) current[2]).getNodes()) {
+            ListNode<?> subList = (ListNode<?>) ((PlanNode) item).getNodes().get(0);
+            for (Node subItem : subList.getNodes()) {
+                nodes.add(subItem.getSelf());
+            }
+            CallFunctionParamsInternalNode subCall = (CallFunctionParamsInternalNode) ((PlanNode) item).getNodes().get(1);
+            nodes.add(subCall);
+        }
+        return nodes;
     }
 }
 

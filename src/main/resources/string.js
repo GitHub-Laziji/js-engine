@@ -5,7 +5,10 @@ let str ="1234567890";
 
 
 String.prototype.a = "prototype_a"
-
+String.prototype.b  = function (){
+    this.abc = "abc"
+    this.abc=this.abc+"---"
+}
 p(String.prototype)
 p(String.prototype.a)
 p(String.prototype.b)
@@ -20,5 +23,5 @@ p("indexOf:"+str.indexOf("ww"))
 
 p("constructor:"+str.constructor)
 
-
-p(new String.prototype.a())
+let obj = new String.prototype.b()
+p(obj.abc)

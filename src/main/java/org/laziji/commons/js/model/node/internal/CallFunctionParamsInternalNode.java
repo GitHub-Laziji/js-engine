@@ -1,11 +1,14 @@
 package org.laziji.commons.js.model.node.internal;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
+import org.laziji.commons.js.model.value.FunctionValue;
+import org.laziji.commons.js.model.value.ObjectValue;
 import org.laziji.commons.js.model.value.Value;
 
 import java.util.ArrayList;
@@ -45,4 +48,21 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
     protected String getStringFormat() {
         return "%s%s%s";
     }
+
+    public Value run(ObjectValue caller, Value pre, Contexts contexts) throws Exception {
+        ObjectValue objectValue = ObjectValue.cast(pre);
+        if (objectValue instanceof FunctionValue) {
+            return ((FunctionValue) objectValue).call(caller, getArguments(contexts));
+        }
+        throw new TypeException();
+    }
+
+    public Value instantiate(Value pre, Contexts contexts) throws Exception {
+        ObjectValue objectValue = ObjectValue.cast(pre);
+        if (objectValue instanceof FunctionValue) {
+            return ((FunctionValue) objectValue).instantiate(getArguments(contexts));
+        }
+        throw new TypeException();
+    }
+
 }

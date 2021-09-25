@@ -54,12 +54,14 @@ public class Contexts {
         return contexts;
     }
 
-    public List<Context> getReContexts() {
-        List<Context> reContexts = new ArrayList<>();
+    public <T extends Context> T findFirstContext(Class<T> clazz) throws Exception {
         for (int i = contexts.size() - 1; i >= 0; i--) {
-            reContexts.add(contexts.get(i));
+            Context context = contexts.get(i);
+            if (clazz.isInstance(context)) {
+                return clazz.cast(context);
+            }
         }
-        return reContexts;
+        throw new Exception();
     }
 
     public Contexts fork() {

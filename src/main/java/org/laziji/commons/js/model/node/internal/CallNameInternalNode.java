@@ -14,5 +14,6 @@ public class CallNameInternalNode extends BaseProxyNode<WordNode> implements Int
         addProxyItem(new ObjectWordNode(null));
         addProxyItem(new SmallBracketWordNode(null));
         addProxyItem(new StringWordNode(null));
+        addProxyItem(new ThisWordNode(null));
     }
 }
