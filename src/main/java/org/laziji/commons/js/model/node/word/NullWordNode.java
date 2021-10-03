@@ -4,8 +4,8 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.NullValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsNull;
 
 import java.util.Collections;
 import java.util.Set;
@@ -17,8 +17,8 @@ public class NullWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts manager) {
-        return new NullValue();
+    public JsValue run(Contexts manager) {
+        return new JsNull();
     }
 
     @Override

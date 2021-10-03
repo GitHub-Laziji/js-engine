@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.node;
 
 import org.laziji.commons.js.model.context.Contexts;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,7 +61,7 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         return getSelf().run(manager);
     }
 

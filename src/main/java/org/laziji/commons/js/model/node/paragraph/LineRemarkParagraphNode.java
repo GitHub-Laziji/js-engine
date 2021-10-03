@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node.paragraph;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +16,7 @@ public class LineRemarkParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         return null;
     }
 

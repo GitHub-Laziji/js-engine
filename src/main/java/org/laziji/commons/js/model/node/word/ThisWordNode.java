@@ -5,8 +5,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.NumberValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
 import java.util.Set;
@@ -18,7 +17,7 @@ public class ThisWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts contexts) throws Exception {
+    public JsValue run(Contexts contexts) throws Exception {
         FunctionContext context = contexts.findFirstContext(FunctionContext.class);
         return context.getInstance();
     }

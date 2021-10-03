@@ -8,8 +8,8 @@ import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
-import org.laziji.commons.js.model.value.ArrayValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsArray;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,15 +23,15 @@ public class ArrayWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
-        List<Value> values = new ArrayList<>();
+    public JsValue run(Contexts manager) throws Exception {
+        List<JsValue> values = new ArrayList<>();
         Node body = current[1].getSelf();
         if (body instanceof ValueParagraphNode) {
             for (Node item : ((ValueParagraphNode) body).getNodes()) {
                 values.add(item.run(manager));
             }
         }
-        return new ArrayValue(values);
+        return new JsArray(values);
     }
 
     @Override

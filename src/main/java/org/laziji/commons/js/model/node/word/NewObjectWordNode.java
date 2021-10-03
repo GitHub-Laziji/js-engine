@@ -4,9 +4,8 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.*;
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.StringValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,13 +19,13 @@ public class NewObjectWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         List<Node> nodes = getFlatNodes();
-        Value pre = current[1].run(manager);
-        ObjectValue caller = null;
+        JsValue pre = current[1].run(manager);
+        JsObject caller = null;
         for (int i = 0; i < nodes.size() - 1; i++) {
             Node node = nodes.get(i);
-            Value tempValue = null;
+            JsValue tempValue = null;
             if (node instanceof CallFunctionParamsInternalNode) {
                 tempValue = ((CallFunctionParamsInternalNode) node).run(caller, pre, manager);
             }
@@ -36,7 +35,7 @@ public class NewObjectWordNode extends BasePlanNode implements WordNode {
             if (node instanceof CallObjectParamsInternalNode) {
                 tempValue = ((CallObjectParamsInternalNode) node).run(pre, manager);
             }
-            caller = (ObjectValue) pre;
+            caller = (JsObject) pre;
             pre = tempValue;
         }
         return ((CallFunctionParamsInternalNode) nodes.get(nodes.size() - 1)).instantiate(pre, manager);

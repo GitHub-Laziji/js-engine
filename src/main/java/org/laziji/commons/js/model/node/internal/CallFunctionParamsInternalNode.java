@@ -7,9 +7,9 @@ import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
-import org.laziji.commons.js.model.value.FunctionValue;
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,12 +22,12 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
         super(parent);
     }
 
-    public List<Value> getArguments(Contexts manager) throws Exception {
+    public List<JsValue> getArguments(Contexts manager) throws Exception {
         if (current[1].getSelf() instanceof EmptyNode) {
             return new ArrayList<>();
         }
         ValueParagraphNode argsNode = (ValueParagraphNode) current[1].getSelf();
-        List<Value> arguments = new ArrayList<>();
+        List<JsValue> arguments = new ArrayList<>();
         for (SentenceNode node : argsNode.getNodes()) {
             arguments.add(node.run(manager));
         }
@@ -49,18 +49,18 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
         return "%s%s%s";
     }
 
-    public Value run(ObjectValue caller, Value pre, Contexts contexts) throws Exception {
-        ObjectValue objectValue = ObjectValue.cast(pre);
-        if (objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(caller, getArguments(contexts));
+    public JsValue run(JsObject caller, JsValue pre, Contexts contexts) throws Exception {
+        JsObject objectValue = JsObject.cast(pre);
+        if (objectValue instanceof JsFunction) {
+            return ((JsFunction) objectValue).call(caller, getArguments(contexts));
         }
         throw new TypeException();
     }
 
-    public Value instantiate(Value pre, Contexts contexts) throws Exception {
-        ObjectValue objectValue = ObjectValue.cast(pre);
-        if (objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).instantiate(getArguments(contexts));
+    public JsValue instantiate(JsValue pre, Contexts contexts) throws Exception {
+        JsObject objectValue = JsObject.cast(pre);
+        if (objectValue instanceof JsFunction) {
+            return ((JsFunction) objectValue).instantiate(getArguments(contexts));
         }
         throw new TypeException();
     }

@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.ParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ProxyParagraphNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +18,7 @@ public class SectionItemInternalNode extends BasePlanNode implements InternalNod
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         return current[0].run(manager);
     }
 

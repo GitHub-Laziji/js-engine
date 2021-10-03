@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.List;
 
-public class StringPrototype extends StringValue {
+public class StringPrototype extends JsString {
 
     {
         addInternalProperty("substring", this::substring);
@@ -17,7 +17,7 @@ public class StringPrototype extends StringValue {
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getObjectClass().getPrototype();
     }
 
@@ -26,29 +26,29 @@ public class StringPrototype extends StringValue {
         return "StringPrototype";
     }
 
-    private StringValue substring(ObjectValue caller, List<Value> arguments) throws RunException {
+    private JsString substring(JsObject caller, List<JsValue> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }
-        if (!(caller.getProto() instanceof StringValue)) {
+        if (!(caller.getProto() instanceof JsString)) {
             throw new RunException();
         }
         if (arguments.size() == 1) {
-            return new StringValue(caller.toString().substring(arguments.get(0).toNumber().intValue()));
+            return new JsString(caller.toString().substring(arguments.get(0).toNumber().intValue()));
         }
-        return new StringValue(caller.toString().substring(
+        return new JsString(caller.toString().substring(
                 arguments.get(0).toNumber().intValue(),
                 arguments.get(1).toNumber().intValue()
         ));
     }
 
-    private NumberValue indexOf(ObjectValue caller, List<Value> arguments) throws RunException {
+    private JsNumber indexOf(JsObject caller, List<JsValue> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }
-        if (!(caller.getProto() instanceof StringValue)) {
+        if (!(caller.getProto() instanceof JsString)) {
             throw new RunException();
         }
-        return new NumberValue(caller.toString().indexOf(arguments.get(0).toString()));
+        return new JsNumber(caller.toString().indexOf(arguments.get(0).toString()));
     }
 }

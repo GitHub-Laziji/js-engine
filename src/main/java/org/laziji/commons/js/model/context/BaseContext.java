@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.exception.SyntaxException;
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +19,7 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public Value addProperty(String key, Value value, ContextPropertyType type) throws SyntaxException {
+    public JsValue addProperty(String key, JsValue value, ContextPropertyType type) throws SyntaxException {
         if (context.containsKey(key)) {
             throw new SyntaxException("Identifier '%s' has already been declared", key);
         }
@@ -28,7 +28,7 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public Value addProperty(String key, Value value) throws ReferenceException, TypeException {
+    public JsValue addProperty(String key, JsValue value) throws ReferenceException, TypeException {
         if (context.containsKey(key)) {
             ContextProperty property = context.get(key);
             if (property.getType() == ContextPropertyType.CONST) {
@@ -41,7 +41,7 @@ public abstract class BaseContext implements Context {
     }
 
     @Override
-    public Value getProperty(String key) throws ReferenceException {
+    public JsValue getProperty(String key) throws ReferenceException {
         if (!context.containsKey(key)) {
             throw new ReferenceException("%s is not defined", key);
         }

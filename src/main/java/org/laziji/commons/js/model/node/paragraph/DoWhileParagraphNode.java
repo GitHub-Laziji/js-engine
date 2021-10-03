@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.SmallBracketWordNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +22,7 @@ public class DoWhileParagraphNode extends BasePlanNode implements ParagraphNode 
 
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         LoopContext context = new LoopContext();
         manager.getContexts().push(context);
         do {

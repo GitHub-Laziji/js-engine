@@ -39,8 +39,8 @@ public class RegText {
         Top.eval(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
 //        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
         System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
-        //        FunctionValue func = (FunctionValue) contexts.peek().get("func");
-//        Value result = func.call(contexts, Arrays.asList(new NumberValue(9)));
+        //        JsFunction func = (JsFunction) contexts.peek().get("func");
+//        JsValue result = func.call(contexts, Arrays.asList(new JsNumber(9)));
 //        System.out.println(result);
 
     }

@@ -2,17 +2,17 @@ package org.laziji.commons.js.model.value;
 
 import java.util.List;
 
-public class ArrayValue extends ObjectValue {
+public class JsArray extends JsObject {
 
-    public ArrayValue(List<Value> values) {
-        addProperty("length", new NumberValue(values.size()));
+    public JsArray(List<JsValue> values) {
+        addProperty("length", new JsNumber(values.size()));
         for (int i = 0; i < values.size(); i++) {
             addProperty(i + "", values.get(i));
         }
     }
 
     @Override
-    public Value addProperty(String name, Value value) {
+    public JsValue addProperty(String name, JsValue value) {
         // TODO length
         return super.addProperty(name, value);
     }
@@ -22,11 +22,11 @@ public class ArrayValue extends ObjectValue {
         try {
             StringBuilder result = new StringBuilder();
             result.append("[");
-            Value lengthValue = getProperty("length");
-            if (!(lengthValue instanceof NumberValue)) {
+            JsValue lengthValue = getProperty("length");
+            if (!(lengthValue instanceof JsNumber)) {
                 throw new Exception();
             }
-            int length = (int) ((NumberValue) lengthValue).getValue();
+            int length = (int) ((JsNumber) lengthValue).getValue();
             for (int i = 0; i < length; i++) {
                 result.append(getProperty(i + "").toString());
                 if (i != length - 1) {

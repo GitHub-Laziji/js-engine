@@ -6,8 +6,8 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.*;
-import org.laziji.commons.js.model.value.UndefinedValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsUndefined;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +20,8 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
-        Value value = new UndefinedValue();
+    public JsValue run(Contexts manager) throws Exception {
+        JsValue value = new JsUndefined();
         if (current[1].getSelf() instanceof ValueParagraphNode) {
             value = current[1].run(manager);
         }

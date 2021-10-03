@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.NumberWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ObjectContentItemInternalNode extends BasePlanNode implements Inter
     }
 
 
-    public Value getValue(Contexts manager) throws Exception {
+    public JsValue getValue(Contexts manager) throws Exception {
         return current[2].run(manager);
     }
 

@@ -10,8 +10,8 @@ import org.laziji.commons.js.model.context.name.VarName;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.UndefinedValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsUndefined;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.List;
 
@@ -21,14 +21,14 @@ public class DefinedItemInternalNode extends BaseListNode<ProxyNode<Node>> imple
         super(parent);
     }
 
-    public Value run(Contexts manager, Token type) throws Exception {
+    public JsValue run(Contexts manager, Token type) throws Exception {
         for (ProxyNode<Node> node : nodes) {
             PlanNode self = (PlanNode) node.getSelf();
             List<Node> current = self.getNodes();
             NameWordNode nameNode = (NameWordNode) current.get(0);
             nameNode.define(
                     manager,
-                    current.size() == 1 ? UndefinedValue.getInstance() : current.get(2).run(manager),
+                    current.size() == 1 ? JsUndefined.getInstance() : current.get(2).run(manager),
                     Context.ContextPropertyType.match(type));
         }
         return null;

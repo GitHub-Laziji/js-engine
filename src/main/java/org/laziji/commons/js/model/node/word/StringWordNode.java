@@ -4,8 +4,8 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.StringValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsString;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
 import java.util.Set;
@@ -17,7 +17,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts manager) {
+    public JsValue run(Contexts manager) {
         String code = getUnit().getValue();
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < code.length() - 1; i++) {
@@ -37,7 +37,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
             }
             i++;
         }
-        return new StringValue(sb.toString());
+        return new JsString(sb.toString());
     }
 
     @Override

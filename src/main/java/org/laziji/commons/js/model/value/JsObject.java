@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class ObjectValue extends BaseValue {
+public class JsObject extends BaseJsValue {
 
     private Map<String, ObjectProperty> properties = new HashMap<>();
 
@@ -16,26 +16,26 @@ public class ObjectValue extends BaseValue {
         addInternalProperty("__proto__", this::getProto);
     }
 
-    public static ObjectValue cast(Value value) throws Exception {
+    public static JsObject cast(JsValue value) throws Exception {
         if (value == null) {
             throw new RunException();
         }
-        if (value instanceof NullValue) {
+        if (value instanceof JsNull) {
             throw new TypeException("Cannot read property of null");
         }
-        if (value instanceof UndefinedValue) {
+        if (value instanceof JsUndefined) {
             throw new TypeException("Cannot read property of undefined");
         }
-        if (!(value instanceof ObjectValue)) {
+        if (!(value instanceof JsObject)) {
             throw new TypeException();
         }
-        return (ObjectValue) value;
+        return (JsObject) value;
     }
 
-    public ObjectValue() {
+    public JsObject() {
     }
 
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getObjectClass().getPrototype();
     }
 
@@ -49,7 +49,7 @@ public class ObjectValue extends BaseValue {
         properties.remove(key);
     }
 
-    public Value addProperty(String key, Value value, ObjectPropertyType type) {
+    public JsValue addProperty(String key, JsValue value, ObjectPropertyType type) {
         if (properties.containsKey(key)) {
             ObjectProperty property = properties.get(key);
             if (property.getType() == ObjectPropertyType.READ_ONLY) {
@@ -62,11 +62,11 @@ public class ObjectValue extends BaseValue {
         return value;
     }
 
-    public Value addProperty(String key, Value value) {
+    public JsValue addProperty(String key, JsValue value) {
         return addProperty(key, value, ObjectPropertyType.NONE);
     }
 
-    protected void addInternalProperty(String key, Supplier<Value> handler) {
+    protected void addInternalProperty(String key, Supplier<JsValue> handler) {
         properties.put(key, new ObjectProperty(key, handler, ObjectPropertyType.READ_ONLY));
     }
 
@@ -74,19 +74,19 @@ public class ObjectValue extends BaseValue {
         properties.put(key, new ObjectProperty(key, new InternalFunction(handler), ObjectPropertyType.READ_ONLY));
     }
 
-    protected void addInternalProperty(String key, Value value) {
+    protected void addInternalProperty(String key, JsValue value) {
         properties.put(key, new ObjectProperty(key, value, ObjectPropertyType.READ_ONLY));
     }
 
-    public Value getProperty(String key) {
+    public JsValue getProperty(String key) {
         if (properties.containsKey(key)) {
             return properties.get(key).getValue();
         }
-        Value proto = getProto();
-        if (proto instanceof ObjectValue) {
-            return ((ObjectValue) proto).getProperty(key);
+        JsValue proto = getProto();
+        if (proto instanceof JsObject) {
+            return ((JsObject) proto).getProperty(key);
         }
-        return UndefinedValue.getInstance();
+        return JsUndefined.getInstance();
     }
 
     public boolean hasProperty(String key) {
@@ -100,26 +100,26 @@ public class ObjectValue extends BaseValue {
 
     public static class ObjectProperty {
         private String key;
-        private Value value;
+        private JsValue value;
         private ObjectPropertyType type;
-        private FunctionValue getter;
-        private FunctionValue setter;
+        private JsFunction getter;
+        private JsFunction setter;
 
-        private Supplier<Value> handler;
+        private Supplier<JsValue> handler;
 
-        public ObjectProperty(String key, Value value, ObjectPropertyType type) {
+        public ObjectProperty(String key, JsValue value, ObjectPropertyType type) {
             this.key = key;
             this.value = value;
             this.type = type;
         }
 
-        public ObjectProperty(String key, Supplier<Value> handler, ObjectPropertyType type) {
+        public ObjectProperty(String key, Supplier<JsValue> handler, ObjectPropertyType type) {
             this.key = key;
             this.handler = handler;
             this.type = type;
         }
 
-        public ObjectProperty(String key, Value value) {
+        public ObjectProperty(String key, JsValue value) {
             this.key = key;
             this.value = value;
             this.type = ObjectPropertyType.NONE;
@@ -127,7 +127,7 @@ public class ObjectValue extends BaseValue {
 
         public ObjectProperty(String key) {
             this.key = key;
-            this.value = UndefinedValue.getInstance();
+            this.value = JsUndefined.getInstance();
             this.type = ObjectPropertyType.NONE;
         }
 
@@ -139,7 +139,7 @@ public class ObjectValue extends BaseValue {
             return type;
         }
 
-        public void setValue(Value value) {
+        public void setValue(JsValue value) {
             if (type == ObjectPropertyType.READ_ONLY) {
                 return;
             }
@@ -147,7 +147,7 @@ public class ObjectValue extends BaseValue {
             this.value = value;
         }
 
-        public Value getValue() {
+        public JsValue getValue() {
             if (handler != null) {
                 return handler.get();
             }

@@ -3,25 +3,25 @@ package org.laziji.commons.js.model.value;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModuleValue extends BaseValue {
+public class ModuleValue extends BaseJsValue {
 
-    private Value defaultExportValue;
-    private Map<String, Value> export = new HashMap<>();
+    private JsValue defaultExportValue;
+    private Map<String, JsValue> export = new HashMap<>();
 
-    public Value getDefaultExportValue() {
+    public JsValue getDefaultExportValue() {
         return defaultExportValue;
     }
 
-    public void setDefaultExportValue(Value defaultExportValue) {
+    public void setDefaultExportValue(JsValue defaultExportValue) {
         this.defaultExportValue = defaultExportValue;
     }
 
 
-    public void addExportValue(String name, Value value) {
+    public void addExportValue(String name, JsValue value) {
         export.put(name, value);
     }
 
-    public Value getExportValue(String name) {
+    public JsValue getExportValue(String name) {
         return export.get(name);
     }
 

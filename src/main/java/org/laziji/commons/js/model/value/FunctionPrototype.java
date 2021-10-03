@@ -13,7 +13,7 @@ public class FunctionPrototype extends InternalFunction {
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getObjectClass().getPrototype();
     }
 }

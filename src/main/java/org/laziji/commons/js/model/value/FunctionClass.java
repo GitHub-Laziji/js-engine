@@ -7,7 +7,7 @@ public class FunctionClass extends InternalFunction {
     }
 
     @Override
-    protected ObjectValue initPrototype() {
+    protected JsObject initPrototype() {
         return new FunctionPrototype();
     }
 }

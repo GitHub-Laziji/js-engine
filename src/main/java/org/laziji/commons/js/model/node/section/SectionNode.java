@@ -4,7 +4,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.SectionItemInternalNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 /**
  * a=1,b=2,c=3;
@@ -22,7 +22,7 @@ public class SectionNode extends BaseListNode<SectionItemInternalNode> {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         for (Node node : nodes) {
             if (manager.getContexts().peek().isClose()) {
                 return null;

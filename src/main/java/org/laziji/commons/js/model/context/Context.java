@@ -2,15 +2,15 @@ package org.laziji.commons.js.model.context;
 
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 public interface Context {
 
-    Value addProperty(String key, Value value, ContextPropertyType type) throws Exception;
+    JsValue addProperty(String key, JsValue value, ContextPropertyType type) throws Exception;
 
-    Value addProperty(String key, Value value) throws Exception;
+    JsValue addProperty(String key, JsValue value) throws Exception;
 
-    Value getProperty(String key) throws Exception;
+    JsValue getProperty(String key) throws Exception;
 
     boolean hasProperty(String key) throws Exception;
 
@@ -38,16 +38,16 @@ public interface Context {
 
     class ContextProperty {
         private String key;
-        private Value value;
+        private JsValue value;
         private ContextPropertyType type;
 
-        public ContextProperty(String key, Value value, ContextPropertyType type) {
+        public ContextProperty(String key, JsValue value, ContextPropertyType type) {
             this.key = key;
             this.value = value;
             this.type = type;
         }
 
-        public void setValue(Value value) {
+        public void setValue(JsValue value) {
             this.value = value;
         }
 
@@ -55,7 +55,7 @@ public interface Context {
             return key;
         }
 
-        public Value getValue() {
+        public JsValue getValue() {
             return value;
         }
 

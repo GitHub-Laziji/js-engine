@@ -1,16 +1,16 @@
 package org.laziji.commons.js.model.context;
 
-import org.laziji.commons.js.model.value.ObjectValue;
+import org.laziji.commons.js.model.value.JsObject;
 
 public class InstanceContext extends BaseContext{
 
-    private ObjectValue instance;
+    private JsObject instance;
 
-    public InstanceContext(ObjectValue instance) {
+    public InstanceContext(JsObject instance) {
         this.instance = instance;
     }
 
-    public ObjectValue getInstance() {
+    public JsObject getInstance() {
         return instance;
     }
 

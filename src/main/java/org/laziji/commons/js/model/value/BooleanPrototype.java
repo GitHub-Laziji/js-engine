@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.value.env.Top;
 
-public class BooleanPrototype extends BooleanValue {
+public class BooleanPrototype extends JsBoolean {
 
     {
 
@@ -13,7 +13,7 @@ public class BooleanPrototype extends BooleanValue {
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getObjectClass().getPrototype();
     }
 }

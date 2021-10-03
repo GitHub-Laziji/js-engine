@@ -2,16 +2,16 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.value.env.Top;
 
-public class StringValue extends ObjectValue {
+public class JsString extends JsObject {
 
     private String value;
 
-    public StringValue(String value) {
+    public JsString(String value) {
         this.value = value;
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getStringClass().getPrototype();
     }
 

@@ -1,21 +1,21 @@
 package org.laziji.commons.js.model.context;
 
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.JsValue;
 
 public class FunctionContext extends InstanceContext {
 
-    private Value returnValue;
+    private JsValue returnValue;
 
-    public FunctionContext(ObjectValue instance) {
+    public FunctionContext(JsObject instance) {
         super(instance);
     }
 
-    public void setReturnValue(Value returnValue) {
+    public void setReturnValue(JsValue returnValue) {
         this.returnValue = returnValue;
     }
 
-    public Value getReturnValue() {
+    public JsValue getReturnValue() {
         return returnValue;
     }
 }

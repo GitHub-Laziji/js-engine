@@ -109,7 +109,7 @@ public class Top {
     }
 
 
-    public static ObjectValue getGlobal() {
+    public static JsObject getGlobal() {
         return getThreadLocalTop().getGlobal();
     }
 

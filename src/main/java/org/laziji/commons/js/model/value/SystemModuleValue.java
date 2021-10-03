@@ -15,13 +15,13 @@ public class SystemModuleValue extends ModuleValue {
             if (arguments.size() < 1) {
                 throw new RunException();
             }
-            return new StringValue("SystemFunction: " + arguments.get(0).toString());
+            return new JsString("SystemFunction: " + arguments.get(0).toString());
         }));
 
         addExportValue("setTimeout", new InternalFunction((caller, arguments) -> {
             if (arguments.size() < 2
-                    || !(arguments.get(0) instanceof FunctionValue)
-                    || !(arguments.get(1) instanceof NumberValue)) {
+                    || !(arguments.get(0) instanceof JsFunction)
+                    || !(arguments.get(1) instanceof JsNumber)) {
                 throw new RunException();
             }
             String id = UUID.randomUUID().toString();
@@ -31,14 +31,14 @@ public class SystemModuleValue extends ModuleValue {
                 public void run() {
                     try {
                         Top.addMacroTask(() ->
-                                ((FunctionValue) arguments.get(0)).call(null, new ArrayList<>()));
+                                ((JsFunction) arguments.get(0)).call(null, new ArrayList<>()));
                         Top.deleteDelayMacroTaskId(id);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }, (long) ((NumberValue) arguments.get(1)).getValue());
-            return new StringValue(id);
+            }, (long) ((JsNumber) arguments.get(1)).getValue());
+            return new JsString(id);
         }));
 
         addExportValue("print", new InternalFunction((caller, arguments) -> {
@@ -46,7 +46,7 @@ public class SystemModuleValue extends ModuleValue {
                 throw new RunException();
             }
             System.out.println(arguments.get(0).toString());
-            return new UndefinedValue();
+            return new JsUndefined();
         }));
     }
 }

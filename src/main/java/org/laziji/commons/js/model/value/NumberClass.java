@@ -7,7 +7,7 @@ public class NumberClass extends InternalFunction {
     }
 
     @Override
-    protected ObjectValue initPrototype() {
+    protected JsObject initPrototype() {
         return new NumberPrototype();
     }
 }

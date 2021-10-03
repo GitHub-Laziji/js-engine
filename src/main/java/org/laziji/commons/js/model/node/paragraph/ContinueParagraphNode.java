@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public class ContinueParagraphNode extends BasePlanNode implements ParagraphNode
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
             Context context = manager.getContexts().get(i);
             context.close();

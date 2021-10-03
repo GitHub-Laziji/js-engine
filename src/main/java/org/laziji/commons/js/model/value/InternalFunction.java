@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.value;
 import java.util.List;
 
 
-public class InternalFunction extends FunctionValue {
+public class InternalFunction extends JsFunction {
     private Handler handler;
 
     public InternalFunction(Handler handler) {
@@ -11,13 +11,13 @@ public class InternalFunction extends FunctionValue {
     }
 
     @Override
-    public Value call(ObjectValue caller, List<Value> arguments) throws Exception {
+    public JsValue call(JsObject caller, List<JsValue> arguments) throws Exception {
         return handler.call(caller, arguments);
     }
 
     @FunctionalInterface
     public interface Handler {
-        Value call(ObjectValue caller, List<Value> arguments) throws Exception;
+        JsValue call(JsObject caller, List<JsValue> arguments) throws Exception;
     }
 
     @Override

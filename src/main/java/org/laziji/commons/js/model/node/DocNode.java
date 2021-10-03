@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.section.SectionNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class DocNode extends BasePlanNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         current[0].run(manager);
         // TODO export
         return null;

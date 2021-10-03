@@ -6,8 +6,8 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.paragraph.BigBracketParagraphNode;
-import org.laziji.commons.js.model.value.FunctionValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +20,8 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public Value run(Contexts contexts) throws Exception {
-        FunctionValue value = new FunctionValue(
+    public JsValue run(Contexts contexts) throws Exception {
+        JsFunction value = new JsFunction(
                 contexts.fork(),
                 ((FunctionParamsInternalNode) current[2]).getParams(),
                 cs -> current[3].run(cs),

@@ -1,13 +1,13 @@
 package org.laziji.commons.js.model.value;
 
-public class ObjectPrototype extends ObjectValue {
+public class ObjectPrototype extends JsObject {
 
     {
-        addInternalProperty("toString", (caller, arguments) -> new StringValue(caller.toString()));
+        addInternalProperty("toString", (caller, arguments) -> new JsString(caller.toString()));
     }
 
     @Override
-    public Value getProto() {
-        return UndefinedValue.getInstance();
+    public JsValue getProto() {
+        return JsUndefined.getInstance();
     }
 }

@@ -2,10 +2,8 @@ package org.laziji.commons.js.model.context;
 
 import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.model.value.env.Top;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class Contexts {
@@ -20,11 +18,11 @@ public class Contexts {
         contexts.addAll(manager.getContexts());
     }
 
-    public Value addProperty(String key, Value value, Context.ContextPropertyType type) throws Exception {
+    public JsValue addProperty(String key, JsValue value, Context.ContextPropertyType type) throws Exception {
         return contexts.peek().addProperty(key, value, type);
     }
 
-    public Value addProperty(String key, Value value) throws Exception {
+    public JsValue addProperty(String key, JsValue value) throws Exception {
         for (int i = contexts.size() - 1; i >= 0; i--) {
             Context context = contexts.get(i);
             if (context.hasProperty(key)) {
@@ -37,7 +35,7 @@ public class Contexts {
         throw new ReferenceException("%s is not defined", key);
     }
 
-    public Value getProperty(String key) throws Exception {
+    public JsValue getProperty(String key) throws Exception {
         for (int i = contexts.size() - 1; i >= 0; i--) {
             Context context = contexts.get(i);
             if (context.hasProperty(key)) {

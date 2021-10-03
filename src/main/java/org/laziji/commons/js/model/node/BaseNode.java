@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.context.Contexts;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -66,7 +66,7 @@ public abstract class BaseNode implements Node {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         throw new RunException("%s Not yet supported.", this.getClass().getSimpleName());
     }
 

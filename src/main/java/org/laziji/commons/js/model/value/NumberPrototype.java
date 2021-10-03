@@ -2,7 +2,7 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.value.env.Top;
 
-public class NumberPrototype extends NumberValue {
+public class NumberPrototype extends JsNumber {
 
     {
 
@@ -13,7 +13,7 @@ public class NumberPrototype extends NumberValue {
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getObjectClass().getPrototype();
     }
 }

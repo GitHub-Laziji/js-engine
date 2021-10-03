@@ -1,12 +1,11 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
 import java.util.Set;
@@ -18,18 +17,18 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(Contexts contexts) throws Exception {
+    public JsValue run(Contexts contexts) throws Exception {
         String name = getUnit().getValue();
         return contexts.getProperty(name);
     }
 
     @Override
-    public Value assignment(Contexts contexts, Value value) throws Exception {
+    public JsValue assignment(Contexts contexts, JsValue value) throws Exception {
         String name = getUnit().getValue();
         return contexts.addProperty(name, value);
     }
 
-    public void define(Contexts contexts, Value value, Context.ContextPropertyType type) throws Exception {
+    public void define(Contexts contexts, JsValue value, Context.ContextPropertyType type) throws Exception {
         String name = getUnit().getValue();
         contexts.addProperty(name, value, type);
     }

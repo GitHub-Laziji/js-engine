@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +25,7 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         LoopContext context = new LoopContext();
         manager.getContexts().push(context);
         while (current[2].run(manager).toBoolean()) {

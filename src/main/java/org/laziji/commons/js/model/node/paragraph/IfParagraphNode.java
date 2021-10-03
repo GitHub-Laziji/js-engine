@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.IfInternalNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements ParagraphNode {
 
@@ -13,7 +13,7 @@ public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements Pa
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         for (Node node : getNodes()) {
             node = node.getSelf();
             if (node instanceof IfInternalNode && ((IfInternalNode) node).runExp(manager).toBoolean()) {

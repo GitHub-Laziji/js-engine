@@ -7,7 +7,7 @@ public class BooleanClass extends InternalFunction {
     }
 
     @Override
-    public ObjectValue getPrototype() {
+    public JsObject getPrototype() {
         return new BooleanPrototype();
     }
 }

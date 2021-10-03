@@ -8,13 +8,13 @@ import org.laziji.commons.js.model.value.env.Top;
 import java.util.List;
 import java.util.function.Function;
 
-public class FunctionValue extends ObjectValue {
+public class JsFunction extends JsObject {
 
     private Contexts contexts;
     private List<Param> params;
     private Executor executor;
     private boolean function;
-    private ObjectValue prototype;
+    private JsObject prototype;
 
     {
         prototype = initPrototype();
@@ -22,18 +22,18 @@ public class FunctionValue extends ObjectValue {
         addInternalProperty("prototype", prototype);
     }
 
-    public FunctionValue(Contexts contexts, List<Param> params, Executor executor, boolean function) {
+    public JsFunction(Contexts contexts, List<Param> params, Executor executor, boolean function) {
         this.contexts = contexts;
         this.params = params;
         this.executor = executor;
         this.function = function;
     }
 
-    protected FunctionValue() {
+    protected JsFunction() {
 
     }
 
-    public Value call(ObjectValue caller, List<Value> arguments) throws Exception {
+    public JsValue call(JsObject caller, List<JsValue> arguments) throws Exception {
         FunctionContext context;
         if (function) {
             context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
@@ -49,8 +49,8 @@ public class FunctionValue extends ObjectValue {
         return context.getReturnValue();
     }
 
-    public ObjectValue instantiate(List<Value> arguments) throws Exception {
-        ObjectValue obj = new ObjectValue();
+    public JsObject instantiate(List<JsValue> arguments) throws Exception {
+        JsObject obj = new JsObject();
         FunctionContext context = new FunctionContext(obj);
         contexts.getContexts().push(context);
         for (Param param : params) {
@@ -61,29 +61,29 @@ public class FunctionValue extends ObjectValue {
         return obj;
     }
 
-    protected ObjectValue initPrototype() {
-        return new ObjectValue() {
+    protected JsObject initPrototype() {
+        return new JsObject() {
             @Override
-            public Value getProto() {
+            public JsValue getProto() {
                 return Top.getObjectClass().getPrototype();
             }
         };
     }
 
-    public ObjectValue getPrototype() {
+    public JsObject getPrototype() {
         return prototype;
     }
 
     @Override
-    public Value getProto() {
+    public JsValue getProto() {
         return Top.getFunctionClass().getPrototype();
     }
 
     public static class Param {
         private String name;
-        private Function<List<Value>, Value> fetchValue;
+        private Function<List<JsValue>, JsValue> fetchValue;
 
-        public Param(String name, Function<List<Value>, Value> fetchValue) {
+        public Param(String name, Function<List<JsValue>, JsValue> fetchValue) {
             this.name = name;
             this.fetchValue = fetchValue;
         }
@@ -96,17 +96,17 @@ public class FunctionValue extends ObjectValue {
             this.name = name;
         }
 
-        public Function<List<Value>, Value> getFetchValue() {
+        public Function<List<JsValue>, JsValue> getFetchValue() {
             return fetchValue;
         }
 
-        public void setFetchValue(Function<List<Value>, Value> fetchValue) {
+        public void setFetchValue(Function<List<JsValue>, JsValue> fetchValue) {
             this.fetchValue = fetchValue;
         }
     }
 
     @FunctionalInterface
     public interface Executor {
-        Value run(Contexts manager) throws Exception;
+        JsValue run(Contexts manager) throws Exception;
     }
 }

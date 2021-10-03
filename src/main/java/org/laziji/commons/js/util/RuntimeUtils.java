@@ -1,13 +1,13 @@
 package org.laziji.commons.js.util;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.List;
 
 public class RuntimeUtils {
 
-    public static void argumentsValid(List<Value> arguments, Class... classes) throws RunException {
+    public static void argumentsValid(List<JsValue> arguments, Class... classes) throws RunException {
         if (arguments.size() < classes.length) {
             throw new RunException("must have %d parameter(s)", classes.length);
         }

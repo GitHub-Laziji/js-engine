@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.node;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.context.Contexts;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 public interface Node {
 
@@ -24,7 +24,7 @@ public interface Node {
 
     String toString(int depth, boolean start);
 
-    Value run(Contexts manager) throws Exception;
+    JsValue run(Contexts manager) throws Exception;
 
     class TokenUnit {
 

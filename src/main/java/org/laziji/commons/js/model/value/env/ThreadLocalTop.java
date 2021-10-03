@@ -16,7 +16,7 @@ public class ThreadLocalTop {
 
     private Contexts mainContexts = new Contexts();
 
-    private ObjectValue global = new GlobalObjectValue();
+    private JsObject global = new JsGlobalObject();
 
     private ObjectClass objectClass = new ObjectClass();
     private FunctionClass functionClass = new FunctionClass();
@@ -56,7 +56,7 @@ public class ThreadLocalTop {
         return mainContexts;
     }
 
-    public ObjectValue getGlobal() {
+    public JsObject getGlobal() {
         return global;
     }
 

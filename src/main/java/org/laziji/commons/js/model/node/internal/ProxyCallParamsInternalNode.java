@@ -4,9 +4,9 @@ import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.FunctionValue;
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsObject;
 
 public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> implements InternalNode {
 
@@ -17,11 +17,11 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         addProxyItem(new CallMemberNameInternalNode(null));
     }
 
-    public Value run(ObjectValue caller, Value pre, Contexts manager) throws Exception {
-        ObjectValue objectValue = ObjectValue.cast(pre);
+    public JsValue run(JsObject caller, JsValue pre, Contexts manager) throws Exception {
+        JsObject objectValue = JsObject.cast(pre);
         Node self = getSelf();
-        if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof FunctionValue) {
-            return ((FunctionValue) objectValue).call(caller, ((CallFunctionParamsInternalNode) self).getArguments(manager));
+        if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof JsFunction) {
+            return ((JsFunction) objectValue).call(caller, ((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {
@@ -34,8 +34,8 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         return objectValue.getProperty(name);
     }
 
-    public Value assignment(Value pre, Contexts manager, Value value) throws Exception {
-        ObjectValue objectValue = ObjectValue.cast(pre);
+    public JsValue assignment(JsValue pre, Contexts manager, JsValue value) throws Exception {
+        JsObject objectValue = JsObject.cast(pre);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode) {
             throw new TypeException();

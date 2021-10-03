@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.FunctionValue;
+import org.laziji.commons.js.model.value.JsFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,13 +18,13 @@ public class FunctionParamsInternalNode extends BasePlanNode implements Internal
         super(parent);
     }
 
-    public List<FunctionValue.Param> getParams() {
+    public List<JsFunction.Param> getParams() {
         FunctionParamsContentInternalNode paramsNode = (FunctionParamsContentInternalNode) current[1];
         List<NameWordNode> nodes = paramsNode.getNodes();
-        List<FunctionValue.Param> params = new ArrayList<>();
+        List<JsFunction.Param> params = new ArrayList<>();
         for (int i = 0; i < nodes.size(); i++) {
             final int index = i;
-            params.add(new FunctionValue.Param(nodes.get(i).getUnit().getValue(), args -> args.get(index)));
+            params.add(new JsFunction.Param(nodes.get(i).getUnit().getValue(), args -> args.get(index)));
         }
         return params;
     }

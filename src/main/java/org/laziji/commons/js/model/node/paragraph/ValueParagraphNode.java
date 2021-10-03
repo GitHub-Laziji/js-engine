@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
 import org.laziji.commons.js.model.node.word.ClassWordNode;
 import org.laziji.commons.js.model.node.word.FunctionWordNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implements ParagraphNode {
 
@@ -17,8 +17,8 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
-        Value value = null;
+    public JsValue run(Contexts manager) throws Exception {
+        JsValue value = null;
         for (Node node : nodes) {
             value = node.run(manager);
         }

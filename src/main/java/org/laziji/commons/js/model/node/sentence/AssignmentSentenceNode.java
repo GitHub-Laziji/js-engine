@@ -10,7 +10,7 @@ import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.CallWordNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.VariableWordNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,10 +33,10 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         VariableWordNode node = (VariableWordNode) current[0].getSelf();
         UnitNode op = (UnitNode) current[1];
-        Value value = current[2].run(manager);
+        JsValue value = current[2].run(manager);
         switch (op.getUnit().getToken()) {
             case ASSIGNMENT:
                 return node.assignment(manager, value);

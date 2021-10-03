@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.section.SectionNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class BigBracketParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         manager.getContexts().push(new BlockContext());
         current[1].run(manager);
         manager.getContexts().pop();

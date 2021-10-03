@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.ProxyWordNode;
 import org.laziji.commons.js.model.node.word.WordNode;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
 
 /**
  * a+b+c
@@ -28,11 +28,11 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         return calc(manager, 0, nodes.size());
     }
 
-    private Value calc(Contexts manager, int start, int end) throws Exception {
+    private JsValue calc(Contexts manager, int start, int end) throws Exception {
         if (start + 1 == end) {
             return nodes.get(start).run(manager);
         }

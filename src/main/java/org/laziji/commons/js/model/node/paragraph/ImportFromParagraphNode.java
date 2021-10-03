@@ -8,8 +8,8 @@ import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
 import org.laziji.commons.js.model.value.ModuleValue;
 import org.laziji.commons.js.model.value.env.Top;
-import org.laziji.commons.js.model.value.UndefinedValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsUndefined;
+import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         String moduleName = ((StringWordNode) current[5]).run(manager).toString();
         ModuleValue module = Top.getModule(moduleName);
         for (Node node : ((ListNode<Node>) current[2]).getNodes()) {
@@ -35,11 +35,11 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
                 importName = ((NameWordNode) ((PlanNode) node).getNodes().get(0)).getName();
                 variableName = ((NameWordNode) ((PlanNode) node).getNodes().get(2)).getName();
             }
-            Value exportValue = module.getExportValue(importName);
+            JsValue exportValue = module.getExportValue(importName);
             if (module.getDefaultExportValue() != null) {
                 manager.getContexts().peek().addProperty(variableName, exportValue, Context.ContextPropertyType.CONST);
             } else {
-                manager.getContexts().peek().addProperty(variableName, new UndefinedValue(), Context.ContextPropertyType.CONST);
+                manager.getContexts().peek().addProperty(variableName, new JsUndefined(), Context.ContextPropertyType.CONST);
             }
         }
         return null;

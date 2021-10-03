@@ -7,8 +7,8 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.JsValue;
 
 public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> implements InternalNode {
 
@@ -17,8 +17,8 @@ public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> imp
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
-        ObjectValue value = new ObjectValue();
+    public JsValue run(Contexts manager) throws Exception {
+        JsObject value = new JsObject();
         for (Node node : getNodes()) {
             node = node.getSelf();
             if (node instanceof NameWordNode) {

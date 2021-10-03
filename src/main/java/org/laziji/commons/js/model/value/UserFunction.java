@@ -4,22 +4,22 @@ import org.laziji.commons.js.model.context.Contexts;
 
 import java.util.List;
 
-public class UserFunction extends FunctionValue {
+public class UserFunction extends JsFunction {
 
-    private ObjectValue prototype;
+    private JsObject prototype;
 
     public UserFunction(Contexts contexts, List<Param> params, Executor executor, boolean function) {
         super(contexts, params, executor, function);
-        prototype = new ObjectValue() {
+        prototype = new JsObject() {
             @Override
-            public Value getProto() {
-                return UndefinedValue.getInstance();
+            public JsValue getProto() {
+                return JsUndefined.getInstance();
             }
         };
     }
 
     @Override
-    public Value getProperty(String key) {
+    public JsValue getProperty(String key) {
         return prototype;
     }
 }

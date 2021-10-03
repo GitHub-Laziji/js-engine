@@ -6,8 +6,8 @@ import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
-import org.laziji.commons.js.model.value.ObjectValue;
-import org.laziji.commons.js.model.value.Value;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.JsObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,13 +20,13 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value run(Contexts manager) throws Exception {
+    public JsValue run(Contexts manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
-        Value pre = current[0].run(manager);
-        ObjectValue caller = null;
+        JsValue pre = current[0].run(manager);
+        JsObject caller = null;
         for (ProxyCallParamsInternalNode node : nodes) {
-            Value tempValue = node.run(caller, pre, manager);
-            caller = (ObjectValue) pre;
+            JsValue tempValue = node.run(caller, pre, manager);
+            caller = (JsObject) pre;
             pre = tempValue;
         }
         return pre;
@@ -38,13 +38,13 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public Value assignment(Contexts manager, Value value) throws Exception {
+    public JsValue assignment(Contexts manager, JsValue value) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
-        Value pre = current[0].run(manager);
-        ObjectValue caller = null;
+        JsValue pre = current[0].run(manager);
+        JsObject caller = null;
         for (int i = 0; i < nodes.size() - 1; i++) {
-            Value tempValue = nodes.get(i).run(caller, pre, manager);
-            caller = (ObjectValue) pre;
+            JsValue tempValue = nodes.get(i).run(caller, pre, manager);
+            caller = (JsObject) pre;
             pre = tempValue;
         }
         return nodes.get(nodes.size() - 1).assignment(pre, manager, value);
