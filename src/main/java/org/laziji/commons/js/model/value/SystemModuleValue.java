@@ -15,7 +15,7 @@ public class SystemModuleValue extends ModuleValue {
             if (arguments.size() < 1) {
                 throw new RunException();
             }
-            return new JsString("SystemFunction: " + arguments.get(0).toString());
+            return new JsStringObject("SystemFunction: " + arguments.get(0).toString());
         }));
 
         addExportValue("setTimeout", new InternalFunction((caller, arguments) -> {
@@ -38,7 +38,7 @@ public class SystemModuleValue extends ModuleValue {
                     }
                 }
             }, (long) ((JsNumber) arguments.get(1)).getValue());
-            return new JsString(id);
+            return new JsStringObject(id);
         }));
 
         addExportValue("print", new InternalFunction((caller, arguments) -> {

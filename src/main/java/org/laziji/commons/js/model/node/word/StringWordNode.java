@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.JsString;
+import org.laziji.commons.js.model.value.JsStringObject;
 import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
             }
             i++;
         }
-        return new JsString(sb.toString());
+        return new JsStringObject(sb.toString());
     }
 
     @Override

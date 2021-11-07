@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.List;
 
-public class StringPrototype extends JsString {
+public class StringPrototype extends JsStringObject {
 
     {
         addInternalProperty("substring", this::substring);
@@ -26,17 +26,17 @@ public class StringPrototype extends JsString {
         return "StringPrototype";
     }
 
-    private JsString substring(JsObject caller, List<JsValue> arguments) throws RunException {
+    private JsStringObject substring(JsObject caller, List<JsValue> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }
-        if (!(caller.getProto() instanceof JsString)) {
+        if (!(caller.getProto() instanceof JsStringObject)) {
             throw new RunException();
         }
         if (arguments.size() == 1) {
-            return new JsString(caller.toString().substring(arguments.get(0).toNumber().intValue()));
+            return new JsStringObject(caller.toString().substring(arguments.get(0).toNumber().intValue()));
         }
-        return new JsString(caller.toString().substring(
+        return new JsStringObject(caller.toString().substring(
                 arguments.get(0).toNumber().intValue(),
                 arguments.get(1).toNumber().intValue()
         ));
@@ -46,7 +46,7 @@ public class StringPrototype extends JsString {
         if (arguments.size() < 1) {
             throw new RunException();
         }
-        if (!(caller.getProto() instanceof JsString)) {
+        if (!(caller.getProto() instanceof JsStringObject)) {
             throw new RunException();
         }
         return new JsNumber(caller.toString().indexOf(arguments.get(0).toString()));

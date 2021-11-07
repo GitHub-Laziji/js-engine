@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
+import org.laziji.commons.js.model.value.primitive.JsString;
 
 public abstract class BaseJsValue implements JsValue {
 
@@ -19,7 +20,7 @@ public abstract class BaseJsValue implements JsValue {
     public JsValue binaryOperation(Token operator, JsValue o) throws OperationException {
         switch (operator) {
             case ADD:
-                return new JsString(toString() + o.toString());
+                return new JsStringObject(toString() + o.toString());
             case OR:
                 return new JsBoolean(toBoolean() || o.toBoolean());
             case AND:

@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.value;
 public class ObjectPrototype extends JsObject {
 
     {
-        addInternalProperty("toString", (caller, arguments) -> new JsString(caller.toString()));
+        addInternalProperty("toString", (caller, arguments) -> new JsStringObject(caller.toString()));
     }
 
     @Override

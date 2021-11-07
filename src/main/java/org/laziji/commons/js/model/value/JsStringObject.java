@@ -1,12 +1,13 @@
 package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.primitive.JsString;
 
-public class JsString extends JsObject {
+public class JsStringObject extends JsObject {
 
     private String value;
 
-    public JsString(String value) {
+    public JsStringObject(String value) {
         this.value = value;
     }
 
@@ -22,5 +23,10 @@ public class JsString extends JsObject {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public JsString toJsString() {
+        return new JsString(value);
     }
 }
