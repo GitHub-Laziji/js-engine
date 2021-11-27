@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.JsBoolean;
+import org.laziji.commons.js.model.value.JsBooleanObject;
 import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class BooleanWordNode extends BaseUnitNode implements WordNode {
 
     @Override
     public JsValue run(Contexts manager) {
-        return new JsBoolean(Boolean.valueOf(getUnit().getValue()));
+        return new JsBooleanObject(Boolean.valueOf(getUnit().getValue()));
     }
 
     @Override

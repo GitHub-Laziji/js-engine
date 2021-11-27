@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.value.primitive.JsNumber;
+
 import java.util.List;
 
 public class JsArray extends JsObject {

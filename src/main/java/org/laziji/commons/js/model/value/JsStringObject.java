@@ -5,10 +5,10 @@ import org.laziji.commons.js.model.value.primitive.JsString;
 
 public class JsStringObject extends JsObject {
 
-    private String value;
+    private JsString primitiveValue;
 
     public JsStringObject(String value) {
-        this.value = value;
+        primitiveValue = new JsString(value);
     }
 
     @Override
@@ -18,15 +18,11 @@ public class JsStringObject extends JsObject {
 
     @Override
     public String toString() {
-        return value;
-    }
-
-    public String getValue() {
-        return value;
+        return primitiveValue.toString();
     }
 
     @Override
     public JsString toJsString() {
-        return new JsString(value);
+        return primitiveValue;
     }
 }

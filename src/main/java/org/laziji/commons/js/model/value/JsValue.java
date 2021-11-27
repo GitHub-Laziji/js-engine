@@ -2,6 +2,8 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
+import org.laziji.commons.js.model.value.primitive.JsBoolean;
+import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.primitive.JsString;
 
 public interface JsValue {

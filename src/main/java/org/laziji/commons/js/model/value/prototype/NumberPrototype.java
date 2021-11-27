@@ -1,8 +1,10 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.prototype;
 
+import org.laziji.commons.js.model.value.JsNumberObject;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 
-public class NumberPrototype extends JsNumber {
+public class NumberPrototype extends JsNumberObject {
 
     {
 

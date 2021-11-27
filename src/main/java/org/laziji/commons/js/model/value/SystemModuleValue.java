@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.primitive.JsNumber;
 
 import java.util.ArrayList;
 import java.util.Timer;

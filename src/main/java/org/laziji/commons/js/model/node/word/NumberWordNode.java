@@ -4,7 +4,7 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.JsNumber;
+import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Collections;

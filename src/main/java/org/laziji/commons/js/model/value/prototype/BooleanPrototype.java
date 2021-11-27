@@ -1,8 +1,10 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.prototype;
 
+import org.laziji.commons.js.model.value.JsBooleanObject;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 
-public class BooleanPrototype extends JsBoolean {
+public class BooleanPrototype extends JsBooleanObject {
 
     {
 

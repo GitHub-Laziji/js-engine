@@ -1,5 +1,7 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.value.primitive.JsBoolean;
+
 public class JsNull extends BaseJsValue {
 
     private static final JsNull instance = new JsNull();
