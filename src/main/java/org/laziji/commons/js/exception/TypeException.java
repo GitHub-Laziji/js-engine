@@ -1,6 +1,6 @@
 package org.laziji.commons.js.exception;
 
-public class TypeException extends Exception {
+public class TypeException extends RuntimeException {
 
     public TypeException() {
         super();

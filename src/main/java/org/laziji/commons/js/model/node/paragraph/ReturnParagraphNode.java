@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.FunctionContext;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsUndefined;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.Arrays;
 import java.util.List;

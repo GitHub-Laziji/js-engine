@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseUnitNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsNull;
+import org.laziji.commons.js.model.value.primitive.JsNull;
 
 import java.util.Collections;
 import java.util.Set;

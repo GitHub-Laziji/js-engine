@@ -1,6 +1,6 @@
 package org.laziji.commons.js.exception;
 
-public class SyntaxException extends Exception {
+public class SyntaxException extends RuntimeException {
 
     public SyntaxException() {
         super();

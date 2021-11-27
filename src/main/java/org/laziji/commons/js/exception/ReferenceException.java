@@ -1,6 +1,6 @@
 package org.laziji.commons.js.exception;
 
-public class ReferenceException extends Exception {
+public class ReferenceException extends RuntimeException{
 
     public ReferenceException() {
         super();

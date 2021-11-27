@@ -1,6 +1,6 @@
 package org.laziji.commons.js.exception;
 
-public class OperationException extends Exception {
+public class OperationException extends RuntimeException {
 
     public OperationException() {
         super();

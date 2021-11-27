@@ -11,7 +11,7 @@ import org.laziji.commons.js.model.node.word.StringWordNode;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.ModuleValue;
 import org.laziji.commons.js.model.value.env.Top;
-import org.laziji.commons.js.model.value.JsUndefined;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.Arrays;
 import java.util.List;

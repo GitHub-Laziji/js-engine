@@ -3,6 +3,8 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.primitive.JsNull;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.HashMap;
 import java.util.Map;
