@@ -21,6 +21,11 @@ public class JsUndefined extends JsObject {
     }
 
     @Override
+    public JsValue getProperty(String key) {
+        throw new TypeException("Cannot read properties of undefined (reading '%s')", key);
+    }
+
+    @Override
     public JsBoolean toJsBoolean() {
         return new JsBoolean(false);
     }

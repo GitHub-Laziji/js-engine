@@ -21,6 +21,11 @@ public class JsNull extends JsObject {
     }
 
     @Override
+    public JsValue getProperty(String key) {
+        throw new ReferenceException("Cannot read properties of null (reading '%s')", key);
+    }
+
+    @Override
     public JsBoolean toJsBoolean() {
         return new JsBoolean(false);
     }
