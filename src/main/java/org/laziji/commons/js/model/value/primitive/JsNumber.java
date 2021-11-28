@@ -8,6 +8,8 @@ import org.laziji.commons.js.model.value.env.Top;
 
 public class JsNumber extends JsObject {
 
+    //TODO NaN Infinity
+
     private double value;
 
     public JsNumber(double value) {
