@@ -63,21 +63,6 @@ public abstract class BaseJsValue implements JsValue {
     }
 
     @Override
-    public JsBoolean toJsBoolean() {
-        return new JsBoolean(true);
-    }
-
-    @Override
-    public JsNumber toJsNumber() {
-        throw new RuntimeException();
-    }
-
-    @Override
-    public JsString toJsString() {
-        return new JsString(toString());
-    }
-
-    @Override
     public Boolean toBoolean() {
         return toJsBoolean().getValue();
     }
@@ -85,6 +70,11 @@ public abstract class BaseJsValue implements JsValue {
     @Override
     public Double toNumber() {
         return toJsNumber().getValue();
+    }
+
+    @Override
+    public String toString() {
+        return toJsString().getValue();
     }
 
     @Override

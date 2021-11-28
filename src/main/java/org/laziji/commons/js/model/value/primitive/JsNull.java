@@ -27,11 +27,16 @@ public class JsNull extends JsObject {
 
     @Override
     public JsBoolean toJsBoolean() {
-        return new JsBoolean(false);
+        return JsBoolean.getFalseInstance();
     }
 
     @Override
-    public String toString() {
-        return "null";
+    public JsString toJsString() {
+        return new JsString("null");
+    }
+
+    @Override
+    public JsNumber toJsNumber() {
+        return new JsNumber(0);
     }
 }

@@ -3,8 +3,7 @@ package org.laziji.commons.js.model.value;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.value.env.Top;
-import org.laziji.commons.js.model.value.primitive.JsNull;
-import org.laziji.commons.js.model.value.primitive.JsUndefined;
+import org.laziji.commons.js.model.value.primitive.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -93,6 +92,21 @@ public class JsObject extends BaseJsValue {
 
     public boolean hasProperty(String key) {
         return properties.containsKey(key);
+    }
+
+    @Override
+    public JsBoolean toJsBoolean() {
+        return JsBoolean.getTrueInstance();
+    }
+
+    @Override
+    public JsNumber toJsNumber() {
+        return new JsNumber(0);
+    }
+
+    @Override
+    public JsString toJsString() {
+        return new JsString("[object Object]");
     }
 
     public enum ObjectPropertyType {

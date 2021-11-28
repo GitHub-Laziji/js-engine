@@ -38,6 +38,21 @@ public class JsBoolean extends JsObject {
         return String.valueOf(value);
     }
 
+    @Override
+    public JsNumber toJsNumber() {
+        return new JsNumber(value ? 1 : 0);
+    }
+
+    @Override
+    public JsBoolean toJsBoolean() {
+        return this;
+    }
+
+    @Override
+    public JsString toJsString() {
+        return new JsString(String.valueOf(value));
+    }
+
     public boolean getValue() {
         return value;
     }

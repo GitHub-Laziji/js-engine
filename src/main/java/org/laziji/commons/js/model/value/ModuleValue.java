@@ -3,7 +3,7 @@ package org.laziji.commons.js.model.value;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModuleValue extends BaseJsValue {
+public class ModuleValue extends JsObject {
 
     private JsValue defaultExportValue;
     private Map<String, JsValue> export = new HashMap<>();

@@ -22,9 +22,20 @@ public class JsString extends JsObject {
         return Top.getStringClass().getPrototype();
     }
 
+
     @Override
-    public String toString() {
-        return value;
+    public JsString toJsString() {
+        return this;
+    }
+
+    @Override
+    public JsBoolean toJsBoolean() {
+        return value.isEmpty() ? JsBoolean.getFalseInstance() : JsBoolean.getTrueInstance();
+    }
+
+    @Override
+    public JsNumber toJsNumber() {
+        return new JsNumber(value);
     }
 
     public String getValue() {

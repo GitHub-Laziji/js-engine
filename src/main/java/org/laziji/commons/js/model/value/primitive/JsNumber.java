@@ -10,10 +10,25 @@ public class JsNumber extends JsObject {
 
     //TODO NaN Infinity
 
+    private Type type;
     private double value;
 
     public JsNumber(double value) {
+        this.type = Type.NORMAL;
         this.value = value;
+    }
+
+    public JsNumber(String value) {
+        if (value.isEmpty()) {
+            this.type = Type.NORMAL;
+            this.value = 0;
+        }
+        try {
+            this.value = Double.parseDouble(value);
+            this.type = Type.NORMAL;
+        } catch (Exception e) {
+            this.type = Type.NAN;
+        }
     }
 
     @Override
@@ -62,5 +77,11 @@ public class JsNumber extends JsObject {
             return v.substring(0, v.length() - 2);
         }
         return v;
+    }
+
+    private enum Type {
+        NORMAL,
+        NAN,
+        INFINITY
     }
 }

@@ -27,11 +27,18 @@ public class JsUndefined extends JsObject {
 
     @Override
     public JsBoolean toJsBoolean() {
-        return new JsBoolean(false);
+        return JsBoolean.getFalseInstance();
     }
 
     @Override
-    public String toString() {
-        return "undefined";
+    public JsString toJsString() {
+        return new JsString("undefined");
     }
+
+    @Override
+    public JsNumber toJsNumber() {
+        // Number(undefined) == NaN
+        return new JsNumber(0);
+    }
+
 }
