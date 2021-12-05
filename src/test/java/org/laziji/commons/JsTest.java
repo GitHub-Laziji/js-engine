@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.value.SystemModuleValue;
 import org.laziji.commons.js.model.value.env.Top;
 
-public class RegText {
+public class JsTest {
 
     @Test
     public void test() {
