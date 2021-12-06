@@ -1,8 +1,13 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.module;
 
 import org.laziji.commons.js.exception.RunException;
+import org.laziji.commons.js.model.value.InternalFunction;
+import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.JsStringObject;
+import org.laziji.commons.js.model.value.env.ThreadLocalTop;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
+import org.laziji.commons.js.model.value.primitive.JsString;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.ArrayList;
@@ -28,10 +33,12 @@ public class SystemModuleValue extends ModuleValue {
             }
             String id = UUID.randomUUID().toString();
             Top.addDelayMacroTaskId(id);
+            ThreadLocalTop threadLocalTop = Top.getThreadLocalTop();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     try {
+                        Top.setThreadLocalTop(threadLocalTop);
                         Top.addMacroTask(() ->
                                 ((JsFunction) arguments.get(0)).call(null, new ArrayList<>()));
                         Top.deleteDelayMacroTaskId(id);
@@ -40,7 +47,7 @@ public class SystemModuleValue extends ModuleValue {
                     }
                 }
             }, (long) ((JsNumber) arguments.get(1)).getValue());
-            return new JsStringObject(id);
+            return new JsString(id);
         }));
 
         addExportValue("print", new InternalFunction((caller, arguments) -> {

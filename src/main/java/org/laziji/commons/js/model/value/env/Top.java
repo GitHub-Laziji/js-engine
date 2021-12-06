@@ -7,6 +7,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.*;
+import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.util.TokenUtils;
 
 import java.util.*;
@@ -71,7 +72,7 @@ public class Top {
         if (!doc.isDone()) {
             throw new CompileException();
         }
-        if(DEBUG){
+        if (DEBUG) {
             System.out.println("=== DEBUG PRINT START =========");
             System.out.println(doc.toString());
             System.out.println("=== DEBUG PRINT END   =========\n\n\n");
@@ -94,6 +95,7 @@ public class Top {
                 if (delayMacroTaskIds.isEmpty()) {
                     break;
                 }
+                System.out.println(getThreadLocalTop());
                 getThreadLocalTop().wait();
             }
         }
@@ -141,7 +143,7 @@ public class Top {
         return getThreadLocalTop().getMainContexts();
     }
 
-    private static ThreadLocalTop getThreadLocalTop() {
+    public static ThreadLocalTop getThreadLocalTop() {
         ThreadLocalTop threadLocalTop = local.get();
         if (threadLocalTop == null) {
             threadLocalTop = new ThreadLocalTop();

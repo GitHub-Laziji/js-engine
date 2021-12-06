@@ -6,7 +6,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.node.word.StringWordNode;
-import org.laziji.commons.js.model.value.ModuleValue;
+import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 import org.laziji.commons.js.model.value.JsValue;

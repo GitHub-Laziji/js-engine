@@ -2,6 +2,7 @@ package org.laziji.commons.js.model.value.env;
 
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.value.*;
+import org.laziji.commons.js.model.value.module.ModuleValue;
 
 import java.util.*;
 
