@@ -8,22 +8,22 @@ import java.util.*;
 
 public class ThreadLocalTop {
 
-    private Queue<Top.Runner> macroTasks = new LinkedList<>();
-    private Set<String> delayMacroTaskIds = new HashSet<>();
-    private Queue<Top.Runner> microTasks = new LinkedList<>();
-    private Map<String, ModuleValue> internalModules = new HashMap<>();
-    private Map<String, ModuleValue> externalModules = new HashMap<>();
+    private final Queue<Top.Runner> macroTasks = new LinkedList<>();
+    private final Set<String> delayMacroTaskIds = new HashSet<>();
+    private final Queue<Top.Runner> microTasks = new LinkedList<>();
+    private final Map<String, ModuleValue> internalModules = new HashMap<>();
+    private final Map<String, ModuleValue> externalModules = new HashMap<>();
+
+    private final ObjectClass objectClass = new ObjectClass();
+    private final FunctionClass functionClass = new FunctionClass();
+    private final StringClass stringClass = new StringClass();
+    private final NumberClass numberClass = new NumberClass();
+    private final BooleanClass booleanClass = new BooleanClass();
+
+    private final Contexts mainContexts = new Contexts();
+    private final JsObject global = new JsGlobalObject();
+
     private boolean strict;
-
-    private Contexts mainContexts = new Contexts();
-
-    private JsObject global = new JsGlobalObject();
-
-    private ObjectClass objectClass = new ObjectClass();
-    private FunctionClass functionClass = new FunctionClass();
-    private StringClass stringClass = new StringClass();
-    private NumberClass numberClass = new NumberClass();
-    private BooleanClass booleanClass = new BooleanClass();
 
     public Queue<Top.Runner> getMacroTasks() {
         return macroTasks;
