@@ -2,19 +2,23 @@ package org.laziji.commons.js.model.value.clazz;
 
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.value.InternalFunction;
-import org.laziji.commons.js.model.value.object.JsBooleanObject;
 import org.laziji.commons.js.model.value.object.JsNumberObject;
 import org.laziji.commons.js.model.value.object.JsObject;
-import org.laziji.commons.js.model.value.prototype.NumberPrototype;
 
-public class NumberClass extends InternalFunction {
+public class PromiseClass extends InternalFunction {
 
-    public NumberClass() {
-        super((caller, args) -> new JsNumberObject(0));
+    public PromiseClass() {
+        super((caller, args) -> {
+            return null;
+        });
     }
 
     @Override
     protected JsObject initPrototype() {
-        return new NumberPrototype();
+        return new PromisePrototype();
+    }
+
+    public static class PromisePrototype extends JsObject {
+
     }
 }

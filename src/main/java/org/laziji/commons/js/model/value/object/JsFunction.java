@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.value.object;
 
+import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
@@ -42,6 +43,7 @@ public class JsFunction extends JsObject {
             context = new FunctionContext(null);
         }
         contexts.getContexts().push(context);
+        context.setArguments(arguments);
         for (Param param : params) {
             context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
         }
@@ -54,6 +56,7 @@ public class JsFunction extends JsObject {
         JsObject obj = new JsObject();
         FunctionContext context = new FunctionContext(obj);
         contexts.getContexts().push(context);
+        context.setArguments(arguments);
         for (Param param : params) {
             context.addProperty(param.getName(), param.fetchValue.apply(arguments), Context.ContextPropertyType.LET);
         }
@@ -108,6 +111,6 @@ public class JsFunction extends JsObject {
 
     @FunctionalInterface
     public interface Executor {
-        JsValue run(Contexts manager) throws Exception;
+        void run(Contexts manager) throws Exception;
     }
 }

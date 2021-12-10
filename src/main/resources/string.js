@@ -15,10 +15,10 @@ p(String.prototype.b)
 p(str.a)
 p(str.b)
 
-p(str.substring(2,5))
+//p(str.substring(2,5))
 
-p("indexOf:"+str.indexOf("56"))
-p("indexOf:"+str.indexOf("ww"))
+//p("indexOf:"+str.indexOf("56"))
+p("indexOf:"+"ddd"+str.indexOf("56"))
 
 
 p("constructor:"+str.constructor)

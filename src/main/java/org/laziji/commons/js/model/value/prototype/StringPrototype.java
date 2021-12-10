@@ -6,6 +6,7 @@ import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
+import org.laziji.commons.js.model.value.primitive.JsString;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class StringPrototype extends JsStringObject {
         return "StringPrototype";
     }
 
-    private JsStringObject substring(JsObject caller, List<JsValue> arguments) throws RunException {
+    private JsString substring(JsObject caller, List<JsValue> arguments) throws RunException {
         if (arguments.size() < 1) {
             throw new RunException();
         }
@@ -38,9 +39,9 @@ public class StringPrototype extends JsStringObject {
             throw new RunException();
         }
         if (arguments.size() == 1) {
-            return new JsStringObject(caller.toString().substring(arguments.get(0).toNumber().intValue()));
+            return new JsString(caller.toString().substring(arguments.get(0).toNumber().intValue()));
         }
-        return new JsStringObject(caller.toString().substring(
+        return new JsString(caller.toString().substring(
                 arguments.get(0).toNumber().intValue(),
                 arguments.get(1).toNumber().intValue()
         ));

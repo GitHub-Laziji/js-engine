@@ -7,6 +7,9 @@ import java.util.List;
 
 public class JsArray extends JsObject {
 
+    public JsArray(){
+        addProperty("length", new JsNumber(0));
+    }
     public JsArray(List<JsValue> values) {
         addProperty("length", new JsNumber(values.size()));
         for (int i = 0; i < values.size(); i++) {

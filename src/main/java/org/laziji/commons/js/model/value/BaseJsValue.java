@@ -22,7 +22,7 @@ public abstract class BaseJsValue implements JsValue {
     public JsValue binaryOperation(Token operator, JsValue o) throws OperationException {
         switch (operator) {
             case ADD:
-                return new JsString(toString() + o.toString());
+                return new JsString(this + o.toString());
             case OR:
                 return new JsBoolean(toBoolean() || o.toBoolean());
             case AND:
