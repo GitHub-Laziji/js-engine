@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 public class JsObject extends BaseJsValue {
 
     private Map<String, ObjectProperty> properties = new HashMap<>();
+    private JsObject proto;
 
     {
         addInternalProperty("__proto__", this::getProto);
@@ -39,7 +40,14 @@ public class JsObject extends BaseJsValue {
     public JsObject() {
     }
 
+    public JsObject(JsObject proto) {
+        this.proto = proto;
+    }
+
     public JsValue getProto() {
+        if (proto != null) {
+            return proto;
+        }
         return Top.getObjectClass().getPrototype();
     }
 

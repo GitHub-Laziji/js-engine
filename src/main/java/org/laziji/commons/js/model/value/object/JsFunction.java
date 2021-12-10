@@ -66,7 +66,7 @@ public class JsFunction extends JsObject {
     }
 
     public JsObject instantiate(List<JsValue> arguments) throws Exception {
-        JsObject obj = new JsObject();
+        JsObject obj = new JsObject(prototype);
         FunctionContext context = new FunctionContext(obj);
         contexts.getContexts().push(context);
         context.setArguments(arguments);
