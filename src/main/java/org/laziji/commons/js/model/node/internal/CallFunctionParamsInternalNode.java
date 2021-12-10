@@ -52,7 +52,7 @@ public class CallFunctionParamsInternalNode extends BasePlanNode implements Inte
     public JsValue run(JsObject caller, JsValue pre, Contexts contexts) throws Exception {
         JsObject objectValue = JsObject.cast(pre);
         if (objectValue instanceof JsFunction) {
-            return ((JsFunction) objectValue).call(caller, getArguments(contexts));
+            return ((JsFunction) objectValue).bind(caller).call(getArguments(contexts));
         }
         throw new TypeException();
     }

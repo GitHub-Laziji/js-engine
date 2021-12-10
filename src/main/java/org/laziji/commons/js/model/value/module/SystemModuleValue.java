@@ -40,7 +40,7 @@ public class SystemModuleValue extends ModuleValue {
                     try {
                         Top.setThreadLocalTop(threadLocalTop);
                         Top.addMacroTask(() ->
-                                ((JsFunction) arguments.get(0)).call(null, new ArrayList<>()));
+                                ((JsFunction) arguments.get(0)).call(new ArrayList<>()));
                         Top.deleteDelayMacroTaskId(id);
                     } catch (Exception e) {
                         e.printStackTrace();

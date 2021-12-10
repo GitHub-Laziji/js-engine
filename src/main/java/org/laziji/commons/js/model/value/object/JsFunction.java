@@ -17,6 +17,7 @@ public class JsFunction extends JsObject {
     private Executor executor;
     private boolean function;
     private JsObject prototype;
+    private JsObject caller;
 
     {
         prototype = initPrototype();
@@ -31,14 +32,26 @@ public class JsFunction extends JsObject {
         this.function = function;
     }
 
+    public JsFunction(Contexts contexts, List<Param> params, Executor executor, boolean function, JsObject caller) {
+        this.contexts = contexts;
+        this.params = params;
+        this.executor = executor;
+        this.function = function;
+        this.caller = caller;
+    }
+
     protected JsFunction() {
 
     }
 
-    public JsValue call(JsObject caller, List<JsValue> arguments) throws Exception {
+    public JsFunction bind(JsObject caller) {
+        return new JsFunction(contexts, params, executor, function, caller);
+    }
+
+    public JsValue call(List<JsValue> arguments) throws Exception {
         FunctionContext context;
         if (function) {
-            context = new FunctionContext(caller == null ? Top.getGlobal() : caller);
+            context = new FunctionContext(caller);
         } else {
             context = new FunctionContext(null);
         }

@@ -113,8 +113,7 @@ public class JsObject extends BaseJsValue {
     }
 
     public enum ObjectPropertyType {
-        NONE,
-        READ_ONLY
+        NONE, READ_ONLY
     }
 
     public static class ObjectProperty {

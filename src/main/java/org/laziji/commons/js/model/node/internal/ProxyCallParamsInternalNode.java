@@ -21,7 +21,7 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
         JsObject objectValue = JsObject.cast(pre);
         Node self = getSelf();
         if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof JsFunction) {
-            return ((JsFunction) objectValue).call(caller, ((CallFunctionParamsInternalNode) self).getArguments(manager));
+            return ((JsFunction) objectValue).bind(caller).call(((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
         String name;
         if (self instanceof CallObjectParamsInternalNode) {
