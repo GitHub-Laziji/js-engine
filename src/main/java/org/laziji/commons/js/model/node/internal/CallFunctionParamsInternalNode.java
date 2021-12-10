@@ -7,9 +7,9 @@ import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
 import org.laziji.commons.js.model.node.sentence.SentenceNode;
-import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.object.JsFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,7 +5,7 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.*;
 import org.laziji.commons.js.model.node.internal.*;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.value.prototype;
 
-import org.laziji.commons.js.model.value.JsBooleanObject;
+import org.laziji.commons.js.model.value.object.JsBooleanObject;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 

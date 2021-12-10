@@ -1,5 +1,8 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.clazz;
 
+import org.laziji.commons.js.model.value.InternalFunction;
+import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.prototype.StringPrototype;
 
 public class StringClass extends InternalFunction {

@@ -1,8 +1,8 @@
 package org.laziji.commons.js.model.value.prototype;
 
 import org.laziji.commons.js.exception.RunException;
-import org.laziji.commons.js.model.value.JsObject;
-import org.laziji.commons.js.model.value.JsStringObject;
+import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsNumber;

@@ -1,5 +1,6 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.object;
 
+import org.laziji.commons.js.model.value.clazz.*;
 import org.laziji.commons.js.model.value.env.Top;
 
 public class JsGlobalObject extends JsObject {

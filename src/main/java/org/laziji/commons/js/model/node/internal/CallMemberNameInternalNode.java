@@ -6,7 +6,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 import java.util.Arrays;
 import java.util.List;

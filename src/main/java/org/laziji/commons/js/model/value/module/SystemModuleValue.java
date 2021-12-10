@@ -2,8 +2,8 @@ package org.laziji.commons.js.model.value.module;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.value.InternalFunction;
-import org.laziji.commons.js.model.value.JsFunction;
-import org.laziji.commons.js.model.value.JsStringObject;
+import org.laziji.commons.js.model.value.object.JsFunction;
+import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.env.ThreadLocalTop;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsNumber;

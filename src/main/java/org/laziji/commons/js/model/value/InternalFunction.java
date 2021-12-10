@@ -1,5 +1,8 @@
 package org.laziji.commons.js.model.value;
 
+import org.laziji.commons.js.model.value.object.JsFunction;
+import org.laziji.commons.js.model.value.object.JsObject;
+
 import java.util.List;
 
 

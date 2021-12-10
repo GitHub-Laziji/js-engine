@@ -1,8 +1,9 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.object;
 
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.List;

@@ -1,7 +1,10 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.object;
 
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.exception.TypeException;
+import org.laziji.commons.js.model.value.BaseJsValue;
+import org.laziji.commons.js.model.value.InternalFunction;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.*;
 

@@ -1,7 +1,6 @@
 package org.laziji.commons.js.model.value.module;
 
 import org.laziji.commons.js.model.value.BaseJsValue;
-import org.laziji.commons.js.model.value.JsObject;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.primitive.JsBoolean;
 import org.laziji.commons.js.model.value.primitive.JsNumber;

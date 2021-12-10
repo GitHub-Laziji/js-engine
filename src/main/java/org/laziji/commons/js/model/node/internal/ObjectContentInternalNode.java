@@ -7,7 +7,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.JsValue;
 
 public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> implements InternalNode {

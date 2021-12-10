@@ -4,9 +4,9 @@ import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.JsFunction;
+import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> implements InternalNode {
 

@@ -1,6 +1,6 @@
 package org.laziji.commons.js.model.context;
 
-import org.laziji.commons.js.model.value.JsObject;
+import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.JsValue;
 
 public class FunctionContext extends InstanceContext {

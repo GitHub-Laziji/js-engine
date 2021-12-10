@@ -1,7 +1,8 @@
-package org.laziji.commons.js.model.value;
+package org.laziji.commons.js.model.value.object;
 
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.OperationException;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.primitive.JsBoolean;
 import org.laziji.commons.js.model.value.primitive.JsNumber;

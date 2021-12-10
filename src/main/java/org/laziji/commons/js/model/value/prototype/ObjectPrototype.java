@@ -1,7 +1,7 @@
 package org.laziji.commons.js.model.value.prototype;
 
-import org.laziji.commons.js.model.value.JsObject;
-import org.laziji.commons.js.model.value.JsStringObject;
+import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 import org.laziji.commons.js.model.value.JsValue;
 

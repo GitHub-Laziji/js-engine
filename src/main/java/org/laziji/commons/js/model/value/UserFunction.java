@@ -1,6 +1,8 @@
 package org.laziji.commons.js.model.value;
 
 import org.laziji.commons.js.model.context.Contexts;
+import org.laziji.commons.js.model.value.object.JsFunction;
+import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.List;

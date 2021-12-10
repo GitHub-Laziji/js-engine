@@ -8,7 +8,7 @@ import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.paragraph.EmptyParagraphNode;
 import org.laziji.commons.js.model.node.paragraph.ValueParagraphNode;
-import org.laziji.commons.js.model.value.JsArray;
+import org.laziji.commons.js.model.value.object.JsArray;
 import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.ArrayList;
