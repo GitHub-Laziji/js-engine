@@ -3,10 +3,13 @@ package org.laziji.commons.js.model.value.clazz;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.value.InternalFunction;
 import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PromiseClass extends InternalFunction {
 
@@ -28,11 +31,33 @@ public class PromiseClass extends InternalFunction {
     }
 
     @Override
+    public JsValue call(List<JsValue> arguments) {
+        throw new RunException();
+    }
+
+    @Override
     protected JsObject initPrototype() {
         return new PromisePrototype();
     }
 
     public static class PromisePrototype extends JsObject {
 
+        {
+            addInternalProperty("resolve", this::resolve);
+            addInternalProperty("reject", this::reject);
+        }
+
+        @Override
+        public JsValue getProto() {
+            return Top.getObjectClass().getPrototype();
+        }
+
+        public JsValue resolve(JsObject caller,List<JsValue> args){
+            return JsUndefined.getInstance();
+        }
+
+        public JsValue reject(JsObject caller,List<JsValue> args){
+            return JsUndefined.getInstance();
+        }
     }
 }
