@@ -8,26 +8,30 @@ import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PromiseClass extends InternalFunction {
 
     public PromiseClass() {
         super((caller, args) -> {
-            if (args.size() < 1 || !(args.get(0) instanceof JsFunction)) {
-                throw new RunException();
-            }
-            ResolveFunction resolve = new ResolveFunction();
-            resolve.bind(caller);
-            Top.addMicroTask(()-> ((JsFunction) args.get(0)).call(Arrays.asList(resolve, null)));
-            return null;
+            throw new RunException();
         });
     }
 
     @Override
     public JsValue call(List<JsValue> arguments) {
         throw new RunException();
+    }
+
+
+    @Override
+    public JsObject instantiate(List<JsValue> args) throws Exception {
+        if(args.size()<1|| !(args.get(0) instanceof JsFunction)){
+            throw new RunException();
+        }
+        JsPromise promise = new JsPromise();
+
+        return promise;
     }
 
     @Override
@@ -49,6 +53,12 @@ public class PromiseClass extends InternalFunction {
         public JsValue then(JsObject caller,List<JsValue> args){
             return JsUndefined.getInstance();
         }
+
+    }
+
+    public static class JsPromise extends JsObject{
+        private JsValue result;
+        private List<JsPromise> next;
 
     }
 
