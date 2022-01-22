@@ -18,14 +18,9 @@ public class PromiseClass extends InternalFunction {
             if (args.size() < 1 || !(args.get(0) instanceof JsFunction)) {
                 throw new RunException();
             }
-            JsValue resolveObj = caller.getProperty("resolve");
-            JsValue rejectObj = caller.getProperty("reject");
-            if (!(resolveObj instanceof JsFunction) || !(rejectObj instanceof JsFunction)) {
-                throw new RunException();
-            }
-            JsFunction resolve = ((JsFunction) resolveObj).bind(caller);
-            JsFunction reject = ((JsFunction) rejectObj).bind(caller);
-            ((JsFunction) args.get(0)).call(Arrays.asList(resolve, reject));
+            ResolveFunction resolve = new ResolveFunction();
+            resolve.bind(caller);
+            Top.addMicroTask(()-> ((JsFunction) args.get(0)).call(Arrays.asList(resolve, null)));
             return null;
         });
     }
@@ -43,8 +38,7 @@ public class PromiseClass extends InternalFunction {
     public static class PromisePrototype extends JsObject {
 
         {
-            addInternalProperty("resolve", this::resolve);
-            addInternalProperty("reject", this::reject);
+            addInternalProperty("then", this::then);
         }
 
         @Override
@@ -52,12 +46,19 @@ public class PromiseClass extends InternalFunction {
             return Top.getObjectClass().getPrototype();
         }
 
-        public JsValue resolve(JsObject caller,List<JsValue> args){
+        public JsValue then(JsObject caller,List<JsValue> args){
             return JsUndefined.getInstance();
         }
 
-        public JsValue reject(JsObject caller,List<JsValue> args){
-            return JsUndefined.getInstance();
+    }
+
+    private static class ResolveFunction extends InternalFunction{
+
+        public ResolveFunction() {
+            super((caller, args) -> {
+                caller.addProperty("next",args.get(0));
+                return null;
+            });
         }
     }
 }
