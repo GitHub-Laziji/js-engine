@@ -56,7 +56,7 @@ public class PromiseClass extends InternalFunction {
 
         public ResolveFunction() {
             super((caller, args) -> {
-                caller.addProperty("next",args.get(0));
+                caller.addProperty("result",args.get(0));
                 return null;
             });
         }

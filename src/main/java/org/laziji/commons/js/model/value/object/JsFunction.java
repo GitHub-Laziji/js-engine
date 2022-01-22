@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.value.object;
 
-import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.model.context.Context;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.context.FunctionContext;
