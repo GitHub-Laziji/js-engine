@@ -8,6 +8,9 @@ import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PromiseClass extends InternalFunction {
@@ -26,11 +29,11 @@ public class PromiseClass extends InternalFunction {
 
     @Override
     public JsObject instantiate(List<JsValue> args) throws Exception {
-        if(args.size()<1|| !(args.get(0) instanceof JsFunction)){
+        if (args.size() < 1 || !(args.get(0) instanceof JsFunction)) {
             throw new RunException();
         }
-        JsPromise promise = new JsPromise();
-
+        JsPromise promise = new JsPromise((JsFunction) args.get(0), true);
+        promise.execute(null);
         return promise;
     }
 
@@ -50,25 +53,55 @@ public class PromiseClass extends InternalFunction {
             return Top.getObjectClass().getPrototype();
         }
 
-        public JsValue then(JsObject caller,List<JsValue> args){
+        public JsValue then(JsObject caller, List<JsValue> args) {
             return JsUndefined.getInstance();
         }
 
     }
 
-    public static class JsPromise extends JsObject{
+    public static class JsPromise extends JsObject {
         private JsValue result;
-        private List<JsPromise> next;
+        private final List<JsPromise> next = new ArrayList<>();
+        private final JsFunction func;
+        private final boolean head;
 
+        public JsPromise(JsFunction func, boolean head) {
+            this.func = func;
+            this.head = head;
+        }
+
+        public void execute(JsValue data) {
+            if (head) {
+                Top.addMicroTask(() -> func.call(Arrays.asList(
+                        new ResolveFunction(this), new RejectFunction(this))));
+            } else {
+                Top.addMicroTask(() -> {
+                    JsValue value = func.call(Collections.singletonList(data));
+                    this.result = value;
+                    this.next.forEach(n -> n.execute(value));
+                });
+            }
+        }
+
+        public void add(JsPromise promise) {
+            next.add(promise);
+            if (result != null) {
+                promise.execute(result);
+            }
+        }
     }
 
-    private static class ResolveFunction extends InternalFunction{
+    private static class ResolveFunction extends InternalFunction {
 
-        public ResolveFunction() {
-            super((caller, args) -> {
-                caller.addProperty("result",args.get(0));
-                return null;
-            });
+        public ResolveFunction(JsPromise promise) {
+            super(null);
+        }
+    }
+
+    private static class RejectFunction extends InternalFunction {
+
+        public RejectFunction(JsPromise promise) {
+            super(null);
         }
     }
 }
