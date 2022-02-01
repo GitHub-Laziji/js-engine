@@ -45,7 +45,8 @@ public class PromiseClass extends InternalFunction {
     public static class PromisePrototype extends JsObject {
 
         {
-            addInternalProperty("then", this::then);
+            addInternalProperty("then", this::thenFunction);
+            addInternalProperty("catch", this::catchFunction);
         }
 
         @Override
@@ -53,7 +54,16 @@ public class PromiseClass extends InternalFunction {
             return Top.getObjectClass().getPrototype();
         }
 
-        public JsValue then(JsObject caller, List<JsValue> args) {
+        public JsValue thenFunction(JsObject caller, List<JsValue> args) {
+            if (args.size() < 1 || !(args.get(0) instanceof JsFunction) || !(caller instanceof JsPromise)) {
+                throw new RunException();
+            }
+            JsPromise promise = new JsPromise((JsFunction) args.get(0), false);
+            ((JsPromise) caller).addSuccess(promise);
+            return promise;
+        }
+
+        public JsValue catchFunction(JsObject caller, List<JsValue> args) {
             return JsUndefined.getInstance();
         }
 
@@ -61,7 +71,8 @@ public class PromiseClass extends InternalFunction {
 
     public static class JsPromise extends JsObject {
         private JsValue result;
-        private final List<JsPromise> next = new ArrayList<>();
+        private final List<JsPromise> successNext = new ArrayList<>();
+        private final List<JsPromise> errorNext = new ArrayList<>();
         private final JsFunction func;
         private final boolean head;
 
@@ -72,23 +83,36 @@ public class PromiseClass extends InternalFunction {
 
         public void execute(JsValue data) {
             if (head) {
-                Top.addMicroTask(() -> func.call(Arrays.asList(
-                        new ResolveFunction(this), new RejectFunction(this))));
+                Top.addMicroTask(() -> func.call(Arrays.asList(new ResolveFunction(this), new RejectFunction(this))));
             } else {
                 Top.addMicroTask(() -> {
                     JsValue value = func.call(Collections.singletonList(data));
-                    this.result = value;
-                    this.next.forEach(n -> n.execute(value));
+                    setResult(value);
                 });
             }
         }
 
-        public void add(JsPromise promise) {
-            next.add(promise);
-            if (result != null) {
-                promise.execute(result);
+        private void setResult(JsValue result) {
+            this.result = result;
+            if (result instanceof JsPromise) {
+                this.successNext.forEach(n -> ((JsPromise) result).addSuccess(n));
+            } else {
+                this.successNext.forEach(n -> n.execute(result));
             }
         }
+
+        public void addSuccess(JsPromise promise) {
+            successNext.add(promise);
+            if (result != null) {
+                if (result instanceof JsPromise) {
+                    ((JsPromise) result).addSuccess(promise);
+                } else {
+                    promise.execute(result);
+                }
+            }
+        }
+
+        //TODO catch
     }
 
     private static class ResolveFunction extends InternalFunction {
