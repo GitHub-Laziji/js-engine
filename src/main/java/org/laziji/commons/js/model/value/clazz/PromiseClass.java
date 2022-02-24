@@ -6,7 +6,6 @@ import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
-import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,20 +58,25 @@ public class PromiseClass extends InternalFunction {
                 throw new RunException();
             }
             JsPromise promise = new JsPromise((JsFunction) args.get(0), false);
-            ((JsPromise) caller).addSuccess(promise);
+            ((JsPromise) caller).addChild(promise, true);
             return promise;
         }
 
         public JsValue catchFunction(JsObject caller, List<JsValue> args) {
-            return JsUndefined.getInstance();
+            if (args.size() < 1 || !(args.get(0) instanceof JsFunction) || !(caller instanceof JsPromise)) {
+                throw new RunException();
+            }
+            JsPromise promise = new JsPromise((JsFunction) args.get(0), false);
+            ((JsPromise) caller).addChild(promise, false);
+            return promise;
         }
 
     }
 
     public static class JsPromise extends JsObject {
         private JsValue result;
-        private final List<JsPromise> successNext = new ArrayList<>();
-        private final List<JsPromise> errorNext = new ArrayList<>();
+        private boolean success;
+        private final List<PromiseNextItem> children = new ArrayList<>();
         private final JsFunction func;
         private final boolean head;
 
@@ -87,32 +91,61 @@ public class PromiseClass extends InternalFunction {
             } else {
                 Top.addMicroTask(() -> {
                     JsValue value = func.call(Collections.singletonList(data));
-                    setResult(value);
+                    setResult(value, true);
                 });
             }
         }
 
-        private void setResult(JsValue result) {
+        private void setResult(JsValue result, boolean success) {
             this.result = result;
+            this.success = success;
             if (result instanceof JsPromise) {
-                this.successNext.forEach(n -> ((JsPromise) result).addSuccess(n));
+                this.children.forEach(n -> ((JsPromise) result).addChild(n.getNext(), n.isSuccess()));
             } else {
-                this.successNext.forEach(n -> n.execute(result));
+                this.children.forEach(n -> {
+                    if (success == n.isSuccess()) {
+                        n.getNext().execute(result);
+                    } else {
+                        n.getNext().setResult(result, success);
+                    }
+                });
             }
         }
 
-        public void addSuccess(JsPromise promise) {
-            successNext.add(promise);
+        public void addChild(JsPromise promise, boolean success) {
+            children.add(new PromiseNextItem(promise, success));
             if (result != null) {
                 if (result instanceof JsPromise) {
-                    ((JsPromise) result).addSuccess(promise);
+                    ((JsPromise) result).addChild(promise, success);
                 } else {
-                    promise.execute(result);
+                    if (this.success == success) {
+                        promise.execute(result);
+                    } else {
+                        promise.setResult(result, success);
+                    }
                 }
             }
         }
 
         //TODO catch
+    }
+
+    private static class PromiseNextItem {
+        private final JsPromise next;
+        private final boolean success;
+
+        private PromiseNextItem(JsPromise next, boolean success) {
+            this.next = next;
+            this.success = success;
+        }
+
+        public JsPromise getNext() {
+            return next;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
     }
 
     private static class ResolveFunction extends InternalFunction {
