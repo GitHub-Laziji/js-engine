@@ -6,6 +6,7 @@ import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,6 +86,11 @@ public class PromiseClass extends InternalFunction {
             this.head = head;
         }
 
+        @Override
+        public JsValue getProto() {
+            return Top.getPromiseClass().getPrototype();
+        }
+
         public void execute(JsValue data) {
             if (head) {
                 Top.addMicroTask(() -> func.call(Arrays.asList(new ResolveFunction(this), new RejectFunction(this))));
@@ -127,7 +133,6 @@ public class PromiseClass extends InternalFunction {
             }
         }
 
-        //TODO catch
     }
 
     private static class PromiseNextItem {
@@ -149,16 +154,29 @@ public class PromiseClass extends InternalFunction {
     }
 
     private static class ResolveFunction extends InternalFunction {
-
         public ResolveFunction(JsPromise promise) {
-            super(null);
+            super(((caller, args) -> {
+                if (args.size() < 1) {
+                    promise.setResult(JsUndefined.getInstance(), true);
+                } else {
+                    promise.setResult(args.get(0), true);
+                }
+                return JsUndefined.getInstance();
+            }));
         }
     }
 
     private static class RejectFunction extends InternalFunction {
 
         public RejectFunction(JsPromise promise) {
-            super(null);
+            super(((caller, args) -> {
+                if (args.size() < 1) {
+                    promise.setResult(JsUndefined.getInstance(), false);
+                } else {
+                    promise.setResult(args.get(0), false);
+                }
+                return JsUndefined.getInstance();
+            }));
         }
     }
 }

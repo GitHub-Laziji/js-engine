@@ -67,4 +67,11 @@ public class JsTest {
         Top.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
         Top.loop();
     }
+
+    @Test
+    public void runPromise() throws Exception {
+        Top.addInternalModules("sys", new SystemModuleValue());
+        Top.eval(IOUtils.resourceToString("/promise.js", Charsets.UTF_8));
+        Top.loop();
+    }
 }

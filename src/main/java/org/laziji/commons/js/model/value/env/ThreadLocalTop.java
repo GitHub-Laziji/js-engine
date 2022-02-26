@@ -22,6 +22,8 @@ public class ThreadLocalTop {
     private final NumberClass numberClass = new NumberClass();
     private final BooleanClass booleanClass = new BooleanClass();
 
+    private final PromiseClass promiseClass = new PromiseClass();
+
     private final Contexts mainContexts = new Contexts();
     private final JsObject global = new JsGlobalObject();
 
@@ -81,5 +83,9 @@ public class ThreadLocalTop {
 
     public BooleanClass getBooleanClass() {
         return booleanClass;
+    }
+
+    public PromiseClass getPromiseClass() {
+        return promiseClass;
     }
 }

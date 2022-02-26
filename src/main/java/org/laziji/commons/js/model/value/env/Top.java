@@ -136,6 +136,10 @@ public class Top {
         return getThreadLocalTop().getBooleanClass();
     }
 
+    public static PromiseClass getPromiseClass() {
+        return getThreadLocalTop().getPromiseClass();
+    }
+
     public static void setStrict(boolean strict) {
         getThreadLocalTop().setStrict(strict);
     }
