@@ -61,8 +61,8 @@ public abstract class BaseProxyNode<T extends Node> extends BaseNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
-        return getSelf().run(manager);
+    public JsValue run(Contexts contexts) throws Exception {
+        return getSelf().run(contexts);
     }
 
     protected void addProxyItem(T node) {

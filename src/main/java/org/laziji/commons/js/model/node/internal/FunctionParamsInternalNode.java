@@ -6,6 +6,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
 import org.laziji.commons.js.model.value.object.JsFunction;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ public class FunctionParamsInternalNode extends BasePlanNode implements Internal
         List<JsFunction.Param> params = new ArrayList<>();
         for (int i = 0; i < nodes.size(); i++) {
             final int index = i;
-            params.add(new JsFunction.Param(nodes.get(i).getUnit().getValue(), args -> args.get(index)));
+            params.add(new JsFunction.Param(nodes.get(i).getUnit().getValue(), args -> args.size() > index ? args.get(index) : JsUndefined.getInstance()));
         }
         return params;
     }
@@ -32,11 +33,7 @@ public class FunctionParamsInternalNode extends BasePlanNode implements Internal
 
     @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {
-        return Arrays.asList(
-                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_OPEN),
-                (self, pre) -> new FunctionParamsContentInternalNode(this),
-                (self, pre) -> new UnitNode(this, Token.BRACKET_SML_CLOSE)
-        );
+        return Arrays.asList((self, pre) -> new UnitNode(this, Token.BRACKET_SML_OPEN), (self, pre) -> new FunctionParamsContentInternalNode(this), (self, pre) -> new UnitNode(this, Token.BRACKET_SML_CLOSE));
     }
 
     @Override

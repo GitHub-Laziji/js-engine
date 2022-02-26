@@ -24,7 +24,7 @@ public interface Node {
 
     String toString(int depth, boolean start);
 
-    JsValue run(Contexts manager) throws Exception;
+    JsValue run(Contexts contexts) throws Exception;
 
     class TokenUnit {
 
