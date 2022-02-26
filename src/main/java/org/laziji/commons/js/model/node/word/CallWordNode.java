@@ -4,7 +4,9 @@ import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
+import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.object.JsObject;
@@ -53,7 +55,7 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     @Override
     protected List<BiFunction<Node, Node, Node>> getPlan() {
         return Arrays.asList(
-                (self, pre) -> new CallNameInternalNode(self),
+                (self, pre) -> new ProxyNode<>(this, new CallNameInternalNode(null), new NewObjectWordNode(null)),
                 (self, pre) -> new ListNode<>(
                         self,
                         (subSelf, o) -> new ProxyCallParamsInternalNode(subSelf),

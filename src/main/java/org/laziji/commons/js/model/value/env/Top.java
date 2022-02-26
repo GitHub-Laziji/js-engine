@@ -75,7 +75,7 @@ public class Top {
         }
         if (DEBUG) {
             System.out.println("=== DEBUG PRINT START =========");
-            System.out.println(doc.toString());
+            System.out.println(doc);
             System.out.println("=== DEBUG PRINT END   =========\n\n\n");
         }
         return doc;
@@ -96,7 +96,6 @@ public class Top {
                 if (delayMacroTaskIds.isEmpty()) {
                     break;
                 }
-                System.out.println(getThreadLocalTop());
                 getThreadLocalTop().wait();
             }
         }
