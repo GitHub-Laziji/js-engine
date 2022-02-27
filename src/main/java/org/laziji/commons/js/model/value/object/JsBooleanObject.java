@@ -6,7 +6,7 @@ import org.laziji.commons.js.model.value.primitive.JsBoolean;
 
 public class JsBooleanObject extends JsObject {
 
-    private JsBoolean primitiveValue;
+    private final JsBoolean primitiveValue;
 
     public JsBooleanObject(boolean value) {
         primitiveValue = new JsBoolean(value);
@@ -14,7 +14,7 @@ public class JsBooleanObject extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getBooleanClass().getPrototype();
+        return Top.getThreadLocalTop().getBooleanClass().getPrototype();
     }
 
     @Override

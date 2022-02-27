@@ -38,7 +38,7 @@ public class JsTest {
     public void run() throws Exception {
         Top.eval(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
 //        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
-        System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
         //        JsFunction func = (JsFunction) contexts.peek().get("func");
 //        JsValue result = func.call(contexts, Arrays.asList(new JsNumber(9)));
 //        System.out.println(result);
@@ -49,7 +49,7 @@ public class JsTest {
     public void runSort() throws Exception {
         Top.eval(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
         Top.loop();
-        System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
     }
 
 
@@ -58,11 +58,12 @@ public class JsTest {
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
         Top.loop();
-        System.out.println(Top.getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
     }
 
     @Test
     public void runString() throws Exception {
+        Top.init();
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
         Top.loop();
@@ -70,6 +71,7 @@ public class JsTest {
 
     @Test
     public void runPromise() throws Exception {
+        Top.init();
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/promise.js", Charsets.UTF_8));
         Top.loop();

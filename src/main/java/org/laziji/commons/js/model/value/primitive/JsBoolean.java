@@ -17,7 +17,7 @@ public class JsBoolean extends JsObject {
         return falseInstance;
     }
 
-    private boolean value;
+    private final boolean value;
 
     public JsBoolean(boolean value) {
         this.value = value;
@@ -30,7 +30,7 @@ public class JsBoolean extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getBooleanClass().getPrototype();
+        return Top.getThreadLocalTop().getBooleanClass().getPrototype();
     }
 
     @Override

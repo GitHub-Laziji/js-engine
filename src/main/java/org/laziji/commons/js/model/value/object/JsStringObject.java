@@ -6,7 +6,7 @@ import org.laziji.commons.js.model.value.primitive.JsString;
 
 public class JsStringObject extends JsObject {
 
-    private JsString primitiveValue;
+    private final JsString primitiveValue;
 
     public JsStringObject(String value) {
         primitiveValue = new JsString(value);
@@ -14,7 +14,7 @@ public class JsStringObject extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getStringClass().getPrototype();
+        return Top.getThreadLocalTop().getStringClass().getPrototype();
     }
 
     @Override

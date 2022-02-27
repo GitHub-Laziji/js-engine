@@ -16,6 +16,6 @@ public class NumberPrototype extends JsNumberObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getObjectClass().getPrototype();
+        return Top.getThreadLocalTop().getObjectClass().getPrototype();
     }
 }

@@ -48,7 +48,7 @@ public class JsObject extends BaseJsValue {
         if (proto != null) {
             return proto;
         }
-        return Top.getObjectClass().getPrototype();
+        return Top.getThreadLocalTop().getObjectClass().getPrototype();
     }
 
     public void removeProperty(String key) {

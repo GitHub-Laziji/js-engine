@@ -29,8 +29,8 @@ public class Contexts {
                 return context.addProperty(key, value);
             }
         }
-        if (Top.getGlobal().hasProperty(key)) {
-            return Top.getGlobal().addProperty(key, value);
+        if (Top.getThreadLocalTop().getGlobal().hasProperty(key)) {
+            return Top.getThreadLocalTop().getGlobal().addProperty(key, value);
         }
         throw new ReferenceException("%s is not defined", key);
     }
@@ -42,8 +42,8 @@ public class Contexts {
                 return context.getProperty(key);
             }
         }
-        if (Top.getGlobal().hasProperty(key)) {
-            return Top.getGlobal().getProperty(key);
+        if (Top.getThreadLocalTop().getGlobal().hasProperty(key)) {
+            return Top.getThreadLocalTop().getGlobal().getProperty(key);
         }
         throw new ReferenceException("%s is not defined", key);
     }

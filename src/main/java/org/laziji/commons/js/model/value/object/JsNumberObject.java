@@ -9,7 +9,7 @@ import org.laziji.commons.js.model.value.primitive.JsNumber;
 
 public class JsNumberObject extends JsObject {
 
-    private JsNumber primitiveValue;
+    private final JsNumber primitiveValue;
     
     public JsNumberObject(double value) {
         primitiveValue = new JsNumber(value);
@@ -17,7 +17,7 @@ public class JsNumberObject extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getNumberClass().getPrototype();
+        return Top.getThreadLocalTop().getNumberClass().getPrototype();
     }
 
     @Override

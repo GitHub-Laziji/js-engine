@@ -23,7 +23,7 @@ public class StringPrototype extends JsStringObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getObjectClass().getPrototype();
+        return Top.getThreadLocalTop().getObjectClass().getPrototype();
     }
 
     @Override

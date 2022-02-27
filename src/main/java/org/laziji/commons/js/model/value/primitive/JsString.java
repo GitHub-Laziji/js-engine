@@ -6,7 +6,7 @@ import org.laziji.commons.js.model.value.env.Top;
 
 public class JsString extends JsObject {
 
-    private String value;
+    private final String value;
 
     public JsString(String value) {
         this.value = value;
@@ -19,7 +19,7 @@ public class JsString extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getStringClass().getPrototype();
+        return Top.getThreadLocalTop().getStringClass().getPrototype();
     }
 
 

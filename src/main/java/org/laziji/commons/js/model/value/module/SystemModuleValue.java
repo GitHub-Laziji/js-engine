@@ -38,7 +38,7 @@ public class SystemModuleValue extends ModuleValue {
                 @Override
                 public void run() {
                     try {
-                        Top.setThreadLocalTop(threadLocalTop);
+                        Top.init(threadLocalTop);
                         Top.addMacroTask(() ->
                                 ((JsFunction) arguments.get(0)).call(new ArrayList<>()));
                         Top.deleteDelayMacroTaskId(id);

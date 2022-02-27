@@ -81,7 +81,7 @@ public class JsFunction extends JsObject {
         return new JsObject() {
             @Override
             public JsValue getProto() {
-                return Top.getObjectClass().getPrototype();
+                return Top.getThreadLocalTop().getObjectClass().getPrototype();
             }
         };
     }
@@ -92,7 +92,7 @@ public class JsFunction extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getFunctionClass().getPrototype();
+        return Top.getThreadLocalTop().getFunctionClass().getPrototype();
     }
 
     public static class Param {

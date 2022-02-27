@@ -33,7 +33,7 @@ public class JsNumber extends JsObject {
 
     @Override
     public JsValue getProto() {
-        return Top.getNumberClass().getPrototype();
+        return Top.getThreadLocalTop().getNumberClass().getPrototype();
     }
 
     @Override

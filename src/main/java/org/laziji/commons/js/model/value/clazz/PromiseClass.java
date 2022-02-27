@@ -51,7 +51,7 @@ public class PromiseClass extends InternalFunction {
 
         @Override
         public JsValue getProto() {
-            return Top.getObjectClass().getPrototype();
+            return Top.getThreadLocalTop().getObjectClass().getPrototype();
         }
 
         public JsValue thenFunction(JsObject caller, List<JsValue> args) {
@@ -88,7 +88,7 @@ public class PromiseClass extends InternalFunction {
 
         @Override
         public JsValue getProto() {
-            return Top.getPromiseClass().getPrototype();
+            return Top.getThreadLocalTop().getPromiseClass().getPrototype();
         }
 
         public void execute(JsValue data) {
