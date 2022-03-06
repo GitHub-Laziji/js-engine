@@ -7,4 +7,7 @@ let a = new Promise((resolve,reject)=>{
     },3000);
 }).then(data=>{
     p(data);
+    let i=1;
+    p(i++);
+    p(i);
 });

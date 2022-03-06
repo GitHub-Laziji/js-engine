@@ -6,15 +6,12 @@ import org.laziji.commons.js.model.value.env.Top;
 
 public class JsBoolean extends JsObject {
 
-    private static final JsBoolean trueInstance = new JsBoolean(true);
-    private static final JsBoolean falseInstance = new JsBoolean(false);
-
     public static JsBoolean getTrueInstance() {
-        return trueInstance;
+        return new JsBoolean(true);
     }
 
     public static JsBoolean getFalseInstance() {
-        return falseInstance;
+        return new JsBoolean(false);
     }
 
     private final boolean value;

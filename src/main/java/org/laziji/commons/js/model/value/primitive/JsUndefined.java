@@ -1,18 +1,16 @@
 package org.laziji.commons.js.model.value.primitive;
 
 import org.laziji.commons.js.exception.TypeException;
-import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 public class JsUndefined extends JsObject {
-
-    private static final JsUndefined instance = new JsUndefined();
 
     public JsUndefined() {
     }
 
     public static JsUndefined getInstance() {
-        return instance;
+        return new JsUndefined();
     }
 
     @Override

@@ -1,18 +1,16 @@
 package org.laziji.commons.js.model.value.primitive;
 
 import org.laziji.commons.js.exception.ReferenceException;
-import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.object.JsObject;
 
 public class JsNull extends JsObject {
-
-    private static final JsNull instance = new JsNull();
 
     public JsNull() {
     }
 
     public static JsNull getInstance() {
-        return instance;
+        return new JsNull();
     }
 
     @Override

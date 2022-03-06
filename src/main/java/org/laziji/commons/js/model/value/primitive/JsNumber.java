@@ -9,6 +9,11 @@ import org.laziji.commons.js.model.value.env.Top;
 public class JsNumber extends JsObject {
 
     //TODO NaN Infinity
+    public static JsNumber getNanInstance() {
+        JsNumber num = new JsNumber(0);
+        num.type = Type.NAN;
+        return num;
+    }
 
     private Type type;
     private double value;
@@ -72,6 +77,9 @@ public class JsNumber extends JsObject {
 
     @Override
     public String toString() {
+        if(type==Type.NAN){
+            return "NaN";
+        }
         String v = value + "";
         if (v.endsWith(".0")) {
             return v.substring(0, v.length() - 2);
