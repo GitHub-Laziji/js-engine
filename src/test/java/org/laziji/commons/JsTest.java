@@ -30,19 +30,14 @@ public class JsTest {
 
     @Test
     public void docTest() throws Exception {
-        System.out.println(Top.compile(IOUtils.resourceToString("/doc.js", Charsets.UTF_8)).toString());
+        System.out.println(Top.compile(IOUtils.resourceToString("/doc.js", Charsets.UTF_8)));
     }
 
 
     @Test
     public void run() throws Exception {
         Top.eval(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
-//        node.compile("let a=123+4567,b=a+1 ,c;\nc=3;\nc+=a;c=c*(2+1);");
         System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
-        //        JsFunction func = (JsFunction) contexts.peek().get("func");
-//        JsValue result = func.call(contexts, Arrays.asList(new JsNumber(9)));
-//        System.out.println(result);
-
     }
 
     @Test
