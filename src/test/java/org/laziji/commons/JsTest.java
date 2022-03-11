@@ -24,24 +24,52 @@ public class JsTest {
 
     @Test
     public void letTest() throws Exception {
-        DocNode doc = Top.compile("let a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
-        System.out.println(doc.toString());
+        Top.init();
+        DocNode doc = Top.compile("let     a=1+2,b=3,c=\"string\",d=a*(b+c/2),func=function(){};");
+        System.out.println(doc);
     }
 
     @Test
     public void docTest() throws Exception {
+        Top.init();
         System.out.println(Top.compile(IOUtils.resourceToString("/doc.js", Charsets.UTF_8)));
     }
 
 
     @Test
     public void run() throws Exception {
-        Top.eval(IOUtils.resourceToString("/run.js", Charsets.UTF_8));
+        Top.init();
+        Top.eval("function sort(arr, i, j) {\n" +
+                       "    if (i >= j) {\n" +
+                       "        return;\n" +
+                       "    }\n" +
+                       "    let p = i, q = j;\n" +
+                       "    let temp = arr[p];\n" +
+                       "    while (p < q) {\n" +
+                       "        while (p < q && arr[q] >= temp) {\n" +
+                       "            q-=1;\n" +
+                       "        }\n" +
+                       "        arr[p] = arr[q];\n" +
+                       "        while (p < q && arr[p] <= temp) {\n" +
+                       "            p+=1;\n" +
+                       "        }\n" +
+                       "        arr[q] = arr[p];\n" +
+                       "    }\n" +
+                       "    arr[q] = temp;\n" +
+                       "    sort(arr, i, q - 1);\n" +
+                       "    sort(arr, q + 1, j);\n" +
+                       "}\n" +
+                       "\n" +
+                       "let arr = [234, 57, 12, 123, 346, 1234, 2];\n" +
+                       "\n" +
+                       "sort(arr, 0, arr.length - 1);");
+        Top.loop();
         System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
     }
 
     @Test
     public void runSort() throws Exception {
+        Top.init();
         Top.eval(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
         Top.loop();
         System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
@@ -50,6 +78,7 @@ public class JsTest {
 
     @Test
     public void runImport() throws Exception {
+        Top.init();
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
         Top.loop();
