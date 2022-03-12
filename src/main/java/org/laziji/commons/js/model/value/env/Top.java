@@ -86,6 +86,7 @@ public class Top {
     }
 
     public static void loop() throws Exception {
+        local.get().initStartTime();
         while (true) {
             synchronized (local.get()) {
                 Queue<Runner> macroTasks = local.get().getMacroTasks();

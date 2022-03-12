@@ -96,6 +96,7 @@ public class JsTest {
     @Test
     public void runPromise() throws Exception {
         Top.init();
+        Top.getThreadLocalTop().setOvertime(5000L);
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/promise.js", Charsets.UTF_8));
         Top.loop();

@@ -28,6 +28,8 @@ public class ThreadLocalTop {
     private final JsObject global = new JsGlobalObject();
 
     private boolean strict;
+    private Long startTime;
+    private Long overtime;
 
     public Queue<Top.Runner> getMacroTasks() {
         return macroTasks;
@@ -88,4 +90,20 @@ public class ThreadLocalTop {
     public PromiseClass getPromiseClass() {
         return promiseClass;
     }
+
+    public void initStartTime() {
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public void setOvertime(Long overtime) {
+        this.overtime = overtime;
+    }
+
+    public boolean isTimeout() {
+        if (overtime == null || startTime == null) {
+            return false;
+        }
+        return startTime + overtime <= System.currentTimeMillis();
+    }
+
 }

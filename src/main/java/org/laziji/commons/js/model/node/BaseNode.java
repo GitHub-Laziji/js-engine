@@ -4,6 +4,7 @@ import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.env.Top;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -67,7 +68,10 @@ public abstract class BaseNode implements Node {
 
     @Override
     public JsValue run(Contexts contexts) throws Exception {
-       return subRun(contexts);
+        if(Top.getThreadLocalTop().isTimeout()){
+            throw new RunException("Run timeout.");
+        }
+        return subRun(contexts);
     }
 
     protected JsValue subRun(Contexts contexts) throws Exception {
