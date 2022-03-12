@@ -17,7 +17,7 @@ public class ValueParagraphNode extends BaseListNode<ProxySentenceNode> implemen
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         JsValue value = null;
         for (Node node : nodes) {
             value = node.run(manager);

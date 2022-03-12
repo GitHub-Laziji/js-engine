@@ -20,7 +20,7 @@ public class BigBracketParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         manager.getContexts().push(new BlockContext());
         current[1].run(manager);
         manager.getContexts().pop();

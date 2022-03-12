@@ -24,7 +24,7 @@ public class ImportDefaultFromParagraphNode extends BasePlanNode implements Para
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         String variableName = ((NameWordNode) current[1]).getName();
         String moduleName = ((StringWordNode) current[3]).run(manager).toString();
         ModuleValue module = Top.getModule(moduleName);

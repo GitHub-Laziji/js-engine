@@ -18,7 +18,7 @@ public class SectionItemInternalNode extends BasePlanNode implements InternalNod
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         return current[0].run(manager);
     }
 

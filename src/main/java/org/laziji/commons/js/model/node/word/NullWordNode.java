@@ -17,7 +17,7 @@ public class NullWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) {
+    protected JsValue subRun(Contexts manager) {
         return new JsNull();
     }
 

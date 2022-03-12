@@ -22,7 +22,7 @@ public class CallWordNode extends BasePlanNode implements VariableWordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         List<ProxyCallParamsInternalNode> nodes = ((ListNode<ProxyCallParamsInternalNode>) current[1]).getNodes();
         JsValue pre = current[0].run(manager);
         JsObject caller = null;

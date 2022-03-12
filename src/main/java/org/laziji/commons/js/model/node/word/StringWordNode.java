@@ -17,7 +17,7 @@ public class StringWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) {
+    protected JsValue subRun(Contexts manager) {
         String code = getUnit().getValue();
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < code.length() - 1; i++) {

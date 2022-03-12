@@ -28,7 +28,7 @@ public class CalculationSentenceNode extends BaseListNode<Node> implements Sente
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         return calc(manager, 0, nodes.size());
     }
 

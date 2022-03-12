@@ -20,7 +20,7 @@ public class ReturnParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         JsValue value = new JsUndefined();
         if (current[1].getSelf() instanceof ValueParagraphNode) {
             value = current[1].run(manager);

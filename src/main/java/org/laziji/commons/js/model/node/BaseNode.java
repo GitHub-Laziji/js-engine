@@ -67,6 +67,10 @@ public abstract class BaseNode implements Node {
 
     @Override
     public JsValue run(Contexts contexts) throws Exception {
+       return subRun(contexts);
+    }
+
+    protected JsValue subRun(Contexts contexts) throws Exception {
         throw new RunException("%s Not yet supported.", this.getClass().getSimpleName());
     }
 

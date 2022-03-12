@@ -17,7 +17,7 @@ public class NameWordNode extends BaseUnitNode implements VariableWordNode {
     }
 
     @Override
-    public JsValue run(Contexts contexts) throws Exception {
+    protected JsValue subRun(Contexts contexts) throws Exception {
         String name = getUnit().getValue();
         return contexts.getProperty(name);
     }

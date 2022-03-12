@@ -24,7 +24,7 @@ public class LambdaWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts contexts) throws Exception {
+    protected JsValue subRun(Contexts contexts) throws Exception {
         List<JsFunction.Param> params;
         Node paramsNode = current[0].getSelf();
         if (paramsNode instanceof FunctionParamsInternalNode) {

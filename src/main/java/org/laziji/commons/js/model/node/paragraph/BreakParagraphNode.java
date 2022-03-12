@@ -21,7 +21,7 @@ public class BreakParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         for (int i = manager.getContexts().size() - 1; i >= 0; i--) {
             Context context = manager.getContexts().get(i);
             context.close();

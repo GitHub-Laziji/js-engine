@@ -22,7 +22,7 @@ public class SectionNode extends BaseListNode<SectionItemInternalNode> {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         for (Node node : nodes) {
             if (manager.getContexts().peek().isClose()) {
                 return null;

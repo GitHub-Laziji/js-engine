@@ -17,7 +17,7 @@ public class NumberWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) {
+    protected JsValue subRun(Contexts manager) {
         return new JsNumber(Double.valueOf(getUnit().getValue()));
     }
 

@@ -22,7 +22,7 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         String moduleName = ((StringWordNode) current[5]).run(manager).toString();
         ModuleValue module = Top.getModule(moduleName);
         for (Node node : ((ListNode<Node>) current[2]).getNodes()) {

@@ -19,7 +19,7 @@ public class NewObjectWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         List<Node> nodes = getFlatNodes();
         JsValue pre = current[1].run(manager);
         JsObject caller = null;

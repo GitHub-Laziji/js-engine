@@ -17,7 +17,7 @@ public class ObjectContentInternalNode extends BaseListNode<ProxyNode<Node>> imp
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         JsObject value = new JsObject();
         for (Node node : getNodes()) {
             node = node.getSelf();

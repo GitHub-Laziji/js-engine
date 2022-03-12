@@ -25,7 +25,7 @@ public class BeforeOperatorWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts contexts) throws Exception {
+    protected JsValue subRun(Contexts contexts) throws Exception {
         String name = ((NameWordNode) current[1]).getUnit().getValue();
         Token op = ((UnitNode) current[0]).getUnit().getToken();
         JsValue value = contexts.getProperty(name);

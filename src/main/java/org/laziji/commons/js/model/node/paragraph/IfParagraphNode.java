@@ -13,7 +13,7 @@ public class IfParagraphNode extends BaseListNode<ProxyNode<Node>> implements Pa
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         for (Node node : getNodes()) {
             node = node.getSelf();
             if (node instanceof IfInternalNode && ((IfInternalNode) node).runExp(manager).toBoolean()) {

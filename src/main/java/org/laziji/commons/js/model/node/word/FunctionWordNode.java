@@ -20,7 +20,7 @@ public class FunctionWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts contexts) throws Exception {
+    protected JsValue subRun(Contexts contexts) throws Exception {
         JsFunction value = new JsFunction(
                 contexts.fork(),
                 ((FunctionParamsInternalNode) current[2]).getParams(),

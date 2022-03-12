@@ -33,7 +33,7 @@ public class AssignmentSentenceNode extends BasePlanNode implements SentenceNode
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         VariableWordNode node = (VariableWordNode) current[0].getSelf();
         UnitNode op = (UnitNode) current[1];
         JsValue value = current[2].run(manager);

@@ -19,7 +19,7 @@ public class ObjectWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         return current[1].run(manager);
     }
 

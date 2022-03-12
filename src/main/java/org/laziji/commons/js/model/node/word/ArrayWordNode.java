@@ -23,7 +23,7 @@ public class ArrayWordNode extends BasePlanNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         List<JsValue> values = new ArrayList<>();
         Node body = current[1].getSelf();
         if (body instanceof ValueParagraphNode) {

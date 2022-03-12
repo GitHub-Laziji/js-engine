@@ -20,7 +20,7 @@ public class DocNode extends BasePlanNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         current[0].run(manager);
         // TODO export
         return null;

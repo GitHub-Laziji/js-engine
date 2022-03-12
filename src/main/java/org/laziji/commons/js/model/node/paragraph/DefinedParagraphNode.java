@@ -19,7 +19,7 @@ public class DefinedParagraphNode extends BasePlanNode implements ParagraphNode 
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         UnitNode definedNode = (UnitNode) current[0];
         DefinedItemInternalNode itemNode = (DefinedItemInternalNode) current[1];
         itemNode.run(manager, definedNode.getUnit().getToken());

@@ -10,7 +10,7 @@ public class EmptyNode extends BaseNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         return null;
     }
 

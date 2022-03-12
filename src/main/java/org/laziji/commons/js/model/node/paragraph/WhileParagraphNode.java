@@ -25,7 +25,7 @@ public class WhileParagraphNode extends BasePlanNode implements ParagraphNode {
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         LoopContext context = new LoopContext();
         manager.getContexts().push(context);
         while (current[2].run(manager).toBoolean()) {

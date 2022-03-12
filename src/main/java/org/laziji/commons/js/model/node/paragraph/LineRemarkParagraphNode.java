@@ -16,7 +16,7 @@ public class LineRemarkParagraphNode extends BasePlanNode implements ParagraphNo
     }
 
     @Override
-    public JsValue run(Contexts manager) throws Exception {
+    protected JsValue subRun(Contexts manager) throws Exception {
         return null;
     }
 

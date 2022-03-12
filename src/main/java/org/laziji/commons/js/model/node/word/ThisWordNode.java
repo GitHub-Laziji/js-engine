@@ -17,7 +17,7 @@ public class ThisWordNode extends BaseUnitNode implements WordNode {
     }
 
     @Override
-    public JsValue run(Contexts contexts) throws Exception {
+    protected JsValue subRun(Contexts contexts) throws Exception {
         FunctionContext context = contexts.findFirstContext(FunctionContext.class);
         return context.getInstance();
     }
