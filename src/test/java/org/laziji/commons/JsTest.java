@@ -101,4 +101,13 @@ public class JsTest {
         Top.eval(IOUtils.resourceToString("/promise.js", Charsets.UTF_8));
         Top.loop();
     }
+
+
+    @Test
+    public void runSafe() throws Exception {
+        Top.init();
+        Top.eval(IOUtils.resourceToString("/safe.js", Charsets.UTF_8),true,false);
+        Top.loop();
+        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+    }
 }

@@ -1,5 +1,6 @@
 package org.laziji.commons.js.model.value.env;
 
+import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
@@ -8,10 +9,7 @@ import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.util.TokenUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class Top {
 
@@ -23,7 +21,7 @@ public class Top {
         local.set(threadLocalTop);
     }
 
-    public static void init(){
+    public static void init() {
         init(new ThreadLocalTop());
     }
 
@@ -56,22 +54,30 @@ public class Top {
         }
     }
 
-    public static void eval(String text) throws Exception {
-        eval(compile(text));
-    }
-
     public static void eval(DocNode doc) {
         addMacroTask(() -> doc.run(local.get().getMainContexts()));
     }
 
-    public static DocNode compile(String text) throws Exception {
+    public static void eval(String text, boolean strict, boolean safe) throws Exception {
+        eval(compile(text, strict, safe));
+    }
+
+    public static void eval(String text) throws Exception {
+        eval(text, false, false);
+    }
+
+    public static DocNode compile(String text, boolean strict, boolean safe) throws Exception {
         NodeConfiguration configuration = new NodeConfiguration();
-        configuration.setStrict(local.get().isStrict());
+        configuration.setStrict(strict);
+        configuration.setSafe(safe);
         DocNode doc = new DocNode(configuration);
-        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
+        Set<Token> excludes = new HashSet<>();
+        if (safe) {
+            excludes.addAll(Arrays.asList(Token.WHILE, Token.FOR, Token.FUNCTION, Token.IMPORT, Token.LAMBDA));
+        }
+        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text, excludes);
         Node p = doc;
         for (Node.TokenUnit token : tokens) {
-//            System.out.println(JSON.toJSONString(token) + " " + p.getSelf().getClass().getSimpleName());
             p = p.append(token);
         }
         if (!doc.isDone()) {
@@ -83,6 +89,10 @@ public class Top {
             System.out.println("=== DEBUG PRINT END   =========\n\n\n");
         }
         return doc;
+    }
+
+    public static DocNode compile(String text) throws Exception {
+        return compile(text, false, false);
     }
 
     public static void loop() throws Exception {

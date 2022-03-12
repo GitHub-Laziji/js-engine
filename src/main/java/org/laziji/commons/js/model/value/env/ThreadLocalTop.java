@@ -27,7 +27,6 @@ public class ThreadLocalTop {
     private final Contexts mainContexts = new Contexts();
     private final JsObject global = new JsGlobalObject();
 
-    private boolean strict;
     private Long startTime;
     private Long overtime;
 
@@ -49,14 +48,6 @@ public class ThreadLocalTop {
 
     public Map<String, ModuleValue> getExternalModules() {
         return externalModules;
-    }
-
-    public boolean isStrict() {
-        return strict;
-    }
-
-    public void setStrict(boolean strict) {
-        this.strict = strict;
     }
 
     public Contexts getMainContexts() {
