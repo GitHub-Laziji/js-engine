@@ -1,12 +1,13 @@
 package org.laziji.commons;
 
-import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.DocNode;
-import org.laziji.commons.js.model.value.module.SystemModuleValue;
 import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.module.SystemModuleValue;
+
+import java.nio.charset.StandardCharsets;
 
 public class JsTest {
 
@@ -32,7 +33,7 @@ public class JsTest {
     @Test
     public void docTest() throws Exception {
         Top.init();
-        System.out.println(Top.compile(IOUtils.resourceToString("/doc.js", Charsets.UTF_8)));
+        System.out.println(Top.compile(IOUtils.resourceToString("/doc.js", StandardCharsets.UTF_8)));
     }
 
 
@@ -40,29 +41,29 @@ public class JsTest {
     public void run() throws Exception {
         Top.init();
         Top.eval("function sort(arr, i, j) {\n" +
-                       "    if (i >= j) {\n" +
-                       "        return;\n" +
-                       "    }\n" +
-                       "    let p = i, q = j;\n" +
-                       "    let temp = arr[p];\n" +
-                       "    while (p < q) {\n" +
-                       "        while (p < q && arr[q] >= temp) {\n" +
-                       "            q-=1;\n" +
-                       "        }\n" +
-                       "        arr[p] = arr[q];\n" +
-                       "        while (p < q && arr[p] <= temp) {\n" +
-                       "            p+=1;\n" +
-                       "        }\n" +
-                       "        arr[q] = arr[p];\n" +
-                       "    }\n" +
-                       "    arr[q] = temp;\n" +
-                       "    sort(arr, i, q - 1);\n" +
-                       "    sort(arr, q + 1, j);\n" +
-                       "}\n" +
-                       "\n" +
-                       "let arr = [234, 57, 12, 123, 346, 1234, 2];\n" +
-                       "\n" +
-                       "sort(arr, 0, arr.length - 1);");
+                "    if (i >= j) {\n" +
+                "        return;\n" +
+                "    }\n" +
+                "    let p = i, q = j;\n" +
+                "    let temp = arr[p];\n" +
+                "    while (p < q) {\n" +
+                "        while (p < q && arr[q] >= temp) {\n" +
+                "            q-=1;\n" +
+                "        }\n" +
+                "        arr[p] = arr[q];\n" +
+                "        while (p < q && arr[p] <= temp) {\n" +
+                "            p+=1;\n" +
+                "        }\n" +
+                "        arr[q] = arr[p];\n" +
+                "    }\n" +
+                "    arr[q] = temp;\n" +
+                "    sort(arr, i, q - 1);\n" +
+                "    sort(arr, q + 1, j);\n" +
+                "}\n" +
+                "\n" +
+                "let arr = [234, 57, 12, 123, 346, 1234, 2];\n" +
+                "\n" +
+                "sort(arr, 0, arr.length - 1);");
         Top.loop();
         System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
     }
@@ -70,7 +71,7 @@ public class JsTest {
     @Test
     public void runSort() throws Exception {
         Top.init();
-        Top.eval(IOUtils.resourceToString("/sort.js", Charsets.UTF_8));
+        Top.eval(IOUtils.resourceToString("/sort.js", StandardCharsets.UTF_8));
         Top.loop();
         System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
     }
@@ -80,16 +81,16 @@ public class JsTest {
     public void runImport() throws Exception {
         Top.init();
         Top.addInternalModules("sys", new SystemModuleValue());
-        Top.eval(IOUtils.resourceToString("/import.js", Charsets.UTF_8));
+        Top.eval(IOUtils.resourceToString("/import.js", StandardCharsets.UTF_8));
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextSimpleString());
     }
 
     @Test
     public void runString() throws Exception {
         Top.init();
         Top.addInternalModules("sys", new SystemModuleValue());
-        Top.eval(IOUtils.resourceToString("/string.js", Charsets.UTF_8));
+        Top.eval(IOUtils.resourceToString("/string.js", StandardCharsets.UTF_8));
         Top.loop();
     }
 
@@ -98,7 +99,7 @@ public class JsTest {
         Top.init();
         Top.getThreadLocalTop().setOvertime(5000L);
         Top.addInternalModules("sys", new SystemModuleValue());
-        Top.eval(IOUtils.resourceToString("/promise.js", Charsets.UTF_8));
+        Top.eval(IOUtils.resourceToString("/promise.js", StandardCharsets.UTF_8));
         Top.loop();
     }
 
@@ -106,8 +107,8 @@ public class JsTest {
     @Test
     public void runSafe() throws Exception {
         Top.init();
-        Top.eval(IOUtils.resourceToString("/safe.js", Charsets.UTF_8),true,false);
+        Top.eval(IOUtils.resourceToString("/safe.js", StandardCharsets.UTF_8), true, false);
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextSimpleString());
     }
 }
