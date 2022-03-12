@@ -22,7 +22,7 @@ public abstract class BaseNode implements Node {
         }
         if (this.configuration == null) {
             this.configuration = new NodeConfiguration();
-            this.configuration.setStrict(true);
+            this.configuration.setStrict(false);
         }
     }
 

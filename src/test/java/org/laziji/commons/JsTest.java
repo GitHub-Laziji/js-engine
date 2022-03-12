@@ -107,8 +107,6 @@ public class JsTest {
     @Test
     public void runSafe() throws Exception {
         Top.init();
-        Top.eval(IOUtils.resourceToString("/safe.js", StandardCharsets.UTF_8), true, false);
-        Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextSimpleString());
+        System.out.println(Top.exprEval("'hello '+(1*2*3*4)"));
     }
 }

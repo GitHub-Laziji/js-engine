@@ -1,15 +1,21 @@
 package org.laziji.commons.js.model.value.env;
 
+import com.google.common.collect.ImmutableSet;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.node.DocNode;
+import org.laziji.commons.js.model.node.ExprDocNode;
 import org.laziji.commons.js.model.node.Node;
+import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.util.TokenUtils;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 public class Top {
 
@@ -58,24 +64,36 @@ public class Top {
         addMacroTask(() -> doc.run(local.get().getMainContexts()));
     }
 
-    public static void eval(String text, boolean strict, boolean safe) throws Exception {
-        eval(compile(text, strict, safe));
+    public static void eval(String text, boolean strict) throws Exception {
+        eval(compile(text, strict));
     }
 
     public static void eval(String text) throws Exception {
-        eval(text, false, false);
+        eval(text, false);
     }
 
-    public static DocNode compile(String text, boolean strict, boolean safe) throws Exception {
+    public static JsValue exprEval(String text) throws Exception {
+        NodeConfiguration configuration = new NodeConfiguration();
+        configuration.setStrict(false);
+        ExprDocNode doc = new ExprDocNode(configuration);
+        Set<Token> excludes = ImmutableSet.of(Token.WHILE, Token.FOR, Token.FUNCTION, Token.IMPORT, Token.LAMBDA);
+        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text, excludes);
+        Node p = doc;
+        for (Node.TokenUnit token : tokens) {
+            p = p.append(token);
+        }
+        if (!doc.isDone()) {
+            throw new CompileException();
+        }
+        local.get().initStartTime();
+        return doc.run(local.get().getMainContexts());
+    }
+
+    public static DocNode compile(String text, boolean strict) throws Exception {
         NodeConfiguration configuration = new NodeConfiguration();
         configuration.setStrict(strict);
-        configuration.setSafe(safe);
         DocNode doc = new DocNode(configuration);
-        Set<Token> excludes = new HashSet<>();
-        if (safe) {
-            excludes.addAll(Arrays.asList(Token.WHILE, Token.FOR, Token.FUNCTION, Token.IMPORT, Token.LAMBDA));
-        }
-        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text, excludes);
+        List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text);
         Node p = doc;
         for (Node.TokenUnit token : tokens) {
             p = p.append(token);
@@ -92,7 +110,7 @@ public class Top {
     }
 
     public static DocNode compile(String text) throws Exception {
-        return compile(text, false, false);
+        return compile(text, false);
     }
 
     public static void loop() throws Exception {
