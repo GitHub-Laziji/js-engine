@@ -103,10 +103,19 @@ public class JsTest {
         Top.loop();
     }
 
-
     @Test
     public void runSafe() throws Exception {
         Top.init();
         System.out.println(Top.exprEval("'hello '+(1*2*3*4)"));
     }
+
+    @Test
+    public void runTimeout() throws Exception {
+        Top.init();
+        Top.getThreadLocalTop().setOvertime(100L);
+        Top.addInternalModules("sys", new SystemModuleValue());
+        Top.eval(IOUtils.resourceToString("/timeout.js", StandardCharsets.UTF_8));
+        Top.loop();
+    }
+
 }

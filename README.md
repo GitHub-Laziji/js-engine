@@ -1,7 +1,12 @@
 # JS脚本引擎
 使用Java实现JS脚本引擎
 
-## 生成语法树 并输出格式化代码
+- 支持解析js脚本生成语法树
+- 支持运行完整js脚本
+- 支持安全模式运行单行表达式
+- 支持设置超时时间
+
+## 1. 生成语法树 并输出格式化代码
 ### 示例代码
 ```java
 class Test{
@@ -19,39 +24,38 @@ let a = 1 + 2, b = 3, c = "string", d = a * (b + c / 2), func = function () {
 }
 ```
 
-## 运行脚本
+## 2. 运行完整脚本
 以下示例为运行快排算法（运行环境线程隔离）
-### js脚本
-```js
-function sort(arr, i, j) {
-    if (i >= j) {
-        return;
-    }
-    let p = i, q = j;
-    let temp = arr[p];
-    while (p < q) {
-        while (p < q && arr[q] >= temp) {
-            q-=1;
-        }
-        arr[p] = arr[q];
-        while (p < q && arr[p] <= temp) {
-            p+=1;
-        }
-        arr[q] = arr[p];
-    }
-    arr[q] = temp;
-    sort(arr, i, q - 1);
-    sort(arr, q + 1, j);
-}
-
-let arr = [234, 57, 12, 123, 346, 1234, 2];
-
-sort(arr, 0, arr.length - 1);
-```
 
 ### 示例代码
 ```java
 class Test{
+    /**
+     * function sort(arr, i, j) {
+     *   if (i >= j) {
+     *     return;
+     *   }
+     *   let p = i, q = j;
+     *   let temp = arr[p];
+     *   while (p < q) {
+     *     while (p < q && arr[q] >= temp) {
+     *       q-=1;
+     *     }
+     *     arr[p] = arr[q];
+     *     while (p < q && arr[p] <= temp) {
+     *       p+=1;
+     *     }
+     *     arr[q] = arr[p];
+     *   }
+     *   arr[q] = temp;
+     *   sort(arr, i, q - 1);
+     *   sort(arr, q + 1, j);
+     * }
+     *
+     * let arr = [234, 57, 12, 123, 346, 1234, 2];
+     *
+     * sort(arr, 0, arr.length - 1);
+     */
     public static void main(String[] args){
         Top.init();
         Top.eval("function sort(arr, i, j) {\n" +
@@ -88,4 +92,55 @@ class Test{
 ```text
 arr: [2, 12, 57, 123, 234, 346, 1234]
 sort: [object Object]
+```
+
+
+## 3. 运行单行表达式
+该模式下只支持单行表达式 并且无法使用for、while、function、lambda、import关键字
+
+### 示例代码
+```java
+class Test{
+    public static void main(String[] args){
+        Top.init();
+        System.out.println(Top.exprEval("'hello '+(1*2*3*4)"));
+    }
+}
+```
+### 输出
+```text
+hello 24
+```
+
+
+
+## 4. 设置超时时间
+通过`Top.getThreadLocalTop().setOvertime(100L);`设置超时时间，单位毫秒
+
+### 示例代码
+```java
+class Test{
+    public static void main(String[] args){
+        Top.init();
+        Top.getThreadLocalTop().setOvertime(100L);
+        Top.addInternalModules("sys", new SystemModuleValue());
+        Top.eval("import { print } from \"sys\";\n" +
+                "\n" +
+                "let i=1;\n" +
+                "while(true){\n" +
+                "    print(i++);\n" +
+                "}");
+        Top.loop();
+    }
+}
+```
+### 输出
+```text
+1
+2
+3
+...
+
+org.laziji.commons.js.exception.RunException: Run timeout.
+...
 ```
