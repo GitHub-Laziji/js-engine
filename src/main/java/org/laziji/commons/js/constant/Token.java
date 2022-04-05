@@ -7,8 +7,8 @@ public enum Token {
 
     EOF("\0"),
 
-    NEWLINE("^(\\n+)[\\s\\S]*"),
-    SPACE("^(\\s+)[\\s\\S]*"),
+    NEWLINE("^(\\r\\n|\\n|\\r)[\\s\\S]*"),
+    SPACE("^([ \\t])[\\s\\S]*"),
     SEMICOLON("^(;)[\\s\\S]*"),
     COLON("^(:)[\\s\\S]*"),
     QUESTION("^(\\?)[\\s\\S]*"),

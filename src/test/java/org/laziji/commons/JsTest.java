@@ -118,4 +118,11 @@ public class JsTest {
         Top.loop();
     }
 
+    @Test
+    public void err() throws Exception {
+        Top.init();
+        Top.eval(IOUtils.resourceToString("/err.js", StandardCharsets.UTF_8));
+        Top.loop();
+    }
+
 }
