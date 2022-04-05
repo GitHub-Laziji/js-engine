@@ -31,11 +31,9 @@ public class TokenUtils {
                 }
             }
             if (token == null) {
-                String n = getFirstLine(text);
-                String pre = line.substring(0, line.length() - n.length());
-                throw new SyntaxException("Invalid or unexpected token, Ln %d, Col %d\n%s%s\n%s^",
-                        lineNum, pre.length() + 1,
-                        pre, n, StringUtils.repeat(' ', pre.length()));
+                int errCol = line.length() - getFirstLine(text).length() + 1;
+                throw new SyntaxException("Invalid or unexpected token, Ln %d, Col %d\n%s\n%s^",
+                        lineNum, errCol, line, StringUtils.repeat(' ', errCol - 1));
             }
             if (excludes != null && excludes.contains(token.getToken())) {
                 throw new CompileException("[%s] is not allowed.", token.getToken());
