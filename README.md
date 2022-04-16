@@ -6,6 +6,29 @@
 - 支持安全模式运行单行表达式
 - 支持设置超时时间
 
+打包后命令行运行
+```text
+git clone https://github.com/GitHub-Laziji/js-engine.git
+cd js-engine
+mvn package
+cd target
+
+java -jar ./js-engine-1.0-SNAPSHOT-jar-with-dependencies.jar ./test.js
+```
+或者安装后直接引入依赖
+```text
+git clone https://github.com/GitHub-Laziji/js-engine.git
+cd js-engine
+mvn install
+```
+```xml
+<dependency>
+    <groupId>org.laziji.commons</groupId>
+    <artifactId>js-engine</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
 ## 1. 生成语法树 并输出格式化代码
 ### 示例代码
 ```java
