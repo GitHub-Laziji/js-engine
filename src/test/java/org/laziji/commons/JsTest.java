@@ -125,4 +125,12 @@ public class JsTest {
         Top.loop();
     }
 
+    @Test
+    public void readFile() throws Exception {
+        Top.init();
+        Top.addInternalModules("sys", new SystemModuleValue());
+        Top.eval(IOUtils.resourceToString("/readfile.js", StandardCharsets.UTF_8));
+        Top.loop();
+    }
+
 }
