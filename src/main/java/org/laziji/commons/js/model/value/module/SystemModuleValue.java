@@ -4,18 +4,15 @@ import org.apache.commons.io.IOUtils;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.value.InternalFunction;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.object.JsFunction;
-import org.laziji.commons.js.model.value.object.JsObject;
-import org.laziji.commons.js.model.value.object.JsStringObject;
 import org.laziji.commons.js.model.value.env.ThreadLocalTop;
 import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.object.JsFunction;
+import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.primitive.JsString;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class SystemModuleValue extends ModuleValue {
@@ -23,6 +20,7 @@ public class SystemModuleValue extends ModuleValue {
     {
         setDefaultExportValue(new JsObject());
         addExportValue("readFileSync", new InternalFunction(this::readFileSyncHandler));
+        addExportValue("readFile", new InternalFunction(this::readFileHandler));
         addExportValue("setTimeout", new InternalFunction(this::setTimeoutHandler));
         addExportValue("print", new InternalFunction(this::printHandler));
     }
@@ -39,6 +37,43 @@ public class SystemModuleValue extends ModuleValue {
         try (FileInputStream fis = new FileInputStream(path)) {
             String data = IOUtils.toString(fis, enc);
             return new JsString(data);
+        } catch (Exception e) {
+            throw new RunException(e.getMessage());
+        }
+    }
+
+    public JsValue readFileHandler(JsObject caller, List<JsValue> arguments) {
+        if (arguments.size() < 1) {
+            throw new RunException();
+        }
+        final String path = arguments.get(0).toString();
+        final String enc = arguments.size() >= 2 ? arguments.get(1).toString() : "utf-8";
+        InternalFunction func = new InternalFunction((ignore, args) -> {
+            JsFunction resolve = (JsFunction) (args.get(0));
+            JsFunction reject = (JsFunction) (args.get(1));
+            String id = UUID.randomUUID().toString();
+            Top.addDelayMacroTaskId(id);
+            ThreadLocalTop threadLocalTop = Top.getThreadLocalTop();
+            new Thread(() -> {
+                Top.init(threadLocalTop);
+                try (FileInputStream fis = new FileInputStream(path)) {
+                    String data = IOUtils.toString(fis, enc);
+                    Top.deleteDelayMacroTaskId(id);
+                    Top.addMacroTask(() -> resolve.call(Collections.singletonList(new JsString(data))));
+                } catch (Exception e) {
+                    try {
+                        Top.deleteDelayMacroTaskId(id);
+                        Top.addMacroTask(() -> reject.call(Collections.singletonList(new JsString(e.getMessage()))));
+                    } catch (Exception ex) {
+                        throw new RunException();
+                    }
+                }
+
+            }).start();
+            return JsUndefined.getInstance();
+        });
+        try {
+            return Top.getThreadLocalTop().getPromiseClass().instantiate(Collections.singletonList(func));
         } catch (Exception e) {
             throw new RunException(e.getMessage());
         }
@@ -64,13 +99,12 @@ public class SystemModuleValue extends ModuleValue {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
+                Top.init(threadLocalTop);
                 try {
-                    Top.init(threadLocalTop);
-                    Top.addMacroTask(() ->
-                            ((JsFunction) arguments.get(0)).call(new ArrayList<>()));
                     Top.deleteDelayMacroTaskId(id);
+                    Top.addMacroTask(() -> ((JsFunction) arguments.get(0)).call(new ArrayList<>()));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new RunException();
                 }
             }
         }, (long) ((JsNumber) arguments.get(1)).getValue());
