@@ -21,7 +21,6 @@ public class Top {
 
     private static final ThreadLocal<ThreadLocalTop> local = new ThreadLocal<>();
 
-    private static final boolean DEBUG = true;
 
     public static void init(ThreadLocalTop threadLocalTop) {
         local.set(threadLocalTop);
@@ -100,11 +99,6 @@ public class Top {
         }
         if (!doc.isDone()) {
             throw new CompileException();
-        }
-        if (DEBUG) {
-            System.out.println("=== DEBUG PRINT START =========");
-            System.out.println(doc);
-            System.out.println("=== DEBUG PRINT END   =========\n\n\n");
         }
         return doc;
     }
