@@ -109,7 +109,7 @@ class Test{
                 "\n" +
                 "sort(arr, 0, arr.length - 1);");
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextString());
     }
 }
 ```
