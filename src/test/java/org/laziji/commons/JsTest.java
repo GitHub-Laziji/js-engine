@@ -1,11 +1,11 @@
 package org.laziji.commons;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.DocNode;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.module.SystemModuleValue;
+import org.laziji.commons.js.util.IOUtils;
 
 import java.nio.charset.StandardCharsets;
 
