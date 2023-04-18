@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.context;
 
-import com.alibaba.fastjson.JSON;
 import org.laziji.commons.js.exception.ReferenceException;
 import org.laziji.commons.js.exception.SyntaxException;
 import org.laziji.commons.js.exception.TypeException;
@@ -65,15 +64,15 @@ public abstract class BaseContext implements Context {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(context, true);
-    }
-
-    @Override
-    public String toSimpleString() {
         StringBuilder result = new StringBuilder();
         for (Map.Entry<String, ContextProperty> entry : context.entrySet()) {
             result.append(entry.getKey()).append(": ").append(entry.getValue().getValue().toString()).append('\n');
         }
         return result.toString();
+    }
+
+    @Override
+    public String toSimpleString() {
+        return toString();
     }
 }

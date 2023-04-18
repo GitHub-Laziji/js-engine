@@ -1,6 +1,5 @@
 package org.laziji.commons.js.util;
 
-import org.apache.commons.lang3.StringUtils;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.SyntaxException;
@@ -32,8 +31,12 @@ public class TokenUtils {
             }
             if (token == null) {
                 int errCol = line.length() - getFirstLine(text).length() + 1;
+                StringBuilder tab = new StringBuilder();
+                for (int i = 0; i < errCol - 1; i++) {
+                    tab.append(' ');
+                }
                 throw new SyntaxException("Invalid or unexpected token, Ln %d, Col %d\n%s\n%s^",
-                        lineNum, errCol, line, StringUtils.repeat(' ', errCol - 1));
+                        lineNum, errCol, line, tab.toString());
             }
             if (excludes != null && excludes.contains(token.getToken())) {
                 throw new CompileException("[%s] is not allowed.", token.getToken());
