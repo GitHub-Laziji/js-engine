@@ -1,7 +1,5 @@
 package org.laziji.commons.js.model.node;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +82,7 @@ public abstract class BaseListNode<T extends Node> extends BaseNode {
     }
 
     public List<T> getNodes() {
-        return ImmutableList.copyOf(nodes);
+        return new ArrayList<>(nodes);
     }
 
     protected boolean allowEmpty() {

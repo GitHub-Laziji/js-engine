@@ -5,7 +5,6 @@ import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.SyntaxException;
 import org.laziji.commons.js.model.node.Node;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

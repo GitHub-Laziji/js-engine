@@ -1,8 +1,6 @@
 package org.laziji.commons.js.model.node;
 
-import com.google.common.collect.ImmutableSet;
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 import org.laziji.commons.js.model.node.sentence.ProxySentenceNode;
@@ -10,7 +8,6 @@ import org.laziji.commons.js.model.value.JsValue;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiFunction;
 
 public class ExprDocNode extends BasePlanNode {

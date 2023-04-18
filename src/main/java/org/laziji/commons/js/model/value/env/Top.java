@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.value.env;
 
-import com.google.common.collect.ImmutableSet;
 import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.exception.CompileException;
 import org.laziji.commons.js.exception.RunException;
@@ -12,10 +11,7 @@ import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.util.TokenUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class Top {
 
@@ -75,7 +71,7 @@ public class Top {
         NodeConfiguration configuration = new NodeConfiguration();
         configuration.setStrict(false);
         ExprDocNode doc = new ExprDocNode(configuration);
-        Set<Token> excludes = ImmutableSet.of(Token.WHILE, Token.FOR, Token.FUNCTION, Token.IMPORT, Token.LAMBDA);
+        Set<Token> excludes = new HashSet<>(Arrays.asList(Token.WHILE, Token.FOR, Token.FUNCTION, Token.IMPORT, Token.LAMBDA));
         List<Node.TokenUnit> tokens = TokenUtils.parseTextToTokens(text, excludes);
         Node p = doc;
         for (Node.TokenUnit token : tokens) {

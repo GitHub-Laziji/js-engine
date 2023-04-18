@@ -1,13 +1,14 @@
 package org.laziji.commons.js.model.node;
 
-import com.google.common.collect.ImmutableSet;
 import org.laziji.commons.js.constant.Token;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UnitNode extends BaseUnitNode {
 
-    private Token[] tokens;
+    private final Token[] tokens;
 
     public UnitNode(Node parent, Token... tokens) {
         super(parent);
@@ -16,6 +17,6 @@ public class UnitNode extends BaseUnitNode {
 
     @Override
     protected Set<Token> getTokens() {
-        return ImmutableSet.copyOf(tokens);
+        return new HashSet<>(Arrays.asList(tokens));
     }
 }

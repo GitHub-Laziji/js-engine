@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.node;
 
-import com.google.common.collect.ImmutableList;
 import org.laziji.commons.js.model.manager.NodeConfiguration;
 
 import java.util.Arrays;
@@ -68,7 +67,7 @@ public abstract class BasePlanNode extends BaseNode {
     }
 
     public List<Node> getNodes() {
-        return ImmutableList.copyOf(current);
+        return Arrays.asList(current);
     }
 
     protected String getStringFormat() {
