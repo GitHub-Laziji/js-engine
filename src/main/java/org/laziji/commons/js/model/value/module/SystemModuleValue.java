@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.value.module;
 
-import org.apache.commons.io.IOUtils;
 import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.value.InternalFunction;
 import org.laziji.commons.js.model.value.JsValue;
@@ -11,8 +10,10 @@ import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.primitive.JsString;
 import org.laziji.commons.js.model.value.primitive.JsUndefined;
+import org.laziji.commons.js.util.IOUtils;
 
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class SystemModuleValue extends ModuleValue {
@@ -35,7 +36,7 @@ public class SystemModuleValue extends ModuleValue {
             enc = arguments.get(1).toString();
         }
         try (FileInputStream fis = new FileInputStream(path)) {
-            String data = IOUtils.toString(fis, enc);
+            String data = IOUtils.toString(fis, Charset.forName(enc));
             return new JsString(data);
         } catch (Exception e) {
             throw new RunException(e.getMessage());
@@ -57,7 +58,7 @@ public class SystemModuleValue extends ModuleValue {
             new Thread(() -> {
                 Top.init(threadLocalTop);
                 try (FileInputStream fis = new FileInputStream(path)) {
-                    String data = IOUtils.toString(fis, enc);
+                    String data = IOUtils.toString(fis, Charset.forName(enc));
                     Top.deleteDelayMacroTaskId(id);
                     Top.addMacroTask(() -> resolve.call(Collections.singletonList(new JsString(data))));
                 } catch (Exception e) {
@@ -88,9 +89,7 @@ public class SystemModuleValue extends ModuleValue {
     }
 
     public JsValue setTimeoutHandler(JsObject caller, List<JsValue> arguments) {
-        if (arguments.size() < 2
-                || !(arguments.get(0) instanceof JsFunction)
-                || !(arguments.get(1) instanceof JsNumber)) {
+        if (arguments.size() < 2 || !(arguments.get(0) instanceof JsFunction) || !(arguments.get(1) instanceof JsNumber)) {
             throw new RunException();
         }
         String id = UUID.randomUUID().toString();
