@@ -2,7 +2,7 @@
 ![](https://img.shields.io/github/languages/top/github-laziji/js-engine.svg?style=flat)
 ![](https://img.shields.io/github/stars/gitHub-laziji/js-engine.svg?style=social)
 
-使用Java实现JS脚本引擎
+使用Java实现的JS脚本引擎
 
 - 支持解析js脚本生成语法树
 - 支持运行完整js脚本

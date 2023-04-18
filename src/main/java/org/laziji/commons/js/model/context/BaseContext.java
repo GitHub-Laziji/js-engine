@@ -64,6 +64,7 @@ public abstract class BaseContext implements Context {
 
     @Override
     public String toString() {
+        // TODO 优化嵌套对象展示
         StringBuilder result = new StringBuilder();
         for (Map.Entry<String, ContextProperty> entry : context.entrySet()) {
             result.append(entry.getKey()).append(": ").append(entry.getValue().getValue().toString()).append('\n');
@@ -71,8 +72,4 @@ public abstract class BaseContext implements Context {
         return result.toString();
     }
 
-    @Override
-    public String toSimpleString() {
-        return toString();
-    }
 }

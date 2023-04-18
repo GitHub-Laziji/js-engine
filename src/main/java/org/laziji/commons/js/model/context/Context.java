@@ -18,12 +18,8 @@ public interface Context {
 
     boolean isClose();
 
-    String toSimpleString();
-
     enum ContextPropertyType {
-        LET,
-        VAR,
-        CONST;
+        LET, VAR, CONST;
 
         public static ContextPropertyType match(Token token) {
             if (token == Token.CONST) {

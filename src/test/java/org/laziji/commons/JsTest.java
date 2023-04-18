@@ -65,7 +65,7 @@ public class JsTest {
                 "\n" +
                 "sort(arr, 0, arr.length - 1);");
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextString());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class JsTest {
         Top.init();
         Top.eval(IOUtils.resourceToString("/sort.js", StandardCharsets.UTF_8));
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextString());
     }
 
 
@@ -83,7 +83,7 @@ public class JsTest {
         Top.addInternalModules("sys", new SystemModuleValue());
         Top.eval(IOUtils.resourceToString("/import.js", StandardCharsets.UTF_8));
         Top.loop();
-        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextSimpleString());
+        System.out.println(Top.getThreadLocalTop().getMainContexts().toTopContextString());
     }
 
     @Test

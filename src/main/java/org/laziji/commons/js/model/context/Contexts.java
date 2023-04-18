@@ -66,7 +66,7 @@ public class Contexts {
         return new Contexts(this);
     }
 
-    public String toTopContextSimpleString() {
-        return getContexts().peek().toSimpleString();
+    public String toTopContextString() {
+        return getContexts().peek().toString();
     }
 }
