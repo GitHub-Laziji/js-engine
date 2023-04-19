@@ -36,7 +36,7 @@ public class ImportFromParagraphNode extends BasePlanNode implements ParagraphNo
                 variableName = ((NameWordNode) ((PlanNode) node).getNodes().get(2)).getName();
             }
             JsValue exportValue = module.getExportValue(importName);
-            if (module.getDefaultExportValue() != null) {
+            if (exportValue != null) {
                 manager.getContexts().peek().addProperty(variableName, exportValue, Context.ContextPropertyType.CONST);
             } else {
                 manager.getContexts().peek().addProperty(variableName, new JsUndefined(), Context.ContextPropertyType.CONST);
