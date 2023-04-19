@@ -4,8 +4,8 @@ import org.laziji.commons.js.exception.TypeException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BaseProxyNode;
 import org.laziji.commons.js.model.node.Node;
-import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.object.JsFunction;
 import org.laziji.commons.js.model.value.object.JsObject;
 
 public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> implements InternalNode {
@@ -20,18 +20,21 @@ public class ProxyCallParamsInternalNode extends BaseProxyNode<InternalNode> imp
     public JsValue run(JsObject caller, JsValue pre, Contexts manager) throws Exception {
         JsObject objectValue = JsObject.cast(pre);
         Node self = getSelf();
-        if (self instanceof CallFunctionParamsInternalNode && objectValue instanceof JsFunction) {
+        if (self instanceof CallFunctionParamsInternalNode) {
+            if (!(objectValue instanceof JsFunction)) {
+                throw new TypeException("%s is not a function", objectValue);
+            }
             return ((JsFunction) objectValue).bind(caller).call(((CallFunctionParamsInternalNode) self).getArguments(manager));
         }
-        String name;
         if (self instanceof CallObjectParamsInternalNode) {
-            name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(manager).toString();
-        } else if (self instanceof CallMemberNameInternalNode) {
-            name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
-        } else {
-            throw new TypeException();
+            String name = ((CallObjectParamsInternalNode) self).getNodes().get(1).run(manager).toString();
+            return objectValue.getProperty(name);
         }
-        return objectValue.getProperty(name);
+        if (self instanceof CallMemberNameInternalNode) {
+            String name = ((CallMemberNameInternalNode) self).getNodes().get(1).toString();
+            return objectValue.getProperty(name);
+        }
+        throw new TypeException();
     }
 
     public JsValue assignment(JsValue pre, Contexts manager, JsValue value) throws Exception {
