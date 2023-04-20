@@ -1,3 +1,5 @@
+import "sys";
+import 'sys';
 import * as sys from "sys";
 import {setTimeout,print as p} from "sys";
 
