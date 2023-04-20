@@ -1,10 +1,18 @@
 package org.laziji.commons.js.model.node.paragraph;
 
 import org.laziji.commons.js.constant.Token;
+import org.laziji.commons.js.model.context.Context;
+import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.node.word.NameWordNode;
+import org.laziji.commons.js.model.node.word.StringWordNode;
+import org.laziji.commons.js.model.value.JsValue;
+import org.laziji.commons.js.model.value.env.Top;
+import org.laziji.commons.js.model.value.module.ModuleValue;
+import org.laziji.commons.js.model.value.object.JsObject;
+import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +22,17 @@ public class ImportAllAsFromParagraphNode extends BasePlanNode implements Paragr
 
     public ImportAllAsFromParagraphNode(Node parent) {
         super(parent);
+    }
+
+    @Override
+    protected JsValue subRun(Contexts manager) throws Exception {
+        String variableName = ((NameWordNode) current[3]).getName();
+        String moduleName = ((StringWordNode) current[5]).run(manager).toString();
+        ModuleValue module = Top.getModule(moduleName);
+        JsObject all = new JsObject();
+        module.getExportNames().forEach(name -> all.addProperty(name, module.getExportValue(name)));
+        manager.getContexts().peek().addProperty(variableName, all, Context.ContextPropertyType.CONST);
+        return null;
     }
 
     @Override
@@ -29,7 +48,7 @@ public class ImportAllAsFromParagraphNode extends BasePlanNode implements Paragr
                 (self, pre) -> new UnitNode(this, Token.AS),
                 (self, pre) -> new NameWordNode(this),
                 (self, pre) -> new UnitNode(this, Token.FROM),
-                (self, pre) -> new UnitNode(this, Token.STRING)
+                (self, pre) -> new StringWordNode(this)
         );
     }
 

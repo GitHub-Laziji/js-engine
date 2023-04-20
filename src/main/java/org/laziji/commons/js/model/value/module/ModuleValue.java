@@ -6,8 +6,10 @@ import org.laziji.commons.js.model.value.primitive.JsBoolean;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.primitive.JsString;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ModuleValue extends BaseJsValue {
 
@@ -25,6 +27,14 @@ public class ModuleValue extends BaseJsValue {
 
     public void addExportValue(String name, JsValue value) {
         export.put(name, value);
+    }
+
+    public Set<String> getExportNames() {
+        return export.keySet();
+    }
+
+    public Collection<JsValue> getExportValues() {
+        return export.values();
     }
 
     public JsValue getExportValue(String name) {

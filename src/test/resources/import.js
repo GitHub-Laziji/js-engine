@@ -1,9 +1,11 @@
-import sysfunc from "sys";
+import * as sys from "sys";
 import {setTimeout,print as p} from "sys";
 
-let a = sysfunc("hello".substring(1,3));
+sys.print("yyy");
 
-setTimeout(function(){
+let a = "hello".substring(1,3);
+
+sys.setTimeout(function(){
     p("setTimeout delay 3000ms");
 },3000);
 
