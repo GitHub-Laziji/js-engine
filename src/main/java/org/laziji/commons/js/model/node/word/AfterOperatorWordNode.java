@@ -1,13 +1,11 @@
 package org.laziji.commons.js.model.node.word;
 
 import org.laziji.commons.js.constant.Token;
-import org.laziji.commons.js.exception.RunException;
 import org.laziji.commons.js.model.context.Contexts;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
 import org.laziji.commons.js.model.value.JsValue;
-import org.laziji.commons.js.model.value.clazz.NumberClass;
 import org.laziji.commons.js.model.value.object.JsObject;
 import org.laziji.commons.js.model.value.primitive.JsNumber;
 import org.laziji.commons.js.model.value.prototype.NumberPrototype;
