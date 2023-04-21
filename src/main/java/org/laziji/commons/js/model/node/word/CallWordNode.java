@@ -6,7 +6,6 @@ import org.laziji.commons.js.model.node.ListNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.ProxyNode;
 import org.laziji.commons.js.model.node.internal.CallNameInternalNode;
-import org.laziji.commons.js.model.node.internal.FunctionParamsInternalNode;
 import org.laziji.commons.js.model.node.internal.ProxyCallParamsInternalNode;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.object.JsObject;

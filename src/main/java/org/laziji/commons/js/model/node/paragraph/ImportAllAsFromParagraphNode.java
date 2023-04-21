@@ -12,7 +12,6 @@ import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.module.ModuleValue;
 import org.laziji.commons.js.model.value.object.JsObject;
-import org.laziji.commons.js.model.value.primitive.JsUndefined;
 
 import java.util.Arrays;
 import java.util.List;

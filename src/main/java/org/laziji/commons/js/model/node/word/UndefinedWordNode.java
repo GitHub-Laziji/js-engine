@@ -4,7 +4,6 @@ import org.laziji.commons.js.constant.Token;
 import org.laziji.commons.js.model.node.BasePlanNode;
 import org.laziji.commons.js.model.node.Node;
 import org.laziji.commons.js.model.node.UnitNode;
-import org.laziji.commons.js.model.node.word.WordNode;
 
 import java.util.Collections;
 import java.util.List;

@@ -18,7 +18,7 @@ public class BooleanWordNode extends BaseUnitNode implements WordNode {
 
     @Override
     protected JsValue subRun(Contexts manager) {
-        return new JsBooleanObject(Boolean.valueOf(getUnit().getValue()));
+        return new JsBooleanObject(Boolean.parseBoolean(getUnit().getValue()));
     }
 
     @Override
