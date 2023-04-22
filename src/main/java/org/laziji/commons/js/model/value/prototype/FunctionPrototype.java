@@ -1,6 +1,5 @@
 package org.laziji.commons.js.model.value.prototype;
 
-import org.laziji.commons.js.model.value.InternalFunction;
 import org.laziji.commons.js.model.value.JsValue;
 import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.object.JsFunction;
