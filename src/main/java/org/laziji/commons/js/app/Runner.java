@@ -4,6 +4,7 @@ import org.laziji.commons.js.model.value.env.Top;
 import org.laziji.commons.js.model.value.module.SystemModuleValue;
 import org.laziji.commons.js.util.IOUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -13,11 +14,15 @@ public class Runner {
             throw new Exception("missing script path");
         }
         String path = args[0];
-        if (!path.endsWith(".js")) {
-            throw new Exception("wrong file type");
+        File file = new File(path);
+        if (!file.exists() || !file.isFile()) {
+            file = new File(path + ".js");
+        }
+        if (!file.exists() || !file.isFile()) {
+            throw new Exception("file not found");
         }
         String script;
-        try (FileInputStream fis = new FileInputStream(path)) {
+        try (FileInputStream fis = new FileInputStream(file)) {
             script = IOUtils.toString(fis, StandardCharsets.UTF_8);
         }
         Top.init();
